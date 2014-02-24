@@ -20,8 +20,8 @@ $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_block_module';
 /**
  * Models
  */
-$GLOBALS['TL_MODELS']['tl_block'] = 'Blocks\BlockModel';
-$GLOBALS['TL_MODELS']['tl_block_module'] = 'Blocks\BlockModuleModel';
+$GLOBALS['TL_MODELS']['tl_block'] = 'BlockModel';
+$GLOBALS['TL_MODELS']['tl_block_module'] = 'BlockModuleModel';
 
 /**
  * Front end modules

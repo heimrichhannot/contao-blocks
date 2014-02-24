@@ -10,10 +10,8 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-namespace Fatcrobat\Blocks;
+namespace HeimrichHannot;
 
-use Contao\ModuleModel;
-use Contao\FrontendTemplate;
 class ModuleBlock extends \Module
 {
 	protected $strTemplate = 'mod_block';
@@ -56,22 +54,38 @@ class ModuleBlock extends \Module
 
 		while($objChilds->next())
 		{
-
 			if (strlen($objChilds->hide) == 0 || $objChilds->hide == 1 || ($objChilds->hide == 2 && !FE_USER_LOGGED_IN) || ($objChilds->hide == 3 && FE_USER_LOGGED_IN))
 			{
-				$strItem = $this->renderChild($objChilds);
+				$value = $this->renderChild($objChilds);
 
-				if(strlen($strItem) == 0) continue;
+				$blnMultiMode = is_array($value);
+				
+				if(($blnMultiMode && empty($value)) || (!$blnMultiMode && strlen($value) == 0)) continue;
 
-				$objFile = \FilesModel::findByPk($objChilds->imgSRC);
+				if($blnMultiMode)
+				{
+					foreach($value as $item)
+					{
+						$arrChilds[] = array
+						(
+							'output'		=> $item,
+						);
+					}
 
-				$arrChilds[$objChilds->id] = array(
-					'output'		=> $strItem,
-					'arrData'		=> $objChilds->row(),
-					'image'			=> $objFile->path ? $this->generateImage($objFile->path) : ''
-				);
-
-				$strBuffer .= $strItem;
+					$strBuffer = implode('', $value);
+				}
+				else
+				{
+					$objFile = \FilesModel::findByPk($objChilds->imgSRC);
+	
+					$arrChilds[$objChilds->id] = array
+					(
+						'output'		=> $strItem,
+						'arrData'		=> $objChilds->row(),
+						'image'			=> $objFile->path ? $this->generateImage($objFile->path) : ''
+					);
+					$strBuffer .= $strItem;
+				}
 			}
 		}
 
@@ -79,7 +93,7 @@ class ModuleBlock extends \Module
 
 		if($objBlock->carousel && strlen($strBuffer) > 0)
 		{
-			$this->Template->modules = $this->renderCarousel($arrChilds, $objBlock);
+			$this->Template->modules = $this->renderCarousel($arrChilds, $objBlock, $blnMultiMode ? $objChilds->first() : null);
 		}
 	}
 
@@ -99,14 +113,22 @@ class ModuleBlock extends \Module
 		}
 	}
 
-	protected function renderCarousel($arrItems, $objBlock)
+	protected function renderCarousel($arrItems, $objBlock, $objChild)
 	{
 		$strTemplate = 'mod_block_carousel';
 
-		$objT = new FrontendTemplate($strTemplate);
-
+		$objT = new \FrontendTemplate($strTemplate);
+		
 		$objT->class = $strTemplate;
 		$objT->id = 'blockCarousel' . $objBlock->id;
+
+		if($objChild !== null)
+		{
+			$arrCssID = deserialize($objChild->cssID, true);
+			$objT->class .= strlen($arrCssID[1]) > 0 ? ' ' . $arrCssID[1] : '';
+			$objT->id = strlen($arrCssID[0]) > 0 ? ' ' . $arrCssID[0] : $objT->id;
+		}
+		
 		$objT->href = '#' . $objT->id;
 		$objT->items = $arrItems;
 		$objT->active = key($arrItems);
@@ -223,16 +245,17 @@ class ModuleBlock extends \Module
 			return '';
 		}
 
-		$return = '';
 		$blnMultiMode = ($objArticles->count() > 1);
-
+		
+		$arrItems = array();
+		
 		while ($objArticles->next())
 		{
 			$objArticles = $this->overrideCommonProps($objArticles, $objChild);
-			$return .= $this->getArticle($objArticles, $blnMultiMode, false, $strColumn);
+			$arrItems[] = $this->getArticle($objArticles->current(), $blnMultiMode, false, $strColumn);
 		}
 
-		return $return;
+		return $blnMultiMode ? $arrItems : implode('', $arrItems);
 	}
 
 	protected function renderModule($objChild)

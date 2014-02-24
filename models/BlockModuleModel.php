@@ -15,7 +15,7 @@
 /**
  * Namespace
  */
-namespace Fatcrobat\Blocks;
+namespace HeimrichHannot;
 
 /**
  * Class BlockModuleModel

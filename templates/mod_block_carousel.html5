@@ -1,5 +1,17 @@
-<div id="<?php echo $this->id; ?>" class="<?php echo $this->class; ?> carousel fade">
-
+<div id="<?php echo $this->id; ?>" class="<?php echo $this->class; ?> carousel slide" data-ride="carousel">
+	
+	<?php // Indicators ?>
+	<ol class="carousel-indicators">
+		<?php $n = 0;?>
+		<?php foreach ($this->items as $i => $item):?>
+			<li data-target="<?php echo $this->href; ?>" data-slide-to="<?php echo $n; ?>"<?php if($i==$this->active):?> class="active"<?php endif;?>>
+				<a href="#"><?php echo $item['image']; ?></a>
+			</li>
+			<?php $n++; ?>
+		<?php endforeach;?>
+	</ol>
+	
+	<?php // Wrapper for slides ?>
 	<!-- Carousel items -->
 	<div class="carousel-inner">
 		<?php foreach ($this->items as $i => $item):?>
@@ -8,23 +20,13 @@
 	</div>
 
 
-	<!-- Carousel nav -->
-
-	<nav class="carousel-nav">
-		<div class="inner">
-			<a class="carousel-control left" href="<?php echo $this->href; ?>" data-slide="prev">&lsaquo;</a>
-			<ol class="carousel-indicators">
-				<?php $n = 0;?>
-				<?php foreach ($this->items as $i => $item):?>
-					<li data-target="<?php echo $this->href; ?>" data-slide-to="<?php echo $n; ?>"<?php if($i==$this->active):?> class="active"<?php endif;?>>
-						<?php echo $item['image']; ?>
-					</li>
-					<?php $n++; ?>
-				<?php endforeach;?>
-			</ol>
-			<a class="carousel-control right" href="<?php echo $this->href; ?>" data-slide="next">&rsaquo;</a>
-		</div>
-	</nav>
+	<?php // Controls ?>
+	<a class="carousel-control left" href="<?php echo $this->href; ?>" data-slide="prev">
+		<span><i class="fa fa-chevron-left"></i></span>
+	</a>
+	<a class="carousel-control right" href="<?php echo $this->href; ?>" data-slide="next">
+		<span><i class="fa fa-chevron-right"></i></span>
+	</a>
 
 </div>
 

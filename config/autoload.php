@@ -3,10 +3,10 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (C) 2005-2012 Leo Feyer
+ * Copyright (c) 2005-2014 Leo Feyer
  *
  * @package Blocks
- * @link    http://contao.org
+ * @link    https://contao.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
@@ -16,7 +16,7 @@
  */
 ClassLoader::addNamespaces(array
 (
-	'Fatcrobat\Blocks'
+	'HeimrichHannot',
 ));
 
 
@@ -25,25 +25,20 @@ ClassLoader::addNamespaces(array
  */
 ClassLoader::addClasses(array
 (
+	// Modules
+	'HeimrichHannot\ModuleBlock'      => 'system/modules/blocks/modules/ModuleBlock.php',
 
-	/**
-	 * Modules
-	 */
-	'Fatcrobat\Blocks\ModuleBlock'    															=> 'system/modules/blocks/modules/ModuleBlock.php',
-
-	/**
-	 * Models
-	 */
-	'Fatcrobat\Blocks\BlockModel'    																=> 'system/modules/blocks/models/BlockModel.php',
-	'Fatcrobat\Blocks\BlockModuleModel'    													=> 'system/modules/blocks/models/BlockModuleModel.php',
-
+	// Models
+	'HeimrichHannot\BlockModuleModel' => 'system/modules/blocks/models/BlockModuleModel.php',
+	'HeimrichHannot\BlockModel'       => 'system/modules/blocks/models/BlockModel.php',
 ));
+
 
 /**
  * Register the templates
  */
 TemplateLoader::addFiles(array
 (
-	'mod_block'    																									=> 'system/modules/blocks/templates',
-	'mod_block_carousel'																						=> 'system/modules/blocks/templates',
+	'mod_block_carousel' => 'system/modules/blocks/templates',
+	'mod_block'          => 'system/modules/blocks/templates',
 ));
