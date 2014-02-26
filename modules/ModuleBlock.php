@@ -80,11 +80,11 @@ class ModuleBlock extends \Module
 	
 					$arrChilds[$objChilds->id] = array
 					(
-						'output'		=> $strItem,
+						'output'		=> $value,
 						'arrData'		=> $objChilds->row(),
 						'image'			=> $objFile->path ? $this->generateImage($objFile->path) : ''
 					);
-					$strBuffer .= $strItem;
+					$strBuffer .= $value;
 				}
 			}
 		}
@@ -260,7 +260,7 @@ class ModuleBlock extends \Module
 
 	protected function renderModule($objChild)
 	{
-		$objModule = ModuleModel::findByPK($objChild->module);
+		$objModule = \ModuleModel::findByPK($objChild->module);
 
 		if($objModule === null) return '';
 
