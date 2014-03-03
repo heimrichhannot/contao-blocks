@@ -140,7 +140,7 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 	)
 );
 
-class tl_block extends Backend
+class tl_block extends \Backend
 {
 	public function __construct()
 	{

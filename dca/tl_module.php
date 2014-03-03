@@ -34,7 +34,7 @@ foreach($GLOBALS['TL_DCA']['tl_module']['list']['operations'] as $key => $button
 
 $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][]= array('tl_module_block', 'checkBlockPermission');
 
-class tl_module_block extends Backend
+class tl_module_block extends \Backend
 {
 	public function __construct()
 	{

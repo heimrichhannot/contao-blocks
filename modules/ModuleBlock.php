@@ -10,10 +10,8 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-namespace Fatcrobat\Blocks;
+namespace HeimrichHannot\Blocks;
 
-use Contao\ModuleModel;
-use Contao\FrontendTemplate;
 class ModuleBlock extends \Module
 {
 	protected $strTemplate = 'mod_block';
@@ -103,7 +101,7 @@ class ModuleBlock extends \Module
 	{
 		$strTemplate = 'mod_block_carousel';
 
-		$objT = new FrontendTemplate($strTemplate);
+		$objT = new \FrontendTemplate($strTemplate);
 
 		$objT->class = $strTemplate;
 		$objT->id = 'blockCarousel' . $objBlock->id;
@@ -237,7 +235,7 @@ class ModuleBlock extends \Module
 
 	protected function renderModule($objChild)
 	{
-		$objModule = ModuleModel::findByPK($objChild->module);
+		$objModule = \ModuleModel::findByPK($objChild->module);
 
 		if($objModule === null) return '';
 

@@ -20,6 +20,3 @@ array_insert($GLOBALS['TL_DCA']['tl_theme']['list']['operations'], 5 ,
 		)
 	)
 );
-
-
-?>

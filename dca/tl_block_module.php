@@ -1,6 +1,6 @@
 <?php
 
-use Contao\ArticleModel;
+use HeimrichHannot;
 $this->loadDataContainer('tl_content');
 
 /**
@@ -253,8 +253,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 	)
 );
 
-
-class tl_block_module extends Backend
+class tl_block_module extends \Backend
 {
 	/**
 	 * Import the back end user object
@@ -373,7 +372,7 @@ class tl_block_module extends Backend
 		}
 		elseif ($arrRow['type'] == 'article')
 		{
-			$objArticle = ArticleModel::findByPk($arrRow['articleAlias']);
+			$objArticle = \ArticleModel::findByPk($arrRow['articleAlias']);
 
 			$output  = '<div style="float:left">';
 			$output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/article.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
@@ -397,7 +396,7 @@ class tl_block_module extends Backend
 	{
 		$options = array('default', 'section');
 
-		$objBlock = BlockModel::findByPk($dc->activeRecord->pid);
+		$objBlock = HeimrichHannot\Blocks\BlockModel::findByPk($dc->activeRecord->pid);
 
 		if($objBlock->carousel)
 		{

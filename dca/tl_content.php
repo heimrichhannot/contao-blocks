@@ -14,7 +14,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['module']['wizard'] = array(
 	array('tl_content_block', 'editModule')
 );
 
-class tl_content_block extends Backend
+class tl_content_block extends \Backend
 {
 	public function __construct()
 	{
