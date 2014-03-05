@@ -15,7 +15,7 @@
 /**
  * Namespace
  */
-namespace HeimrichHannot;
+namespace HeimrichHannot\Blocks;
 
 /**
  * Class BlockModuleModel

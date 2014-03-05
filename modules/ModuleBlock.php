@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-namespace HeimrichHannot;
+namespace HeimrichHannot\Blocks;
 
 class ModuleBlock extends \Module
 {
@@ -46,14 +46,15 @@ class ModuleBlock extends \Module
 	{
 		$this->objPage = $this->determineCurrentPage();
 
+		
 		$objBlock = BlockModel::findByPk($this->block);
-
 		$objChilds = $this->Database->prepare('SELECT * FROM tl_block_module WHERE pid = ? ORDER BY sorting')->execute($this->block);
 
 		$arrChilds = array();
 
 		while($objChilds->next())
 		{
+
 			if (strlen($objChilds->hide) == 0 || $objChilds->hide == 1 || ($objChilds->hide == 2 && !FE_USER_LOGGED_IN) || ($objChilds->hide == 3 && FE_USER_LOGGED_IN))
 			{
 				$value = $this->renderChild($objChilds);
@@ -81,7 +82,7 @@ class ModuleBlock extends \Module
 					$arrChilds[$objChilds->id] = array
 					(
 						'output'		=> $value,
-						'arrData'		=> $objChilds->row(),
+						'data'			=> $objChilds->row(),
 						'image'			=> $objFile->path ? $this->generateImage($objFile->path) : ''
 					);
 					$strBuffer .= $value;
@@ -89,11 +90,19 @@ class ModuleBlock extends \Module
 			}
 		}
 
-		$this->Template->modules = $strBuffer;
+		$this->Template->block = $strBuffer;
 
+		// carousel
 		if($objBlock->carousel && strlen($strBuffer) > 0)
 		{
-			$this->Template->modules = $this->renderCarousel($arrChilds, $objBlock, $blnMultiMode ? $objChilds->first() : null);
+			$strClass = &$GLOBALS['BLOCKS']['CAROUSEL'][$objBlock->carouselType];
+		
+			if(class_exists($strClass))
+			{
+				$objCarousel = new $strClass($arrChilds, $objBlock, $this->objModel);
+				$this->Template->block = $objCarousel->generate() ;
+			}
+			
 		}
 	}
 
@@ -111,29 +120,6 @@ class ModuleBlock extends \Module
 			default:
 				return $this->renderModule($objChild);
 		}
-	}
-
-	protected function renderCarousel($arrItems, $objBlock, $objChild)
-	{
-		$strTemplate = 'mod_block_carousel';
-
-		$objT = new \FrontendTemplate($strTemplate);
-		
-		$objT->class = $strTemplate;
-		$objT->id = 'blockCarousel' . $objBlock->id;
-
-		if($objChild !== null)
-		{
-			$arrCssID = deserialize($objChild->cssID, true);
-			$objT->class .= strlen($arrCssID[1]) > 0 ? ' ' . $arrCssID[1] : '';
-			$objT->id = strlen($arrCssID[0]) > 0 ? ' ' . $arrCssID[0] : $objT->id;
-		}
-		
-		$objT->href = '#' . $objT->id;
-		$objT->items = $arrItems;
-		$objT->active = key($arrItems);
-
-		return $objT->parse();
 	}
 
 	protected function isVisible($objChild)

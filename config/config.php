@@ -20,13 +20,18 @@ $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_block_module';
 /**
  * Models
  */
-$GLOBALS['TL_MODELS']['tl_block'] = 'BlockModel';
-$GLOBALS['TL_MODELS']['tl_block_module'] = 'BlockModuleModel';
+$GLOBALS['TL_MODELS']['tl_block'] = 'HeimrichHannot\Blocks\BlockModel';
+$GLOBALS['TL_MODELS']['tl_block_module'] = 'HeimrichHannot\Blocks\BlockModuleModel';
 
 /**
  * Front end modules
  */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 (
-	'block' => 'ModuleBlock'
+	'block' => 'HeimrichHannot\Blocks\ModuleBlock'
 ));
+
+$GLOBALS['BLOCKS']['CAROUSEL'] = array
+(
+	'default' => 'HeimrichHannot\Blocks\BlocksCarouselBootstrap'
+);

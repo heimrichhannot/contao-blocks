@@ -96,7 +96,12 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 	// Palettes
 	'palettes' => array
 	(
+		'__selector__'								=> array('carousel'),
 		'default'                     => '{title_legend},title,carousel'
+	),
+	'subpalettes' => array
+	(
+		'carousel'									=> 'carouselType',
 	),
 	'fields' => array
 	(
@@ -133,14 +138,23 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_block']['carousel'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'default'									=> true,
-			'eval'                    => array('tl_class'=>'clr'),
+			'eval'                    => array('tl_class'=>'clr', 'submitOnChange' => true),
 			'sql'											=> "char(1) NOT NULL default ''",
+		),
+		'carouselType' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_block']['carouselType'],
+			'exclude'                 => true,
+			'inputType'               => 'select',
+			'options'									=> array_keys($GLOBALS['BLOCKS']['CAROUSEL']),
+			'reference'								=> &$GLOBALS['TL_LANG']['tl_block']['carouselTypes'],
+			'eval'                    => array('tl_class'=>'clr', 'chosen' => true),
+			'sql'											=> "varchar(128) NOT NULL default ''",
 		)
 	)
 );
 
-class tl_block extends Backend
+class tl_block extends \Backend
 {
 	public function __construct()
 	{

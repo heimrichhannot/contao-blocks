@@ -1,4 +1,4 @@
-<div id="<?php echo $this->id; ?>" class="<?php echo $this->class; ?> carousel slide" data-ride="carousel">
+<div id="<?php echo $this->cssID; ?>" class="<?php echo $this->class; ?> carousel slide" data-ride="carousel">
 	
 	<?php // Indicators ?>
 	<ol class="carousel-indicators">
@@ -29,5 +29,3 @@
 	</a>
 
 </div>
-
-

@@ -1,6 +1,5 @@
 <?php
 
-use Contao\ArticleModel;
 $this->loadDataContainer('tl_content');
 
 /**
@@ -145,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 				'label'                   => &$GLOBALS['TL_LANG']['tl_block_module']['section'],
 				'exclude'                 => true,
 				'inputType'               => 'select',
-				'options_callback'				=> array('tl_block_module', 'getCustomSections'),
+				'options'						      => trimsplit(',', $GLOBALS['TL_CONFIG']['customSections']),
 				'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true),
 				'sql'											=> "varchar(255) NOT NULL default ''",
 		),
@@ -253,8 +252,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 	)
 );
 
-
-class tl_block_module extends Backend
+class tl_block_module extends \Backend
 {
 	/**
 	 * Import the back end user object
@@ -332,18 +330,18 @@ class tl_block_module extends Backend
 				return $arrAlias;
 			}
 
-			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN(". implode(',', array_map('intval', array_unique($arrPids))) .") AND a.id!=(SELECT pid FROM tl_content WHERE id=?) ORDER BY parent, a.sorting")
-									   ->execute($dc->id);
+			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN(". implode(',', array_map('intval', array_unique($arrPids))) .") ORDER BY parent, a.sorting")
+										->execute($dc->id);
 		}
 		else
 		{
-			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.id!=(SELECT pid FROM tl_content WHERE id=?) ORDER BY parent, a.sorting")
-									   ->execute($dc->id);
+			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid ORDER BY parent, a.sorting")
+										->execute($dc->id);
 		}
 
 		if ($objAlias->numRows)
 		{
-			$this->loadLanguageFile('tl_article');
+			System::loadLanguageFile('tl_article');
 
 			while ($objAlias->next())
 			{
@@ -373,7 +371,7 @@ class tl_block_module extends Backend
 		}
 		elseif ($arrRow['type'] == 'article')
 		{
-			$objArticle = ArticleModel::findByPk($arrRow['articleAlias']);
+			$objArticle = \ArticleModel::findByPk($arrRow['articleAlias']);
 
 			$output  = '<div style="float:left">';
 			$output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/article.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
@@ -397,7 +395,7 @@ class tl_block_module extends Backend
 	{
 		$options = array('default', 'section');
 
-		$objBlock = BlockModel::findByPk($dc->activeRecord->pid);
+		$objBlock = HeimrichHannot\Blocks\BlockModel::findByPk($dc->activeRecord->pid);
 
 		if($objBlock->carousel)
 		{
@@ -405,15 +403,6 @@ class tl_block_module extends Backend
 		}
 
 		return $options;
-	}
-	
-	public function getCustomSections(DataContainer $dc)
-	{
-		$objRow = $this->Database->prepare("SELECT * FROM tl_layout WHERE id=?")
-							->limit(1)
-							->execute($dc->activeRecord->pid);
-		
-		return trimsplit(',', $objRow->sections);
 	}
 
 }
