@@ -16,7 +16,7 @@ array_insert($GLOBALS['TL_DCA']['tl_theme']['list']['operations'], 5 ,
 		(
 			'label'               => &$GLOBALS['TL_LANG']['tl_theme']['blocks'],
 			'href'                => 'table=tl_block',
-			'icon'                => 'system/modules/blocks/html/block.png'
+			'icon'                => 'system/modules/blocks/assets/icon.png'
 		)
 	)
 );
