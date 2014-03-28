@@ -42,6 +42,6 @@ $GLOBALS['BLOCKS']['CAROUSEL'] = array
  */
 if(TL_MODE == 'FE')
 {
-	$GLOBALS['TL_JAVASCRIPT']['jquery-mobile'] = 'system/modules/blocks/assets/js/jquery.mobile-1.4.2.js|static';
-	$GLOBALS['TL_JAVASCRIPT']['blocks'] = '/system/modules/blocks/assets/js/jquery.blocks.js|static';
+// 	$GLOBALS['TL_JAVASCRIPT']['jquery-mobile'] = 'system/modules/blocks/assets/js/jquery.mobile-1.4.2.js|static';
+// 	$GLOBALS['TL_JAVASCRIPT']['blocks'] = '/system/modules/blocks/assets/js/jquery.blocks.js|static';
 }
