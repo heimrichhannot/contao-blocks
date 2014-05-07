@@ -407,10 +407,10 @@ class tl_block_module extends \Backend
 	
 	public function getCustomSections(DataContainer $dc)
 	{
-		$objRow = $this->Database->prepare("SELECT * FROM tl_layout WHERE id=?")
+		$objRow = $this->Database->prepare("SELECT * FROM tl_layout WHERE pid=?")
 		->limit(1)
 		->execute($dc->activeRecord->pid);
-	
+		
 		return trimsplit(',', $objRow->sections);
 	}
 
