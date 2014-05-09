@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 	(
 		'__selector__'								=> array('type'),
 		'default'                     => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
-		'section'											=> '{type_legend},type;{section_legend},section,addSectionPageDepth;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
+		'section'											=> '{type_legend},type;{section_legend},section,addSectionPages,addSectionPageDepth;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
 		'article'											=> '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
 	),
 	'fields' => array
@@ -138,6 +138,13 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'default'									=> true,
 			'eval'                    => array('tl_class'=>'m12'),
 			'sql'											=> "char(1) NOT NULL default ''",
+		),
+		'addSectionPages' 				=> array(
+				'label'                   => &$GLOBALS['TL_LANG']['tl_block_module']['addSectionPages'],
+				'exclude'                 => true,
+				'inputType'               => 'pageTree',
+				'eval'                    => array('fieldType'=>'radio'),
+				'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'section' => array
 		(

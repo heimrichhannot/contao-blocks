@@ -17,6 +17,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['type'] = array('Typ', 'Bitte wählen Sie
 $GLOBALS['TL_LANG']['tl_block_module']['module'] = array('Modul', 'Bitte wählen Sie ein Modul aus.');
 $GLOBALS['TL_LANG']['tl_block_module']['section'] = array('Eigener Layoutbereich', 'Bitte wählen Sie den anzuzeigenden eigenen Layoutbereich aus.');
 $GLOBALS['TL_LANG']['tl_block_module']['addSectionPageDepth'] = array('Seitenvererbung aktivieren', 'Soll der Layoutbereich für Unterseiten übernommen werden, sofern die Unterseite keine Inhalte für den Layoutbereich besitzt?');
+$GLOBALS['TL_LANG']['tl_block_module']['addSectionPages'] = array('Layoutbereich von folgender Seite immer einbinden', 'Legen Sie fest, dass der Layoutbereich von dieser Seite immer angezeigt wird.');
 $GLOBALS['TL_LANG']['tl_block_module']['articleAlias'] = array('Bezogener Artikel', 'Bitte wählen Sie den Artikel aus, den Sie einfügen möchten.');
 $GLOBALS['TL_LANG']['tl_block_module']['imgSRC'] = array('Vorschaubild', 'Wählen Sie ein Vorschaubild für den Artikel aus.');
 $GLOBALS['TL_LANG']['tl_block_module']['addVisibility'] = array('Zeige Modul auf bestimmten Seiten', 'Einschränkung der Sichtbarkeit des Moduls für bestimmte Seiten');

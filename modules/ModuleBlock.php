@@ -198,7 +198,7 @@ class ModuleBlock extends \Module
 
 		return $objArticles;
 	}
-
+	
 	protected function renderArticle($objChild)
 	{
 		$objArticles = \ArticleModel::findPublishedById($objChild->articleAlias);
@@ -218,12 +218,19 @@ class ModuleBlock extends \Module
 		$pid = $this->objPage->id;
 
 		$objArticles = \ArticleModel::findPublishedByPidAndColumn($pid, $objChild->section);
-
+		
+		// force usage on pages 
+		if($objChild->addSectionPages && $objArticles === null)
+		{
+			$objArticles = \ArticleModel::findPublishedByPidAndColumn($objChild->addSectionPages, $objChild->section);
+		}
+		
 		// add parent article, if there no article on current page
-		if($objChild->addSectionPageDepth && $objArticles === null)
+		if($objArticles === null && $objChild->addSectionPageDepth)
 		{
 			$objArticles = $this->findParentSection($pid, $objChild);
 		}
+		
 
 		if ($objArticles === null)
 		{
