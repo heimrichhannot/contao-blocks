@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 	'palettes' => array
 	(
 		'__selector__'								=> array('carousel'),
-		'default'                     => '{title_legend},title,carousel'
+		'default'                     => '{title_legend},title,carousel;{expert_legend:hide},cssClass'
 	),
 	'subpalettes' => array
 	(
@@ -150,7 +150,15 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 			'reference'								=> &$GLOBALS['TL_LANG']['tl_block']['carouselTypes'],
 			'eval'                    => array('tl_class'=>'clr', 'chosen' => true),
 			'sql'											=> "varchar(128) NOT NULL default ''",
-		)
+		),
+		'cssClass' => array
+		(
+				'label'                   => &$GLOBALS['TL_LANG']['tl_block']['cssClass'],
+				'exclude'                 => true,
+				'inputType'               => 'text',
+				'eval'                    => array('tl_class'=>'w50'),
+				'sql'                     => "varchar(255) NOT NULL default ''"
+		),
 	)
 );
 

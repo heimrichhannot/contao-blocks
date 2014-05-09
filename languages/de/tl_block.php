@@ -17,11 +17,16 @@ $GLOBALS['TL_LANG']['tl_block']['title'] = array('Titel','Geben Sie einen aussag
 $GLOBALS['TL_LANG']['tl_block']['tstamp'] = array('Änderungsdatum', 'Datum und Uhrzeit der letzten Änderung');
 $GLOBALS['TL_LANG']['tl_block']['carousel'] = array('Carousel', 'Block-Elemente als Carousel einbinden');
 $GLOBALS['TL_LANG']['tl_block']['carouselType'] = array('Carousel-Typ', 'Wählen Sie ein Carousel-Modul aus.');
+$GLOBALS['TL_LANG']['tl_block']['cssClass'] = array('CSS-Klasse', 'Hier können Sie eine oder mehrere Klassen eingeben.');
+
+
+
 
 /**
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_block']['title_legend'] = 'Titel';
+$GLOBALS['TL_LANG']['tl_block']['expert_legend'] = 'Experten-Einstellungen';
 
 
 /**

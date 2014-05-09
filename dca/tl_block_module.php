@@ -144,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 				'label'                   => &$GLOBALS['TL_LANG']['tl_block_module']['section'],
 				'exclude'                 => true,
 				'inputType'               => 'select',
-				'options'						      => trimsplit(',', $GLOBALS['TL_CONFIG']['customSections']),
+				'options_callback'				=> array('tl_block_module', 'getCustomSections'),
 				'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true),
 				'sql'											=> "varchar(255) NOT NULL default ''",
 		),
@@ -403,6 +403,15 @@ class tl_block_module extends \Backend
 		}
 
 		return $options;
+	}
+	
+	public function getCustomSections(DataContainer $dc)
+	{
+		$objRow = $this->Database->prepare("SELECT * FROM tl_layout WHERE id=?")
+		->limit(1)
+		->execute($dc->activeRecord->pid);
+	
+		return trimsplit(',', $objRow->sections);
 	}
 
 }

@@ -31,6 +31,8 @@ abstract class BlocksCarousel extends \Frontend
 		$this->Template->setData($this->arrData);
 		
 		$this->Template->class = $this->strTemplate;
+		
+		$this->Template->class .= $this->objBlock->cssClass != ' ' ? ' ' . $this->objBlock->cssClass : '';
 		$this->Template->cssID = 'blocksCarousel' . $objBlock->id;
 		
 		$this->Template->items = $this->arrItems;

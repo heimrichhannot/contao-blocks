@@ -102,7 +102,6 @@ class ModuleBlock extends \Module
 				$objCarousel = new $strClass($arrChilds, $objBlock, $this->objModel);
 				$this->Template->block = $objCarousel->generate() ;
 			}
-			
 		}
 	}
 
