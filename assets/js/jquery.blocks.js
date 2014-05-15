@@ -1,7 +1,7 @@
 (function($){
 	var Blocks = {
 		init : function(){
-			this.addBoostrapCarouselSwipeSupport();
+			//this.addBoostrapCarouselSwipeSupport();
 		},
 		addBoostrapCarouselSwipeSupport : function(){
 			$('.blocks_carousel_bootstrap').swiperight(function(){
@@ -14,6 +14,6 @@
 		}
 	}
 
-	$(document).ready(Blocks.init());
+	$(document).ready(function(){Blocks.init()});
 	
 })(jQuery);
