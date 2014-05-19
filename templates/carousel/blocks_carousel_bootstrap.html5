@@ -33,5 +33,5 @@
 	<a class="carousel-control right" href="<?php echo $this->href; ?>" data-slide="next">
 		<span><i class="fa fa-chevron-right"></i></span>
 	</a>
-	
+
 </div>
