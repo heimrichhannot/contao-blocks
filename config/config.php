@@ -16,6 +16,7 @@
 
 $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_block';
 $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_block_module';
+$GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_content';
 
 /**
  * Models
@@ -36,6 +37,11 @@ $GLOBALS['BLOCKS']['CAROUSEL'] = array
 	'default' => 'HeimrichHannot\Blocks\BlocksCarouselBootstrap'
 );
 
+
+/**
+ * Content elements
+ */
+$GLOBALS['TL_CTE']['includes']['block'] = '\HeimrichHannot\Blocks\ContentBlock';
 
 /**
  * User JS

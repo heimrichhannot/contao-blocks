@@ -25,16 +25,19 @@ ClassLoader::addNamespaces(array
  */
 ClassLoader::addClasses(array
 (
-	// Modules
-	'HeimrichHannot\Blocks\ModuleBlock'             => 'system/modules/blocks/modules/ModuleBlock.php',
-
 	// Models
 	'HeimrichHannot\Blocks\BlockModuleModel'        => 'system/modules/blocks/models/BlockModuleModel.php',
 	'HeimrichHannot\Blocks\BlockModel'              => 'system/modules/blocks/models/BlockModel.php',
 
+	// Modules
+	'HeimrichHannot\Blocks\ModuleBlock'             => 'system/modules/blocks/modules/ModuleBlock.php',
+
+	// Elements
+	'HeimrichHannot\Blocks\ContentBlock'            => 'system/modules/blocks/elements/ContentBlock.php',
+
 	// Classes
-	'HeimrichHannot\Blocks\BlocksCarouselBootstrap' => 'system/modules/blocks/classes/carousel/BlocksCarouselBootstrap.php',
 	'HeimrichHannot\Blocks\BlocksCarousel'          => 'system/modules/blocks/classes/carousel/BlocksCarousel.php',
+	'HeimrichHannot\Blocks\BlocksCarouselBootstrap' => 'system/modules/blocks/classes/carousel/BlocksCarouselBootstrap.php',
 ));
 
 
@@ -44,5 +47,6 @@ ClassLoader::addClasses(array
 TemplateLoader::addFiles(array
 (
 	'mod_block'                 => 'system/modules/blocks/templates/modules',
+	'ce_block_module'           => 'system/modules/blocks/templates/elements',
 	'blocks_carousel_bootstrap' => 'system/modules/blocks/templates/carousel',
 ));

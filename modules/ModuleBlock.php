@@ -115,6 +115,8 @@ class ModuleBlock extends \Module
 				return $this->renderSection($objChild);
 			case 'article':
 				return $this->renderArticle($objChild);
+			case 'content':
+				return $this->renderContent($objChild);
 			case 'module':
 			default:
 				return $this->renderModule($objChild);
@@ -197,6 +199,22 @@ class ModuleBlock extends \Module
 		}
 
 		return $objArticles;
+	}
+
+	protected function renderContent($objChild)
+	{
+		$strContent = '';
+		$objElement = \ContentModel::findPublishedByPidAndTable($objChild->id, 'tl_block_module');
+
+		if ($objElement !== null)
+		{
+			while ($objElement->next())
+			{
+				$strContent .= $this->getContentElement($objElement->current());
+			}
+		}
+
+		return $strContent;
 	}
 	
 	protected function renderArticle($objChild)
