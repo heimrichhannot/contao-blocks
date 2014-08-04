@@ -205,7 +205,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['imgSRC'],
 			'exclude'   => true,
 			'inputType' => 'fileTree',
-			'eval'      => array('fieldType' => 'radio', 'filesOnly' => true, 'mandatory' => true),
+			'eval'      => array('fieldType' => 'radio', 'filesOnly' => true),
 			'sql'       => "binary(16) NULL"
 		),
 		'addVisibility'       => array(

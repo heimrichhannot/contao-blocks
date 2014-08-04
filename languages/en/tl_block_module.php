@@ -13,7 +13,8 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_block_module']['type'] = array('Typy', 'Please select the type.');
+$GLOBALS['TL_LANG']['tl_block_module']['type'] = array('Type', 'Please select the type.');
+$GLOBALS['TL_LANG']['tl_block_module']['title'] = array('Title', 'Please provide a title.');
 $GLOBALS['TL_LANG']['tl_block_module']['module'] = array('Module', 'Please select a module.');
 $GLOBALS['TL_LANG']['tl_block_module']['section'] = array('Custom layout section', 'Please select the custom layout you want to display.');
 $GLOBALS['TL_LANG']['tl_block_module']['addSectionPageDepth'] = array('Activate page inheritance', 'Take over the custom layout content for child-pages as long as the child-page has no content for the custom layout section.');
@@ -29,7 +30,9 @@ $GLOBALS['TL_LANG']['tl_block_module']['space'] = array('Space in front and afte
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_block_module']['type_legend'] = 'Type';
+$GLOBALS['TL_LANG']['tl_block_module']['title_legend'] = 'Title';
 $GLOBALS['TL_LANG']['tl_block_module']['section_legend'] = 'Layout sections';
+$GLOBALS['TL_LANG']['tl_block_module']['article_legend'] = 'Article';
 $GLOBALS['TL_LANG']['tl_block_module']['module_legend'] = 'Module';
 $GLOBALS['TL_LANG']['tl_block_module']['page_legend'] = 'Pages';
 $GLOBALS['TL_LANG']['tl_block_module']['hide_legend'] = 'Hide module';
@@ -40,7 +43,8 @@ $GLOBALS['TL_LANG']['tl_block_module']['expert_legend'] = 'Expert settings';
  * Buttons
  */
 $GLOBALS['TL_LANG']['tl_block_module']['new'] = array('New block-module','Create a new block-module');
-$GLOBALS['TL_LANG']['tl_block_module']['edit']	= array('Edit block-module','Edit block-module ID %s');
+$GLOBALS['TL_LANG']['tl_block_module']['edit']	= array('Edit content elements','Edit block-module ID %s content elements');
+$GLOBALS['TL_LANG']['tl_block_module']['editheader']	= array('Edit block-module','Edit block-module ID %s');
 $GLOBALS['TL_LANG']['tl_block_module']['copy'] = array('Duplicate block-module','Duplicate block-module ID %s');
 $GLOBALS['TL_LANG']['tl_block_module']['delete']= array('Delete block-module','Delete block-module ID %s');
 $GLOBALS['TL_LANG']['tl_block_module']['show'] = array('Show block-module','Show block-module ID %s');
@@ -50,6 +54,8 @@ $GLOBALS['TL_LANG']['tl_block_module']['show'] = array('Show block-module','Show
  */
 $GLOBALS['TL_LANG']['tl_block_module']['type_reference']['default'] = 'Module';
 $GLOBALS['TL_LANG']['tl_block_module']['type_reference']['section'] = 'Layout sections';
+$GLOBALS['TL_LANG']['tl_block_module']['type_reference']['article'] = 'Article';
+$GLOBALS['TL_LANG']['tl_block_module']['type_reference']['content'] = 'Content elements';
 $GLOBALS['TL_LANG']['tl_block_module']['exclude'] = 'All pages except';
 $GLOBALS['TL_LANG']['tl_block_module']['include'] = 'Only on the following pages';
 $GLOBALS['TL_LANG']['tl_block_module']['dont_hide'] = 'Don\'t hide';

@@ -46,6 +46,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['expert_legend'] = 'Experten-Einstellunge
  * Buttons
  */
 $GLOBALS['TL_LANG']['tl_block_module']['new'] = array('Neues Block-Modul','Neues Block-Modul erstellen');
+$GLOBALS['TL_LANG']['tl_block_module']['edit']	= array('Inhaltselemente bearbeiten','Block-Modul ID Inhaltselemente %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_block_module']['editheader']	= array('Block-Modul bearbeiten','Block-Modul ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_block_module']['copy'] = array('Block-Modul duplizieren','Block-Modul ID %s duplizieren');
 $GLOBALS['TL_LANG']['tl_block_module']['delete']= array('Block-Modul löschen','Block-Modul ID %s löschen');
