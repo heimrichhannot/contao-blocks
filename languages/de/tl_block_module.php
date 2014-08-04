@@ -57,6 +57,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['show'] = array('Block-Modul anzeigen','B
 $GLOBALS['TL_LANG']['tl_block_module']['type_reference']['default'] = 'Modul';
 $GLOBALS['TL_LANG']['tl_block_module']['type_reference']['section'] = 'Layoutbereich';
 $GLOBALS['TL_LANG']['tl_block_module']['type_reference']['article'] = 'Artikel';
+$GLOBALS['TL_LANG']['tl_block_module']['type_reference']['content'] = 'Inhaltselemente';
 $GLOBALS['TL_LANG']['tl_block_module']['exclude'] = 'Alle Seiten außer den folgenden';
 $GLOBALS['TL_LANG']['tl_block_module']['include'] = 'Nur auf den folgenden Seiten';
 $GLOBALS['TL_LANG']['tl_block_module']['dont_hide'] = 'Nicht verstecken';
