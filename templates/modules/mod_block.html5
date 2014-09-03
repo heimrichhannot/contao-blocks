@@ -1,1 +1,3 @@
-<?php echo $this->block; ?>
+<div class="<?php echo $this->cssID[1]; ?>">
+	<?php echo $this->block; ?>
+</div>

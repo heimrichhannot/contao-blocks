@@ -63,6 +63,21 @@ class ModuleBlock extends \Module
 				
 				if(($blnMultiMode && empty($value)) || (!$blnMultiMode && strlen($value) == 0)) continue;
 
+				$objStartT = new \FrontendTemplate('block_child_start');
+				$objChilds->cssID = deserialize($objChilds->cssID, true);
+				if ($objChilds->cssID[0] == '')
+				{
+					$objChilds->cssID = $objChilds->cssID[1] . '"';
+				}
+				else
+				{
+					$objChilds->cssID = $objChilds->cssID[1] . '" id="' . $objChilds->cssID[0] . '"';
+				}
+				$objStartT->setData($objChilds->row());
+
+				$objEndT = new \FrontendTemplate('block_child_end');
+				$objEndT->setData($objChilds->row());
+
 				if($blnMultiMode)
 				{
 					foreach($value as $item)
@@ -72,8 +87,7 @@ class ModuleBlock extends \Module
 							'output'		=> $item,
 						);
 					}
-
-					$strBuffer = implode('', $value);
+					$strBuffer = implode($objStartT->parse() . '' . $objEndT->parse(), $value);
 				}
 				else
 				{
@@ -85,7 +99,7 @@ class ModuleBlock extends \Module
 						'data'			=> $objChilds->row(),
 						'image'			=> $objFile->path ? $this->generateImage($objFile->path) : ''
 					);
-					$strBuffer .= $value;
+					$strBuffer .= $objStartT->parse() . $value . $objEndT->parse();
 				}
 			}
 		}
