@@ -54,29 +54,33 @@ class ModuleBlock extends \Module
 
 		while($objChilds->next())
 		{
-
 			if (strlen($objChilds->hide) == 0 || $objChilds->hide == 1 || ($objChilds->hide == 2 && !FE_USER_LOGGED_IN) || ($objChilds->hide == 3 && FE_USER_LOGGED_IN))
 			{
 				$value = $this->renderChild($objChilds);
 
 				$blnMultiMode = is_array($value);
-				
 				if(($blnMultiMode && empty($value)) || (!$blnMultiMode && strlen($value) == 0)) continue;
 
 				$objStartT = new \FrontendTemplate('block_child_start');
 				$objChilds->cssID = deserialize($objChilds->cssID, true);
-				if ($objChilds->cssID[0] == '')
-				{
-					$objChilds->cssID = $objChilds->cssID[1] . '"';
-				}
-				else
-				{
-					$objChilds->cssID = $objChilds->cssID[1] . '" id="' . $objChilds->cssID[0] . '"';
-				}
-				$objStartT->setData($objChilds->row());
+				$strStart = $strEnd = '';
 
-				$objEndT = new \FrontendTemplate('block_child_end');
-				$objEndT->setData($objChilds->row());
+				if (!empty($objChilds->cssID))
+				{
+					if ($objChilds->cssID[0] == '')
+					{
+						$objChilds->cssID = $objChilds->cssID[1] . '"';
+					}
+					else
+					{
+						$objChilds->cssID = $objChilds->cssID[1] . '" id="' . $objChilds->cssID[0] . '"';
+					}
+					$objStartT->setData($objChilds->row());
+					$strStart = $objStartT->parse();
+					$objEndT = new \FrontendTemplate('block_child_end');
+					$objEndT->setData($objChilds->row());
+					$strEnd = $objEndT->parse();
+				}
 
 				if($blnMultiMode)
 				{
@@ -87,7 +91,8 @@ class ModuleBlock extends \Module
 							'output'		=> $item,
 						);
 					}
-					$strBuffer = implode($objStartT->parse() . '' . $objEndT->parse(), $value);
+
+					$strBuffer = $strStart . implode('', $value) . $strEnd;
 				}
 				else
 				{
@@ -99,7 +104,7 @@ class ModuleBlock extends \Module
 						'data'			=> $objChilds->row(),
 						'image'			=> $objFile->path ? $this->generateImage($objFile->path) : ''
 					);
-					$strBuffer .= $objStartT->parse() . $value . $objEndT->parse();
+					$strBuffer .= $strStart . $value . $strEnd;
 				}
 			}
 		}
