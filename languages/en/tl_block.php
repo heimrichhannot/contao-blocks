@@ -15,11 +15,16 @@
  */
 $GLOBALS['TL_LANG']['tl_block']['title'] = array('Title','Enter a descriptive title for the block.');
 $GLOBALS['TL_LANG']['tl_block']['tstamp'] = array('Revision date', 'Date and time of last modification');
+$GLOBALS['TL_LANG']['tl_block']['carousel'] = array('Carousel', 'Embed block elements as carousel.');
+$GLOBALS['TL_LANG']['tl_block']['carouselType'] = array('Carousel type', 'Choose a Carousel-Module.');
+$GLOBALS['TL_LANG']['tl_block']['cssClass'] = array('CSS class', 'Enter an CSS class.');
+
 
 /**
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_block']['title_legend'] = 'Title';
+$GLOBALS['TL_LANG']['tl_block']['expert_legend'] = 'Expert settings';
 
 
 /**
@@ -38,3 +43,9 @@ $GLOBALS['TL_LANG']['tl_block']['compose'] = array('Manage modules','Edit module
  */
 
 $GLOBALS['TL_LANG']['tl_block']['module_name'] = "Blocks - %s";
+
+
+/**
+ * Carousel Types
+ */
+$GLOBALS['TL_LANG']['tl_block']['carouselTypes']['default'] = 'Bootstrap';

@@ -1,7 +1,13 @@
 
 <!-- indexer::stop -->
-<div id="<?php echo $this->cssID; ?>" class="<?php echo $this->class; ?> carousel slide" data-ride="carousel">
-
+<div id="<?php echo $this->cssID; ?>" class="<?php echo $this->class; ?> carousel slide" data-ride="carousel" data-interval="5000">
+	<?php // Progress-bar?>
+	<div class="progress carousel-progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+			<span class="sr-only"></span>
+		</div>
+	</div>
+	
 	<?php // Indicators ?>
 	<ol class="carousel-indicators">
 		<?php $n = 0;?>
@@ -12,7 +18,7 @@
 			<?php $n++; ?>
 		<?php endforeach;?>
 	</ol>
-
+	
 	<?php // Wrapper for slides ?>
 	<!-- Carousel items -->
 	<div class="carousel-inner">

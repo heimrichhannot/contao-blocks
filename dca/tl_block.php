@@ -63,8 +63,14 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 			'edit' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_block']['edit'],
+				'href'                => 'table=tl_block_module',
+				'icon'                => 'edit.gif',
+			),
+			'editHeader' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_block']['editHeader'],
 				'href'                => 'act=edit',
-				'icon'                => 'edit.gif'
+				'icon'                => 'header.gif'
 			),
 			'copy' => array
 			(
@@ -78,12 +84,6 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 				'href'                => 'act=delete',
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
-			),
-			'compose' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_block']['compose'],
-				'href'                => 'table=tl_block_module',
-				'icon'                => 'modules.gif',
 			),
 			'show' => array
 			(

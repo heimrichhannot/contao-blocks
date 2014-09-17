@@ -46,7 +46,7 @@ class ModuleBlock extends \Module
 	{
 		$this->objPage = $this->determineCurrentPage();
 
-		
+
 		$objBlock = BlockModel::findByPk($this->block);
 		$objChilds = $this->Database->prepare('SELECT * FROM tl_block_module WHERE pid = ? ORDER BY sorting')->execute($this->block);
 
@@ -60,7 +60,7 @@ class ModuleBlock extends \Module
 				$value = $this->renderChild($objChilds);
 
 				$blnMultiMode = is_array($value);
-				
+
 				if(($blnMultiMode && empty($value)) || (!$blnMultiMode && strlen($value) == 0)) continue;
 
 				if($blnMultiMode)
@@ -78,7 +78,7 @@ class ModuleBlock extends \Module
 				else
 				{
 					$objFile = \FilesModel::findByPk($objChilds->imgSRC);
-	
+
 					$arrChilds[$objChilds->id] = array
 					(
 						'output'		=> $value,
@@ -96,7 +96,7 @@ class ModuleBlock extends \Module
 		if($objBlock->carousel && strlen($strBuffer) > 0)
 		{
 			$strClass = &$GLOBALS['BLOCKS']['CAROUSEL'][$objBlock->carouselType];
-		
+
 			if(class_exists($strClass))
 			{
 				$objCarousel = new $strClass($arrChilds, $objBlock, $this->objModel);
@@ -115,6 +115,8 @@ class ModuleBlock extends \Module
 				return $this->renderSection($objChild);
 			case 'article':
 				return $this->renderArticle($objChild);
+			case 'content':
+				return $this->renderContent($objChild);
 			case 'module':
 			default:
 				return $this->renderModule($objChild);
@@ -138,7 +140,7 @@ class ModuleBlock extends \Module
 		 * Filter out pages
 		 * (exclude == display module not on this page)
 		 * (include == display module only on this page)
-		*/
+		 */
 		if(is_array($arrPages) && count($arrPages) > 0)
 		{
 			// add nested pages to the filter
@@ -199,6 +201,22 @@ class ModuleBlock extends \Module
 		return $objArticles;
 	}
 
+	protected function renderContent($objChild)
+	{
+		$strContent = '';
+		$objElement = \ContentModel::findPublishedByPidAndTable($objChild->id, 'tl_block_module');
+
+		if ($objElement !== null)
+		{
+			while ($objElement->next())
+			{
+				$strContent .= $this->getContentElement($objElement->current());
+			}
+		}
+
+		return $strContent;
+	}
+
 	protected function renderArticle($objChild)
 	{
 		$objArticles = \ArticleModel::findPublishedById($objChild->articleAlias);
@@ -219,11 +237,18 @@ class ModuleBlock extends \Module
 
 		$objArticles = \ArticleModel::findPublishedByPidAndColumn($pid, $objChild->section);
 
+		// force usage on pages 
+		if($objChild->addSectionPages && $objArticles === null)
+		{
+			$objArticles = \ArticleModel::findPublishedByPidAndColumn($objChild->addSectionPages, $objChild->section);
+		}
+
 		// add parent article, if there no article on current page
-		if($objChild->addSectionPageDepth && $objArticles === null)
+		if($objArticles === null && $objChild->addSectionPageDepth)
 		{
 			$objArticles = $this->findParentSection($pid, $objChild);
 		}
+
 
 		if ($objArticles === null)
 		{
@@ -231,9 +256,9 @@ class ModuleBlock extends \Module
 		}
 
 		$blnMultiMode = ($objArticles->count() > 1);
-		
+
 		$arrItems = array();
-		
+
 		while ($objArticles->next())
 		{
 			$objArticles = $this->overrideCommonProps($objArticles, $objChild);

@@ -17,7 +17,7 @@ $GLOBALS['TL_LANG']['tl_block']['title'] = array('Titel','Geben Sie einen aussag
 $GLOBALS['TL_LANG']['tl_block']['tstamp'] = array('Änderungsdatum', 'Datum und Uhrzeit der letzten Änderung');
 $GLOBALS['TL_LANG']['tl_block']['carousel'] = array('Carousel', 'Block-Elemente als Carousel einbinden');
 $GLOBALS['TL_LANG']['tl_block']['carouselType'] = array('Carousel-Typ', 'Wählen Sie ein Carousel-Modul aus.');
-$GLOBALS['TL_LANG']['tl_block']['cssClass'] = array('CSS-Klasse', 'Hier können Sie eine oder mehrere Klassen eingeben.');
+$GLOBALS['TL_LANG']['tl_block']['cssClass'] = array('1', 'Hier können Sie eine oder mehrere Klassen eingeben.');
 
 
 
@@ -34,11 +34,11 @@ $GLOBALS['TL_LANG']['tl_block']['expert_legend'] = 'Experten-Einstellungen';
  */
 
 $GLOBALS['TL_LANG']['tl_block']['new'] = array('Neuer Block','Neuen Block erstellen');
-$GLOBALS['TL_LANG']['tl_block']['edit']	= array('Block bearbeiten','Block ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_block']['editHeader']	= array('Block bearbeiten','Block ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_block']['copy'] = array('Block duplizieren','Block ID %s duplizieren');
 $GLOBALS['TL_LANG']['tl_block']['delete']= array('Block löschen','Block ID %s löschen');
 $GLOBALS['TL_LANG']['tl_block']['show'] = array('Block anzeigen','Block ID %s anzeigen');
-$GLOBALS['TL_LANG']['tl_block']['compose'] = array('Module verwalten','Module Blocks ID %s verwalten');
+$GLOBALS['TL_LANG']['tl_block']['edit'] = array('Module verwalten','Module Blocks ID %s verwalten');
 
 /**
  * Misc
