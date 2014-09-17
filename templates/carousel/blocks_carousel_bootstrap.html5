@@ -1,5 +1,7 @@
+
+<!-- indexer::stop -->
 <div id="<?php echo $this->cssID; ?>" class="<?php echo $this->class; ?> carousel slide" data-ride="carousel">
-	
+
 	<?php // Indicators ?>
 	<ol class="carousel-indicators">
 		<?php $n = 0;?>
@@ -10,7 +12,7 @@
 			<?php $n++; ?>
 		<?php endforeach;?>
 	</ol>
-	
+
 	<?php // Wrapper for slides ?>
 	<!-- Carousel items -->
 	<div class="carousel-inner">
@@ -29,3 +31,4 @@
 	</a>
 
 </div>
+<!-- indexer::continue -->
