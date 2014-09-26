@@ -36,12 +36,12 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 	),
 	'list' => array
 	(
-		'sorting' => array
+		'sorting'           => array
 		(
-			'mode'                    => 2,
-			'fields'                  => array('title'),
-			'flag'                    => 1,
-			'panelLayout'             => 'sort,search,limit'
+			'mode'                  => 4,
+			'fields'                => array('sorting'),
+			'panelLayout'           => 'filter;search,limit',
+			'headerFields'          => array('title', 'tstamp'),
 		),
 		'label' => array
 		(
