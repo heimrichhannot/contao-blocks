@@ -1,3 +1,5 @@
+
+<!-- indexer::stop -->
 <div id="<?php echo $this->cssID; ?>" class="<?php echo $this->class; ?> carousel slide" data-ride="carousel" data-interval="5000">
 	<?php // Progress-bar?>
 	<div class="progress carousel-progress">
@@ -35,3 +37,4 @@
 	</a>
 
 </div>
+<!-- indexer::continue -->
