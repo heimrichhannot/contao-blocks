@@ -1,0 +1,33 @@
+{
+    "name": "heimrichhannot/contao-blocks",
+    "description":"Contao blocks module is a site-dependent container, that manipulates the visibility of elements.",
+    "keywords":["contao", "blocks", "content"],
+    "type": "contao-module",
+    "homepage":"https://github.com/heimrichhannot/contao-blocks",
+    "license":"LGPL-3.0+",
+    "authors":[
+        {
+            "name":"Heimrich & Hannot",
+            "email":"digitales@heimrich-hannot.de",
+            "homepage":"http://www.heimrich-hannot.de",
+            "role":"Developer"
+        }
+    ],
+    "support":{
+        "issues":"https://github.com/heimrichhannot/contao-blocks/issues"
+    },
+    "require": {
+        "contao/core": ">=3.2,<4-dev",
+        "contao-legacy/multicolumnwizard": ">=3.2,,<4-dev"
+    },
+    "autoload": {
+        "classmap": [""]
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "": "system/modules/blocks"
+            }
+        }
+    }
+}
