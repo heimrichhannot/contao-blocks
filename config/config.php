@@ -37,11 +37,27 @@ $GLOBALS['BLOCKS']['CAROUSEL'] = array
 	'default' => 'HeimrichHannot\Blocks\BlocksCarouselBootstrap'
 );
 
-
 /**
  * Content elements
  */
 $GLOBALS['TL_CTE']['includes']['block'] = '\HeimrichHannot\Blocks\ContentBlock';
+
+/**
+ * Easy Themes Support
+ */
+
+$GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge
+(
+	array
+	(
+		'blocks' => array
+		(
+			'href_fragment' => 'table=tl_block',
+			'icon'          => 'system/modules/blocks/assets/icon.png',
+		),
+	),
+	is_array($GLOBALS['TL_EASY_THEMES_MODULES']) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : array()
+);
 
 /**
  * User JS
