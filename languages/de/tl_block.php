@@ -44,7 +44,7 @@ $GLOBALS['TL_LANG']['tl_block']['edit'] = array('Module verwalten','Module Block
  * Misc
  */
 
-$GLOBALS['TL_LANG']['tl_block']['module_name'] = "Blöcke - %s";
+$GLOBALS['TL_LANG']['tl_block']['module_name'] = "Blöcke : %s";
 
 
 /**

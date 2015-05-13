@@ -33,6 +33,7 @@ foreach($GLOBALS['TL_DCA']['tl_module']['list']['operations'] as $key => $button
 
 
 $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][]= array('tl_module_block', 'checkBlockPermission');
+$GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][]= array('tl_module_block', 'cleanup');
 
 class tl_module_block extends \Backend
 {
@@ -40,6 +41,22 @@ class tl_module_block extends \Backend
 	{
 		parent::__construct();
 		$this->import('BackendUser', 'User');
+	}
+
+	/**
+	 * tl_module blocks can not exist without tl_block items
+	 * @param DataContainer $dc
+	 */
+	public function cleanup(DataContainer $dc)
+	{
+		$objModules = \Database::getInstance()->prepare('SELECT m.id FROM tl_module m LEFT JOIN tl_block b ON b.module = m.id WHERE m.block > 0 AND m.type = ? and b.id IS NULL')->execute('block');
+
+		if($objModules->numRows < 1)
+		{
+			return;
+		}
+
+		\Database::getInstance()->prepare('DELETE FROM tl_module WHERE id IN(' .implode(",", $objModules->fetchEach('id')) . ')')->execute();
 	}
 
 	public function checkBlockPermission()

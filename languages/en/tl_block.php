@@ -42,7 +42,7 @@ $GLOBALS['TL_LANG']['tl_block']['compose'] = array('Manage modules','Edit module
  * Misc
  */
 
-$GLOBALS['TL_LANG']['tl_block']['module_name'] = "Blocks - %s";
+$GLOBALS['TL_LANG']['tl_block']['module_name'] = "Blocks : %s";
 
 
 /**
