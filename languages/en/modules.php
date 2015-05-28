@@ -10,4 +10,12 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
+/**
+ * Back end modules
+ */
+$GLOBALS['TL_LANG']['MOD']['blocks'] = 'Blocks';
+
+/**
+ * Front end modules
+ */
 $GLOBALS['TL_LANG']['FMD']['block']	= array('Block','A block is a collection of front-end modules.');
