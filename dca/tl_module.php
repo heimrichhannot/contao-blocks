@@ -10,9 +10,11 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['block'] = '{title_legend},headline,type;{block_legend},block';
+$dc = &$GLOBALS['TL_DCA']['tl_module'];
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['block'] = array(
+$dc['palettes']['block'] = '{title_legend},headline,type;{block_legend},block';
+
+$dc['fields']['block'] = array(
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['block'],
 	'exclude'                 => true,
 	'inputType'               => 'select',
@@ -21,19 +23,33 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['block'] = array(
 	'sql'											=> "int(10) unsigned NOT NULL default '0'"
 );
 
-$GLOBALS['TL_DCA']['tl_module']['fields']['type']['save_callback'] = array(array('tl_module_block', 'disableBlockModule'));
+$dc['fields']['type']['save_callback'] = array(array('tl_module_block', 'disableBlockModule'));
 
-foreach($GLOBALS['TL_DCA']['tl_module']['list']['operations'] as $key => $button)
+foreach($dc['list']['operations'] as $key => $button)
 {
 	if(in_array($key, array('edit', 'copy', 'cut', 'delete')))
 	{
-		$GLOBALS['TL_DCA']['tl_module']['list']['operations'][$key]['button_callback'] = array('tl_module_block', 'editBlockButtons');
+		$dc['list']['operations'][$key]['button_callback'] = array('tl_module_block', 'editBlockButtons');
 	}
 }
 
 
-$GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][]= array('tl_module_block', 'checkBlockPermission');
-$GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][]= array('tl_module_block', 'cleanup');
+$dc['config']['onload_callback'][]= array('tl_module_block', 'checkBlockPermission');
+$dc['config']['onload_callback'][]= array('tl_module_block', 'cleanup');
+
+/**
+ * Breadcrumb tweaks for auto_item
+ */
+$dc['palettes']['breadcrumb'] = str_replace('showHidden;', 'showHidden;{block_legend},hideAutoItem;', $dc['palettes']['breadcrumb']);
+
+$dc['fields']['hideAutoItem'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['hideAutoItem'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'w50'),
+	'sql'                     => "char(1) NOT NULL default ''"
+);
 
 class tl_module_block extends \Backend
 {
