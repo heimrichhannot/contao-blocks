@@ -38,7 +38,7 @@ $GLOBALS['TL_LANG']['tl_block']['editHeader']	= array('Block bearbeiten','Block 
 $GLOBALS['TL_LANG']['tl_block']['copy'] = array('Block duplizieren','Block ID %s duplizieren');
 $GLOBALS['TL_LANG']['tl_block']['delete']= array('Block löschen','Block ID %s löschen');
 $GLOBALS['TL_LANG']['tl_block']['show'] = array('Block anzeigen','Block ID %s anzeigen');
-$GLOBALS['TL_LANG']['tl_block']['edit'] = array('Module verwalten','Module Blocks ID %s verwalten');
+$GLOBALS['TL_LANG']['tl_block']['edit'] = array('Module verwalten','Module des Blocks ID %s verwalten');
 
 /**
  * Misc

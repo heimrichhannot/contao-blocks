@@ -176,7 +176,7 @@ class tl_block extends \Backend
 
 	public function createBlockModule($objBlock)
 	{
-		$strTitle = sprintf($GLOBALS['TL_LANG']['tl_block']['module_name'], $objBlock->title);
+		$strTitle = $objBlock->title;
 
 		// create new module, if non existing yet
 		if(($objModule = \ModuleModel::findByPk($objBlock->module)) === null)

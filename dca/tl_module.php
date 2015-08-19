@@ -37,6 +37,8 @@ foreach($dc['list']['operations'] as $key => $button)
 $dc['config']['onload_callback'][]= array('tl_module_block', 'checkBlockPermission');
 $dc['config']['onload_callback'][]= array('tl_module_block', 'cleanup');
 
+$dc['list']['sorting']['child_record_callback'] = array('tl_module_block', 'listModule');
+
 /**
  * Breadcrumb tweaks for auto_item
  */
@@ -51,7 +53,7 @@ $dc['fields']['hideAutoItem'] = array
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
-class tl_module_block extends \Backend
+class tl_module_block extends \tl_module
 {
 	public function __construct()
 	{
@@ -148,15 +150,47 @@ class tl_module_block extends \Backend
 
 	public function editBlockButtons($row, $href, $label, $title, $icon, $attributes)
 	{
-		$this->loadLanguageFile('tl_block');
+
 		if($row['type'] == 'block')
 		{
+			$html = '';
+
+			\Controller::loadLanguageFile('tl_block');
+
 			if($href == 'act=edit')
 			{
-				return '<a href="'.$this->addToUrl('&table=tl_block&act=edit&id='.$row['block']).'" title="'.specialchars(sprintf($GLOBALS['TL_LANG']['tl_block']['edit'][1],$row['block'])).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+				// edit button
+				$html .= '<a href="'.$this->addToUrl('&table=tl_block_module&id='.$row['block']).'" title="'.specialchars(sprintf($GLOBALS['TL_LANG']['tl_block']['edit'][1],$row['block'])).'"'.$attributes.'>' . Image::getHtml($icon, $label)  . '</a> ';
+
+				// edit header button
+				$icon = 'header.gif';
+				$html .= '<a href="'.$this->addToUrl('&table=tl_block&act=edit&id='.$row['block']).'" title="'.specialchars(sprintf($GLOBALS['TL_LANG']['tl_block']['editHeader'][1],$row['block'])).'"'.$attributes.'>' . Image::getHtml($icon, $label)  . '</a> ';
 			}
-			return '';
+
+			return $html;
 		}
-		return '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+
+		return '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>' . Image::getHtml($icon, $label)  . '</a> ';
+	}
+
+	/**
+	 * List a front end module
+	 *
+	 * @param array $row
+	 *
+	 * @return string
+	 */
+	public function listModule($row)
+	{
+		if($row['type'] == 'block')
+		{
+			\Controller::loadLanguageFile('tl_block');
+
+			$icon = '<a href="'.$this->addToUrl('&table=tl_block_module&id='.$row['block']).'" title="'.specialchars($GLOBALS['TL_LANG']['tl_block']['show'][0]).'">' . Image::getHtml('/system/modules/blocks/assets/icon.png', $GLOBALS['TL_LANG']['MOD']['blocks'], 'style="vertical-align: -4px;"')  . '</a> ';
+
+			return '<div style="float:left">'. $icon . $row['name'] .' <span style="color:#b3b3b3;padding-left:3px">['. (isset($GLOBALS['TL_LANG']['FMD'][$row['type']][0]) ? $GLOBALS['TL_LANG']['FMD'][$row['type']][0] : $row['type']) .']</span>' . "</div>\n";
+		}
+
+		return parent::listModule($row);
 	}
 }
