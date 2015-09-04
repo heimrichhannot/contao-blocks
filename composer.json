@@ -17,8 +17,8 @@
         "issues":"https://github.com/heimrichhannot/contao-blocks/issues"
     },
     "require": {
-        "contao/core": ">=3.2,<4-dev",
-	"menatwork/contao-multicolumnwizard": ">=2.10,<4"
+        "contao/core": ">=3.4,<4-dev",
+	    "menatwork/contao-multicolumnwizard": ">=2.10,<4"
     },
     "autoload": {
         "classmap": [""]
