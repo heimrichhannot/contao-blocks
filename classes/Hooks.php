@@ -17,6 +17,7 @@ class Hooks extends \Controller
 	public function generateBreadcrumbHook($arrItems, $objModule)
 	{
         global $objPage;
+
         $pages = array($objPage->row());
 
         if(\Input::get('auto_item') && $objPage->alias != \Input::get('auto_item'))
@@ -32,6 +33,14 @@ class Hooks extends \Controller
                     'class'    => ''
                 ))
             ));
+
+            // set pointer to last element
+            end($arrItems);
+
+            // get key for last item
+            $idxLastItem = key($arrItems);
+
+            $arrItems[$idxLastItem]['href'] = \Environment::get('request');
 
 			// hide news, event itself …
 			if($objModule->hideAutoItem && is_array($arrItems))
