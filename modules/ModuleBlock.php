@@ -210,6 +210,8 @@ class ModuleBlock extends \Module
 		{
 			while ($objElement->next())
 			{
+				if(!\Controller::isVisibleElement($objElement->current())) return '';
+
 				$strContent .= $this->getContentElement($objElement->current());
 			}
 		}
@@ -225,6 +227,8 @@ class ModuleBlock extends \Module
 		{
 			return '';
 		}
+
+		if(!\Controller::isVisibleElement($objArticles)) return '';
 
 		$return = $this->getArticle($objArticles, false, false, $strColumn);
 
@@ -273,6 +277,8 @@ class ModuleBlock extends \Module
 		$objModule = \ModuleModel::findByPK($objChild->module);
 
 		if($objModule === null) return '';
+
+		if(!\Controller::isVisibleElement($objModule)) return '';
 
 		$strClass = $this->findFrontendModule($objModule->type);
 
