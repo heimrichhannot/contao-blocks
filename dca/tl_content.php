@@ -54,24 +54,24 @@ class tl_content_block extends \Backend
 		$this->import('BackendUser', 'User');
 	}
 
-	public function editBlock()
+	public function editBlock(DataContainer $dc)
 	{
-
+		return ($dc->activeRecord->block < 1) ? '' : ' <a href="contao/main.php?do=themes&amp;table=tl_content&amp;id=' . $dc->activeRecord->block . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->activeRecord->block) . '" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'' . specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $dc->activeRecord->block))) . '\',\'url\':this.href});return false">' . Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"') . '</a>';
 	}
 
 
 	public function getBlocks()
 	{
 		$arrBlocks = array();
-		$objBlocks = $this->Database->prepare("SELECT m.id, m.title, t.name AS theme FROM tl_block_module m LEFT JOIN tl_theme t ON m.pid=t.id WHERE type=? ORDER BY t.name, m.title")->execute('content');
+		$objBlocks = $this->Database->prepare("SELECT b.title as block, bm.id, bm.title, t.name AS theme FROM tl_block_module bm LEFT JOIN tl_block b on b.id = bm.pid LEFT JOIN tl_theme t ON b.pid=t.id WHERE type=? ORDER BY b.title, bm.title")->execute('content');
 
 		if($objBlocks->numRows < 1) return $arrBlocks;
 
 		while ($objBlocks->next())
 		{
-			$arrBlocks[$objModules->theme][$objBlocks->id] = $objBlocks->title . ' (ID ' . $objBlocks->id . ')';
+			$arrBlocks[$objBlocks->theme . ' &raquo; ' .  $objBlocks->block][$objBlocks->id] = $objBlocks->title . ' (ID ' . $objBlocks->id . ')';
 		}
-
+		
 		return $arrBlocks;
 	}
 

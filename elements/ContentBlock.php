@@ -12,34 +12,30 @@ class ContentBlock extends \ContentElement
 	 */
 	protected $strTemplate = 'ce_block_module';
 
-
-	/**
-	 * Return the content elements, do not consider block configuration,
-	 * otherwise visibility restrictions by page may take action
-	 * @return string
-	 */
 	public function generate()
 	{
-		$strContent = '';
-		$objElement = \ContentModel::findPublishedByPidAndTable($this->block, 'tl_block_module');
+		$this->headline = ''; // unset headlines
 
-		if ($objElement !== null)
-		{
-			while ($objElement->next())
-			{
-				$strContent .= $this->getContentElement($objElement->current());
-			}
-		}
-
-		return $strContent;
+		return parent::generate();
 	}
-
 
 	/**
 	 * Generate the content element
 	 */
 	protected function compile()
 	{
-		return;
+		$arrContent = array();
+
+		$objElement = \ContentModel::findPublishedByPidAndTable($this->block, 'tl_block_module');
+
+		if ($objElement !== null)
+		{
+			while ($objElement->next())
+			{
+				$arrContent[] = \Controller::getContentElement($objElement->current());
+			}
+		}
+
+		$this->Template->content = implode('', $arrContent);
 	}
 }

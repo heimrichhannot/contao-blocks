@@ -102,7 +102,6 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 	(
 		'__selector__' => array('type'),
 		'default'      => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
-		'section'      => '{type_legend},type;{section_legend},section,addSectionPages,addSectionPageDepth;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
 		'article'      => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
 		'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
 	),
@@ -135,7 +134,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['type'],
 			'exclude'   => true,
 			'inputType' => 'select',
-			'options'   => array('default', 'section', 'article', 'content'),
+			'options'   => array('default', 'article', 'content'),
 			'eval'      => array('mandatory' => true, 'chosen' => true, 'submitOnChange' => true),
 			'sql'       => "varchar(32) NOT NULL default 'default'",
 			'reference' => &$GLOBALS['TL_LANG']['tl_block_module']['type_reference'],
@@ -149,30 +148,6 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'search'    => true,
 			'eval'      => array('mandatory' => true, 'maxlength' => 128, 'tl_class' => 'long'),
 			'sql'       => "varchar(255) NOT NULL default ''"
-		),
-		'addSectionPageDepth' => array(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addSectionPageDepth'],
-			'exclude'   => true,
-			'inputType' => 'checkbox',
-			'default'   => true,
-			'eval'      => array('tl_class' => 'm12'),
-			'sql'       => "char(1) NOT NULL default ''",
-		),
-		'addSectionPages'     => array(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addSectionPages'],
-			'exclude'   => true,
-			'inputType' => 'pageTree',
-			'eval'      => array('fieldType' => 'radio'),
-			'sql'       => "int(10) unsigned NOT NULL default '0'"
-		),
-		'section'             => array
-		(
-			'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['section'],
-			'exclude'          => true,
-			'inputType'        => 'select',
-			'options_callback' => array('tl_block_module', 'getCustomSections'),
-			'eval'             => array('mandatory' => true, 'chosen' => true, 'submitOnChange' => true),
-			'sql'              => "varchar(255) NOT NULL default ''",
 		),
 		'module'              => array
 		(

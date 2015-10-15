@@ -111,8 +111,6 @@ class ModuleBlock extends \Module
 
 		switch($objChild->type)
 		{
-			case 'section':
-				return $this->renderSection($objChild);
 			case 'article':
 				return $this->renderArticle($objChild);
 			case 'content':
@@ -146,7 +144,7 @@ class ModuleBlock extends \Module
 			// add nested pages to the filter
 			if($objChild->addPageDepth)
 			{
-				$arrPages = array_merge($arrPages, $this->getChildRecords($arrPages, 'tl_page'));
+				$arrPages = array_merge($arrPages, \Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
 			}
 
 
@@ -181,26 +179,6 @@ class ModuleBlock extends \Module
 		return true;
 	}
 
-	protected function findParentSection($pid, $objChild)
-	{
-		$objPages = \PageModel::findParentsById($pid);
-
-		// no parent pages available --> return false
-		if($objPages === null)
-		{
-			return null;
-		}
-
-		$objArticles = \ArticleModel::findPublishedByPidAndColumn($objPages->pid, $objChild->section);
-
-		if($objArticles === null)
-		{
-			return $this->findParentSection($objPages->pid, $objChild);
-		}
-
-		return $objArticles;
-	}
-
 	protected function renderContent($objChild)
 	{
 		$strContent = '';
@@ -212,7 +190,7 @@ class ModuleBlock extends \Module
 			{
 				if(!\Controller::isVisibleElement($objElement->current())) return '';
 
-				$strContent .= $this->getContentElement($objElement->current());
+				$strContent .= \Controller::getContentElement($objElement->current());
 			}
 		}
 
@@ -230,46 +208,7 @@ class ModuleBlock extends \Module
 
 		if(!\Controller::isVisibleElement($objArticles)) return '';
 
-		$return = $this->getArticle($objArticles, false, false, $strColumn);
-
-		return $this->getArticle($objArticles);
-	}
-
-	protected function renderSection($objChild)
-	{
-		$pid = $this->objPage->id;
-
-		$objArticles = \ArticleModel::findPublishedByPidAndColumn($pid, $objChild->section);
-
-		// force usage on pages 
-		if($objChild->addSectionPages && $objArticles === null)
-		{
-			$objArticles = \ArticleModel::findPublishedByPidAndColumn($objChild->addSectionPages, $objChild->section);
-		}
-
-		// add parent article, if there no article on current page
-		if($objArticles === null && $objChild->addSectionPageDepth)
-		{
-			$objArticles = $this->findParentSection($pid, $objChild);
-		}
-
-
-		if ($objArticles === null)
-		{
-			return '';
-		}
-
-		$blnMultiMode = ($objArticles->count() > 1);
-
-		$arrItems = array();
-
-		while ($objArticles->next())
-		{
-			$objArticles = $this->overrideCommonProps($objArticles, $objChild);
-			$arrItems[] = $this->getArticle($objArticles->current(), $blnMultiMode, false, $strColumn);
-		}
-
-		return $blnMultiMode ? $arrItems : implode('', $arrItems);
+		return \Controller::getArticle($objArticles);
 	}
 
 	protected function renderModule($objChild)
@@ -280,9 +219,9 @@ class ModuleBlock extends \Module
 
 		if(!\Controller::isVisibleElement($objModule)) return '';
 
-		$strClass = $this->findFrontendModule($objModule->type);
+		$strClass = \Module::findClass($objModule->type);
 
-		if (!$this->classFileExists($strClass))
+		if (!class_exists($strClass))
 		{
 			$this->log('Module class "'.$GLOBALS['FE_MOD'][$objModule->type].'" (module "'.$objModule->type.'") does not exist', 'ModuleBlock renderModule()', TL_ERROR);
 			return '';
