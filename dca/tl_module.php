@@ -85,12 +85,12 @@ class tl_module_block extends \tl_module
 			// single actions
 			if(in_array($this->Input->get('act'), array('edit', 'copy', 'cut', 'delete')))
 			{
+
 				$objModule = $this->Database->prepare("SELECT id FROM tl_module WHERE id = ? and type='block'")->execute($this->Input->get('id'));
 
 				if($objModule->numRows)
 				{
-					$this->log('Action "'.$this->Input->get('act').'" not allowed for modules of type "block"'. $this->Input->get('pid') .' (root level)', 'tl_module_block checkBlockPermission', TL_ERROR);
-					$this->redirect('contao/main.php?act=error');
+					$this->redirect('contao/main.php?do=themes&amp;table=tl_block_module&amp;id=' . $objModule->block  . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN);
 				}
 			}
 
