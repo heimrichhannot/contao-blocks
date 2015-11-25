@@ -32,11 +32,6 @@ array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 	'block' => 'HeimrichHannot\Blocks\ModuleBlock'
 ));
 
-$GLOBALS['BLOCKS']['CAROUSEL'] = array
-(
-	'default' => 'HeimrichHannot\Blocks\BlocksCarouselBootstrap'
-);
-
 /**
  * Content elements
  */
@@ -58,15 +53,6 @@ $GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge
 	),
 	is_array($GLOBALS['TL_EASY_THEMES_MODULES']) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : array()
 );
-
-/**
- * User JS
- */
-if(TL_MODE == 'FE')
-{
-// 	$GLOBALS['TL_JAVASCRIPT']['jquery-mobile'] = 'system/modules/blocks/assets/js/jquery.mobile-1.4.2.js|static';
-// 	$GLOBALS['TL_JAVASCRIPT']['blocks'] = '/system/modules/blocks/assets/js/jquery.blocks.js|static';
-}
 
 /**
  * Hooks

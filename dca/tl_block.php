@@ -21,21 +21,21 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 		'ctable'            => array('tl_block_module'),
 		'enableVersioning'  => true,
 		'onsubmit_callback' => array(
-			array('tl_block', 'updateFEModule')
+			array('tl_block', 'updateFEModule'),
 		),
 		'oncopy_callback'   => array(
-			array('tl_block', 'copyBlock')
+			array('tl_block', 'copyBlock'),
 		),
 		'ondelete_callback' => array(
-			array('tl_block', 'deleteFEModule')
+			array('tl_block', 'deleteFEModule'),
 		),
 		'sql'               => array
 		(
 			'keys' => array
 			(
-				'id' => 'primary'
-			)
-		)
+				'id' => 'primary',
+			),
+		),
 	),
 	'list'        => array
 	(
@@ -44,7 +44,7 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 			'mode'        => 2,
 			'fields'      => array('title'),
 			'flag'        => 1,
-			'panelLayout' => 'sort,search,limit'
+			'panelLayout' => 'sort,search,limit',
 		),
 		'label'             => array
 		(
@@ -58,8 +58,8 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 				'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
 				'href'       => 'act=select',
 				'class'      => 'header_edit_all',
-				'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-			)
+				'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+			),
 		),
 		'operations'        => array
 		(
@@ -73,13 +73,13 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 			(
 				'label' => &$GLOBALS['TL_LANG']['tl_block']['editHeader'],
 				'href'  => 'act=edit',
-				'icon'  => 'header.gif'
+				'icon'  => 'header.gif',
 			),
 			'copy'       => array
 			(
 				'label' => &$GLOBALS['TL_LANG']['tl_block']['copy'],
 				'href'  => 'act=copy',
-				'icon'  => 'copy.gif'
+				'icon'  => 'copy.gif',
 			),
 			'delete'     => array
 			(
@@ -87,45 +87,45 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 				'href'       => 'act=delete',
 				'icon'       => 'delete.gif',
 				'attributes' => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
-								. '\')) return false; Backend.getScrollOffset();"'
+								. '\')) return false; Backend.getScrollOffset();"',
 			),
 			'show'       => array
 			(
 				'label' => &$GLOBALS['TL_LANG']['tl_block']['show'],
 				'href'  => 'act=show',
-				'icon'  => 'show.gif'
-			)
-		)
+				'icon'  => 'show.gif',
+			),
+		),
 	),
 	// Palettes
 	'palettes'    => array
 	(
-		'__selector__' => array('carousel'),
-		'default'      => '{title_legend},title,carousel;{expert_legend:hide},cssClass'
+		'__selector__' => array('addWrapper'),
+		'default'      => '{title_legend},title;{expert_legend:hide},addWrapper',
 	),
 	'subpalettes' => array
 	(
-		'carousel' => 'carouselType',
+		'addWrapper' => 'cssID',
 	),
 	'fields'      => array
 	(
 		'id'           => array
 		(
-			'sql' => "int(10) unsigned NOT NULL auto_increment"
+			'sql' => "int(10) unsigned NOT NULL auto_increment",
 		),
 		'pid'          => array
 		(
 			'foreignKey' => 'tl_theme.name',
 			'sql'        => "int(10) unsigned NOT NULL default '0'",
-			'relation'   => array('type' => 'belongsTo', 'load' => 'eager')
+			'relation'   => array('type' => 'belongsTo', 'load' => 'eager'),
 		),
 		'tstamp'       => array
 		(
-			'sql' => "int(10) unsigned NOT NULL default '0'"
+			'sql' => "int(10) unsigned NOT NULL default '0'",
 		),
 		'module'       => array
 		(
-			'sql' => "int(10) unsigned NOT NULL default '0'"
+			'sql' => "int(10) unsigned NOT NULL default '0'",
 		),
 		'title'        => array
 		(
@@ -135,35 +135,25 @@ $GLOBALS['TL_DCA']['tl_block'] = array
 			'flag'      => 1,
 			'search'    => true,
 			'eval'      => array('mandatory' => true, 'maxlength' => 128, 'tl_class' => 'w50'),
-			'sql'       => "varchar(255) NOT NULL default ''"
+			'sql'       => "varchar(255) NOT NULL default ''",
 		),
-		'carousel'     => array
+		'addWrapper'   => array
 		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block']['carousel'],
+			'label'     => &$GLOBALS['TL_LANG']['tl_block']['addWrapper'],
 			'exclude'   => true,
 			'inputType' => 'checkbox',
 			'eval'      => array('tl_class' => 'clr', 'submitOnChange' => true),
 			'sql'       => "char(1) NOT NULL default ''",
 		),
-		'carouselType' => array
+		'cssID'        => array
 		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block']['carouselType'],
-			'exclude'   => true,
-			'inputType' => 'select',
-			'options'   => array_keys($GLOBALS['BLOCKS']['CAROUSEL']),
-			'reference' => &$GLOBALS['TL_LANG']['tl_block']['carouselTypes'],
-			'eval'      => array('tl_class' => 'clr', 'chosen' => true),
-			'sql'       => "varchar(128) NOT NULL default ''",
-		),
-		'cssClass'     => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block']['cssClass'],
+			'label'     => &$GLOBALS['TL_LANG']['tl_block']['cssID'],
 			'exclude'   => true,
 			'inputType' => 'text',
-			'eval'      => array('tl_class' => 'w50'),
-			'sql'       => "varchar(255) NOT NULL default ''"
+			'eval'      => array('multiple' => true, 'size' => 2, 'tl_class' => 'w50'),
+			'sql'       => "varchar(255) NOT NULL default ''",
 		),
-	)
+	),
 );
 
 class tl_block extends \Backend
@@ -179,31 +169,32 @@ class tl_block extends \Backend
 		$strTitle = $objBlock->title;
 
 		// create new module, if non existing yet
-		if(($objModule = \ModuleModel::findByPk($objBlock->module)) === null)
-		{
-			$objModule = new \ModuleModel();
-			$objModule->pid = $objBlock->pid;
-			$objModule->type = 'block';
+		if (($objModule = \ModuleModel::findByPk($objBlock->module)) === null) {
+			$objModule        = new \ModuleModel();
+			$objModule->pid   = $objBlock->pid;
+			$objModule->type  = 'block';
 			$objModule->block = $objBlock->id;
 		}
 
 		// always update title and tstamp
-		$objModule->name = $strTitle;
+		$objModule->name   = $strTitle;
 		$objModule->tstamp = $objBlock->tstamp;
 		$objModule->save();
 
 		// set frontend module id for current block
-		$objBlock = \HeimrichHannot\Blocks\BlockModel::findByPk($objBlock->id);
+		$objBlock         = \HeimrichHannot\Blocks\BlockModel::findByPk($objBlock->id);
 		$objBlock->module = $objModule->id;
 		$objBlock->save();
 	}
 
 	public function copyBlock($insertID, DataContainer $dc)
 	{
-		$objBlock = \HeimrichHannot\Blocks\BlockModel::findByPk($insertID);
+		$objBlock         = \HeimrichHannot\Blocks\BlockModel::findByPk($insertID);
 		$objBlock->module = 0;
 
-		if($objBlock === null) return;
+		if ($objBlock === null) {
+			return;
+		}
 
 		$this->createBlockModule($objBlock);
 
@@ -218,8 +209,7 @@ class tl_block extends \Backend
 
 	public function deleteFEModule(DataContainer $dc)
 	{
-		if(($objModule = \ModuleModel::findByPk($dc->activeRecord->module)) !== null)
-		{
+		if (($objModule = \ModuleModel::findByPk($dc->activeRecord->module)) !== null) {
 			$objModule->delete();
 		}
 	}

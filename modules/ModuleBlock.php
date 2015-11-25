@@ -22,6 +22,26 @@ class ModuleBlock extends \Module
 
 	private $arrPageCache;
 
+	protected $objBlock;
+
+	public function __construct($objModule, $strColumn='main')
+	{
+		parent::__construct($objModule, $strColumn);
+
+		$this->objBlock = BlockModel::findByPk($this->block);
+
+		if($this->objBlock !== null)
+		{
+			foreach($this->objBlock->row() as $key => $value)
+			{
+				// overwrite module parameter with block parameter, except the following
+				if(in_array($key, array('id', 'pid', 'tstamp', 'module', 'title'))) continue;
+
+				$this->{$key} = deserialize($value);
+			}
+		}
+	}
+
 	public function generate()
 	{
 		if (TL_MODE == 'BE')
@@ -37,7 +57,8 @@ class ModuleBlock extends \Module
 			return $objTemplate->parse();
 		}
 
-		if(!$this->block) return '';
+
+		if($this->objBlock == null) return;
 
 		return parent::generate();
 	}
@@ -46,63 +67,21 @@ class ModuleBlock extends \Module
 	{
 		$this->objPage = $this->determineCurrentPage();
 
+		$objChilds = BlockModuleModel::findBy('pid', $this->block, array('order' => 'sorting'));
 
-		$objBlock = BlockModel::findByPk($this->block);
-		$objChilds = $this->Database->prepare('SELECT * FROM tl_block_module WHERE pid = ? ORDER BY sorting')->execute($this->block);
+		if($objChilds === null) return;
 
-		$arrChilds = array();
+		$strBuffer = '';
 
 		while($objChilds->next())
 		{
-
 			if (strlen($objChilds->hide) == 0 || $objChilds->hide == 1 || ($objChilds->hide == 2 && !FE_USER_LOGGED_IN) || ($objChilds->hide == 3 && FE_USER_LOGGED_IN))
 			{
-				$value = $this->renderChild($objChilds);
-
-				$blnMultiMode = is_array($value);
-
-				if(($blnMultiMode && empty($value)) || (!$blnMultiMode && strlen($value) == 0)) continue;
-
-				if($blnMultiMode)
-				{
-					foreach($value as $item)
-					{
-						$arrChilds[] = array
-						(
-							'output'		=> $item,
-						);
-					}
-
-					$strBuffer = implode('', $value);
-				}
-				else
-				{
-					$objFile = \FilesModel::findByPk($objChilds->imgSRC);
-
-					$arrChilds[$objChilds->id] = array
-					(
-						'output'		=> $value,
-						'data'			=> $objChilds->row(),
-						'image'			=> $objFile->path ? $this->generateImage($objFile->path) : ''
-					);
-					$strBuffer .= $value;
-				}
+				$strBuffer .= $this->renderChild($objChilds);
 			}
 		}
 
 		$this->Template->block = $strBuffer;
-
-		// carousel
-		if($objBlock->carousel && strlen($strBuffer) > 0)
-		{
-			$strClass = &$GLOBALS['BLOCKS']['CAROUSEL'][$objBlock->carouselType];
-
-			if(class_exists($strClass))
-			{
-				$objCarousel = new $strClass($arrChilds, $objBlock, $this->objModel);
-				$this->Template->block = $objCarousel->generate() ;
-			}
-		}
 	}
 
 	protected function renderChild($objChild)
