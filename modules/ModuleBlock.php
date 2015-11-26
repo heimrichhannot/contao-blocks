@@ -57,8 +57,7 @@ class ModuleBlock extends \Module
 			return $objTemplate->parse();
 		}
 
-
-		if($this->objBlock == null) return;
+		if($this->objBlock == null) return '';
 
 		return parent::generate();
 	}
@@ -69,7 +68,7 @@ class ModuleBlock extends \Module
 
 		$objChilds = BlockModuleModel::findBy('pid', $this->block, array('order' => 'sorting'));
 
-		if($objChilds === null) return;
+		if($objChilds === null) return '';
 
 		$strBuffer = '';
 
