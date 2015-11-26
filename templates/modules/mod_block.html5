@@ -2,9 +2,7 @@
 	<?php $this->extend('block_searchable'); ?>
 	<?php $this->block('content'); ?>
 <?php endif; ?>
-
-<?php echo $this->block; ?>
-
+<?= $this->block; ?>
 <?php if($this->addWrapper): ?>
 	<?php $this->endblock(); ?>
 <?php endif; ?>
