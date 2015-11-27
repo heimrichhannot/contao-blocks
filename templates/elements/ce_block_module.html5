@@ -1,7 +1,8 @@
-<?php $this->extend('block_searchable'); ?>
-
-<?php $this->block('content'); ?>
-
-<?= $this->content ?>
-
-<?php $this->endblock(); ?>
+<?php if($this->addWrapper): ?>
+	<?php $this->extend('block_searchable'); ?>
+	<?php $this->block('content'); ?>
+<?php endif; ?>
+<?= $this->content; ?>
+<?php if($this->addWrapper): ?>
+	<?php $this->endblock(); ?>
+<?php endif; ?>

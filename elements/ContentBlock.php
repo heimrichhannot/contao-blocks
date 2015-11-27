@@ -26,8 +26,12 @@ class ContentBlock extends \ContentElement
 	{
 		$arrContent = array();
 
-		$objElement = \ContentModel::findPublishedByPidAndTable($this->block, 'tl_block_module');
+		$objBlock = BlockModuleModel::findByPk($this->block);
 
+		if($objBlock === null) return;
+
+		$objElement = \ContentModel::findPublishedByPidAndTable($this->block, 'tl_block_module');
+		
 		if ($objElement !== null)
 		{
 			while ($objElement->next())
@@ -36,6 +40,13 @@ class ContentBlock extends \ContentElement
 			}
 		}
 
-		$this->Template->content = implode('', $arrContent);
+		$strReturn = implode('', $arrContent);
+
+		if($objBlock->addWrapper)
+		{
+			$strReturn = ModuleBlock::createBlockWrapper($objBlock, $strReturn);
+		}
+
+		$this->Template->content = $strReturn;
 	}
 }

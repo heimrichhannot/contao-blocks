@@ -23,6 +23,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['pages'] = array('Page filter', 'Specify 
 $GLOBALS['TL_LANG']['tl_block_module']['addPageDepth'] = array('Activate page inheritance', 'Should the page filter be applied to child pages?');
 $GLOBALS['TL_LANG']['tl_block_module']['hide'] = array('Hide module', 'Should the module be hidden for certain users (based on the frontend login)?');
 $GLOBALS['TL_LANG']['tl_block_module']['keywords'] = array('Keywords', 'Comma seperated keywords like as "auto_item" indicates to include or exclude this module from Pages including these parameters. Negate via "!auto_item".');
+$GLOBALS['TL_LANG']['tl_block_module']['addWrapper'] = array('Add wrapper', 'Create a wrapper div with a unique CSS ID and any number of classes.');
 $GLOBALS['TL_LANG']['tl_block_module']['cssID'] = array('CSS ID/class', 'Here you can set an ID and one or more classes.');
 $GLOBALS['TL_LANG']['tl_block_module']['space'] = array('Space in front and after', 'Here you can enter the spacing in front of and after the block element in pixel. You should try to avoid inline styles and define the spacing in a style sheet, though.');
 

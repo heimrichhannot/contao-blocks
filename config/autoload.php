@@ -46,4 +46,5 @@ TemplateLoader::addFiles(array
 	'mod_block'       => 'system/modules/blocks/templates/modules',
 	'mod_breadcrumb'  => 'system/modules/blocks/templates/modules',
 	'ce_block_module' => 'system/modules/blocks/templates/elements',
+	'blocks_wrapper'  => 'system/modules/blocks/templates/blocks',
 ));

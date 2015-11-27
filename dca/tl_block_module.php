@@ -20,19 +20,19 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 	(
 		'dataContainer'    => 'Table',
 		'ptable'           => 'tl_block',
-		'ctable'		   => array('tl_content'),
+		'ctable'           => array('tl_content'),
 		'enableVersioning' => true,
 		'onload_callback'  => array(
-			array('tl_block_module', 'invokeI18nl10n')
+			array('tl_block_module', 'invokeI18nl10n'),
 		),
 		'sql'              => array
 		(
 			'keys' => array
 			(
 				'id'  => 'primary',
-				'pid' => 'index'
-			)
-		)
+				'pid' => 'index',
+			),
+		),
 	),
 	'list'     => array
 	(
@@ -51,8 +51,8 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 				'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
 				'href'       => 'act=select',
 				'class'      => 'header_edit_all',
-				'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-			)
+				'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+			),
 		),
 		'operations'        => array
 		(
@@ -61,75 +61,76 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 				'label'           => &$GLOBALS['TL_LANG']['tl_block_module']['edit'],
 				'href'            => 'table=tl_content',
 				'icon'            => 'edit.gif',
-				'button_callback' => array('tl_block_module', 'editContent')
+				'button_callback' => array('tl_block_module', 'editContent'),
 			),
 			'editheader' => array
 			(
 				'label' => &$GLOBALS['TL_LANG']['tl_block_module']['editheader'],
 				'href'  => 'act=edit',
-				'icon'  => 'header.gif'
+				'icon'  => 'header.gif',
 			),
 			'copy'       => array
 			(
 				'label' => &$GLOBALS['TL_LANG']['tl_block_module']['copy'],
 				'href'  => 'act=copy',
-				'icon'  => 'copy.gif'
+				'icon'  => 'copy.gif',
 			),
 			'cut'        => array
 			(
 				'label'      => &$GLOBALS['TL_LANG']['tl_block_module']['cut'],
 				'href'       => 'act=paste&amp;mode=cut',
 				'icon'       => 'cut.gif',
-				'attributes' => 'onclick="Backend.getScrollOffset()"'
+				'attributes' => 'onclick="Backend.getScrollOffset()"',
 			),
 			'delete'     => array
 			(
 				'label'      => &$GLOBALS['TL_LANG']['tl_block_module']['delete'],
 				'href'       => 'act=delete',
 				'icon'       => 'delete.gif',
-				'attributes' => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+				'attributes' => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+								. '\')) return false; Backend.getScrollOffset();"',
 			),
 			'show'       => array
 			(
 				'label' => &$GLOBALS['TL_LANG']['tl_block_module']['show'],
 				'href'  => 'act=show',
-				'icon'  => 'show.gif'
-			)
-		)
+				'icon'  => 'show.gif',
+			),
+		),
 	),
 	// Palettes
 	'palettes' => array
 	(
 		'__selector__' => array('type'),
-		'default'      => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
-		'article'      => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
-		'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},cssID,space',
+		'default'      => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},addWrapper,cssID,space',
+		'article'      => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},addWrapper,cssID,space',
+		'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords;{hide_legend},hide;{expert_legend:hide},addWrapper,cssID,space',
 	),
 	'fields'   => array
 	(
-		'id'                  => array
+		'id'            => array
 		(
 			'label'  => array('ID'),
 			'search' => true,
-			'sql'    => "int(10) unsigned NOT NULL auto_increment"
+			'sql'    => "int(10) unsigned NOT NULL auto_increment",
 		),
-		'pid'                 => array
+		'pid'           => array
 		(
 			'foreignKey' => 'tl_block.title',
 			'sql'        => "int(10) unsigned NOT NULL default '0'",
-			'relation'   => array('type' => 'belongsTo', 'load' => 'lazy')
+			'relation'   => array('type' => 'belongsTo', 'load' => 'lazy'),
 		),
-		'sorting'             => array
+		'sorting'       => array
 		(
 			'sorting' => true,
 			'flag'    => 2,
-			'sql'     => "int(10) unsigned NOT NULL default '0'"
+			'sql'     => "int(10) unsigned NOT NULL default '0'",
 		),
-		'tstamp'              => array
+		'tstamp'        => array
 		(
-			'sql' => "int(10) unsigned NOT NULL default '0'"
+			'sql' => "int(10) unsigned NOT NULL default '0'",
 		),
-		'type'                => array
+		'type'          => array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['type'],
 			'exclude'   => true,
@@ -139,7 +140,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'sql'       => "varchar(32) NOT NULL default 'default'",
 			'reference' => &$GLOBALS['TL_LANG']['tl_block_module']['type_reference'],
 		),
-		'title'               => array
+		'title'         => array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['title'],
 			'inputType' => 'text',
@@ -147,9 +148,9 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'flag'      => 1,
 			'search'    => true,
 			'eval'      => array('mandatory' => true, 'maxlength' => 128, 'tl_class' => 'long'),
-			'sql'       => "varchar(255) NOT NULL default ''"
+			'sql'       => "varchar(255) NOT NULL default ''",
 		),
-		'module'              => array
+		'module'        => array
 		(
 			'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['module'],
 			'exclude'          => true,
@@ -158,11 +159,11 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'eval'             => array('mandatory' => true, 'chosen' => true, 'submitOnChange' => true),
 			'wizard'           => array
 			(
-				array('tl_block_module', 'editModule')
+				array('tl_block_module', 'editModule'),
 			),
 			'sql'              => "int(10) unsigned NOT NULL default '0'",
 		),
-		'articleAlias'        => array
+		'articleAlias'  => array
 		(
 			'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['articleAlias'],
 			'exclude'          => true,
@@ -171,19 +172,19 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'eval'             => array('mandatory' => true, 'chosen' => true, 'submitOnChange' => true),
 			'wizard'           => array
 			(
-				array('tl_content', 'editArticleAlias')
+				array('tl_content', 'editArticleAlias'),
 			),
 			'sql'              => "int(10) unsigned NOT NULL default '0'",
 		),
-		'imgSRC'              => array
+		'imgSRC'        => array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['imgSRC'],
 			'exclude'   => true,
 			'inputType' => 'fileTree',
 			'eval'      => array('fieldType' => 'radio', 'filesOnly' => true),
-			'sql'       => "binary(16) NULL"
+			'sql'       => "binary(16) NULL",
 		),
-		'addVisibility'       => array(
+		'addVisibility' => array(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addVisibility'],
 			'exclude'   => true,
 			'inputType' => 'radio',
@@ -193,21 +194,21 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'eval'      => array('submitOnChange' => true),
 			'sql'       => "varchar(32) NOT NULL default ''",
 		),
-		'pages'               => array(
+		'pages'         => array(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['pages'],
 			'exclude'   => true,
 			'inputType' => 'pageTree',
 			'eval'      => array('fieldType' => 'checkbox', 'multiple' => true),
 			'sql'       => "blob NULL",
 		),
-		'keywords'            => array(
+		'keywords'      => array(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['keywords'],
 			'exclude'   => true,
 			'inputType' => 'text',
 			'eval'      => array('tl_class' => 'clr'),
 			'sql'       => "varchar(255) NOT NULL default ''",
 		),
-		'addPageDepth'        => array(
+		'addPageDepth'  => array(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addPageDepth'],
 			'exclude'   => true,
 			'inputType' => 'checkbox',
@@ -215,7 +216,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'eval'      => array('tl_class' => 'm12'),
 			'sql'       => "char(1) NOT NULL default ''",
 		),
-		'language'            => array(
+		'language'      => array(
 			'label'            => &$GLOBALS['TL_LANG']['MSC']['i18nl10n_fields']['language']['label'],
 			'exclude'          => true,
 			'inputType'        => 'select',
@@ -223,34 +224,42 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'reference'        => &$GLOBALS['TL_LANG']['LNG'],
 			'options_callback' => array('tl_block_module', 'getI18nl10nLanguages'),
 			'eval'             => array('mandatory' => false, 'rgxp' => 'alpha', 'maxlength' => 2, 'nospace' => true, 'tl_class' => 'w50 clr'),
-			'sql'              => "varchar(2) NOT NULL default ''"
+			'sql'              => "varchar(2) NOT NULL default ''",
 		),
-		'hide'                => array(
+		'hide'          => array(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['hide'],
 			'exclude'   => true,
 			'inputType' => 'select',
 			'options'   => array('1' => 'dont_hide', '2' => 'hide_logged_in', '3' => 'hide_not_logged_in'),
 			'reference' => $GLOBALS['TL_LANG']['tl_block_module'],
 			'eval'      => array('tl_class' => 'm12'),
-			'sql'       => "char(1) NOT NULL default ''"
+			'sql'       => "char(1) NOT NULL default ''",
 		),
-		'cssID'               => array
+		'addWrapper'    => array
+		(
+			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addWrapper'],
+			'exclude'   => true,
+			'inputType' => 'checkbox',
+			'eval'      => array('tl_class' => 'clr'),
+			'sql'       => "char(1) NOT NULL default ''",
+		),
+		'cssID'         => array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['cssID'],
 			'exclude'   => true,
 			'inputType' => 'text',
 			'eval'      => array('multiple' => true, 'size' => 2, 'tl_class' => 'w50'),
-			'sql'       => "varchar(255) NOT NULL default ''"
+			'sql'       => "varchar(255) NOT NULL default ''",
 		),
-		'space'               => array
+		'space'         => array
 		(
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['space'],
 			'exclude'   => true,
 			'inputType' => 'text',
 			'eval'      => array('multiple' => true, 'size' => 2, 'rgxp' => 'digit', 'nospace' => true, 'tl_class' => 'w50'),
-			'sql'       => "varchar(64) NOT NULL default ''"
-		)
-	)
+			'sql'       => "varchar(64) NOT NULL default ''",
+		),
+	),
 );
 
 class tl_block_module extends \Backend
@@ -268,14 +277,24 @@ class tl_block_module extends \Backend
 
 	public function editModule(DataContainer $dc)
 	{
-		return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $dc->value . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->value) . '" style="padding-left:3px">' . $this->generateImage('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"') . '</a>';
+		return ($dc->value < 1)
+			? ''
+			: ' <a href="contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $dc->value . '" title="' . sprintf(
+				specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]),
+				$dc->value
+			) . '" style="padding-left:3px">' . $this->generateImage(
+				'alias.gif',
+				$GLOBALS['TL_LANG']['tl_content']['editalias'][0],
+				'style="vertical-align:top"'
+			) . '</a>';
 	}
 
 	public function invokeI18nl10n(DataContainer $dc)
 	{
 		if (in_array('i18nl10n', $this->Config->getActiveModules())) {
 			$this->loadLanguageFile('languages');
-			$GLOBALS['TL_DCA']['tl_block_module']['palettes']['default'] = str_replace('keywords', 'keywords, language', $GLOBALS['TL_DCA']['tl_block_module']['palettes']['default']);
+			$GLOBALS['TL_DCA']['tl_block_module']['palettes']['default'] =
+				str_replace('keywords', 'keywords, language', $GLOBALS['TL_DCA']['tl_block_module']['palettes']['default']);
 		}
 	}
 
@@ -292,12 +311,15 @@ class tl_block_module extends \Backend
 
 	/**
 	 * Get all modules and return them as array
+	 *
 	 * @return array
 	 */
 	public function getModules()
 	{
 		$arrModules = array();
-		$objModules = $this->Database->execute("SELECT m.id, m.name, t.name AS theme FROM tl_module m LEFT JOIN tl_theme t ON m.pid=t.id WHERE type != 'block' ORDER BY t.name, m.name");
+		$objModules = $this->Database->execute(
+			"SELECT m.id, m.name, t.name AS theme FROM tl_module m LEFT JOIN tl_theme t ON m.pid=t.id WHERE type != 'block' ORDER BY t.name, m.name"
+		);
 
 		while ($objModules->next()) {
 			$arrModules[$objModules->theme][$objModules->id] = $objModules->name . ' (ID ' . $objModules->id . ')';
@@ -308,7 +330,9 @@ class tl_block_module extends \Backend
 
 	/**
 	 * Get all articles and return them as array (article alias)
+	 *
 	 * @param \DataContainer
+	 *
 	 * @return array
 	 */
 	public function getArticleAlias(DataContainer $dc)
@@ -326,10 +350,15 @@ class tl_block_module extends \Backend
 				return $arrAlias;
 			}
 
-			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN(" . implode(',', array_map('intval', array_unique($arrPids))) . ") ORDER BY parent, a.sorting")
+			$objAlias = $this->Database->prepare(
+				"SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN("
+				. implode(',', array_map('intval', array_unique($arrPids))) . ") ORDER BY parent, a.sorting"
+			)
 				->execute($dc->id);
 		} else {
-			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid ORDER BY parent, a.sorting")
+			$objAlias = $this->Database->prepare(
+				"SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid ORDER BY parent, a.sorting"
+			)
 				->execute($dc->id);
 		}
 
@@ -338,7 +367,9 @@ class tl_block_module extends \Backend
 
 			while ($objAlias->next()) {
 				$key                           = $objAlias->parent . ' (ID ' . $objAlias->pid . ')';
-				$arrAlias[$key][$objAlias->id] = $objAlias->title . ' (' . ($GLOBALS['TL_LANG']['tl_article'][$objAlias->inColumn] ? : $objAlias->inColumn) . ', ID ' . $objAlias->id . ')';
+				$arrAlias[$key][$objAlias->id] =
+					$objAlias->title . ' (' . ($GLOBALS['TL_LANG']['tl_article'][$objAlias->inColumn] ?: $objAlias->inColumn) . ', ID '
+					. $objAlias->id . ')';
 			}
 		}
 
@@ -347,7 +378,9 @@ class tl_block_module extends \Backend
 
 	/**
 	 * Add the type and name of module element
+	 *
 	 * @param array
+	 *
 	 * @return string
 	 */
 	public function addModuleInfo($arrRow)
@@ -356,22 +389,28 @@ class tl_block_module extends \Backend
 
 		if ($arrRow['type'] == 'section') {
 			$output = '<div style="float:left">';
-			$output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/layout.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-			$output .= $arrRow['section'] . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['section'][0] . ']</span>' . "</div>\n";
+			$output .= '<img alt="" src="system/themes/' . $this->getTheme()
+					   . '/images/layout.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+			$output .= $arrRow['section'] . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['section'][0]
+					   . ']</span>' . "</div>\n";
 
 			return $output;
 		} elseif ($arrRow['type'] == 'article') {
 			$objArticle = \ArticleModel::findByPk($arrRow['articleAlias']);
 
 			$output = '<div style="float:left">';
-			$output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/article.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-			$output .= $objArticle->title . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['articleAlias'][0] . ']</span>' . "</div>\n";
+			$output .= '<img alt="" src="system/themes/' . $this->getTheme()
+					   . '/images/article.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+			$output .= $objArticle->title . ' <span style="color:#b3b3b3;padding-left:3px">['
+					   . $GLOBALS['TL_LANG']['tl_block_module']['articleAlias'][0] . ']</span>' . "</div>\n";
 
 			return $output;
 		} elseif ($arrRow['type'] == 'content') {
 			$output = '<div style="float:left">';
-			$output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/published.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-			$output .= $arrRow['title'] . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['contentElements'] . ']</span>' . "</div>\n";
+			$output .= '<img alt="" src="system/themes/' . $this->getTheme()
+					   . '/images/published.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+			$output .= $arrRow['title'] . ' <span style="color:#b3b3b3;padding-left:3px">['
+					   . $GLOBALS['TL_LANG']['tl_block_module']['contentElements'] . ']</span>' . "</div>\n";
 
 			return $output;
 		}
@@ -381,8 +420,11 @@ class tl_block_module extends \Backend
 
 		if ($objModule->numRows) {
 			$output = '<div style="float:left">';
-			$output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/modules.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-			$output .= $objModule->name . ' <span style="color:#b3b3b3;padding-left:3px">[' . (isset($GLOBALS['TL_LANG']['FMD'][$objModule->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$objModule->type][0] : $objModule->type) . '] - ID:' . $arrRow['module'] . '</span>' . "</div>\n";
+			$output .= '<img alt="" src="system/themes/' . $this->getTheme()
+					   . '/images/modules.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+			$output .= $objModule->name . ' <span style="color:#b3b3b3;padding-left:3px">['
+					   . (isset($GLOBALS['TL_LANG']['FMD'][$objModule->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$objModule->type][0] : $objModule->type)
+					   . '] - ID:' . $arrRow['module'] . '</span>' . "</div>\n";
 		}
 
 		return $output;
@@ -412,8 +454,11 @@ class tl_block_module extends \Backend
 
 	public function editContent($row, $href, $label, $title, $icon, $attributes)
 	{
-		if($row['type'] != 'content') return '';
+		if ($row['type'] != 'content') {
+			return '';
+		}
 
-		return '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
+		return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . specialchars($title) . '"' . $attributes . '>'
+			   . Image::getHtml($icon, $label) . '</a> ';
 	}
 }

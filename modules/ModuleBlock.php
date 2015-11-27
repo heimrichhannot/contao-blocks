@@ -85,18 +85,55 @@ class ModuleBlock extends \Module
 
 	protected function renderChild($objChild)
 	{
-		if(!$this->isVisible($objChild)) return '';
+		$strReturn = '';
+
+		if(!$this->isVisible($objChild)) return $strReturn;
 
 		switch($objChild->type)
 		{
 			case 'article':
-				return $this->renderArticle($objChild);
+				$strReturn = $this->renderArticle($objChild);
+			break;
 			case 'content':
-				return $this->renderContent($objChild);
+				$strReturn = $this->renderContent($objChild);
+			break;
 			case 'module':
 			default:
-				return $this->renderModule($objChild);
+				$strReturn = $this->renderModule($objChild);
+			break;
 		}
+
+		if($objChild->addWrapper)
+		{
+			$strReturn = static::createBlockWrapper($objChild, $strReturn);
+		}
+
+		return $strReturn;
+	}
+
+	public static function createBlockWrapper($objBlock, $strContent)
+	{
+		$objT = new \FrontendTemplate('blocks_wrapper');
+		$objT->block = $strContent;
+		$arrCssID = deserialize($objBlock->cssID, true);
+		$arrSpace = deserialize($objBlock->space);
+		$arrStyle = array();
+
+		if ($arrSpace[0] != '')
+		{
+			$arrStyle[] = 'margin-top:'.$arrSpace[0].'px;';
+		}
+
+		if ($arrSpace[1] != '')
+		{
+			$arrStyle[] = 'margin-bottom:'.$arrSpace[1].'px;';
+		}
+
+		$objT->style = !empty($arrStyle) ? implode(' ', $arrStyle) : '';
+		$objT->class = trim($objT->getName() . ' ' . $arrCssID[1]);
+		$objT->cssID = ($arrCssID[0] != '') ? ' id="' . $arrCssID[0] . '"' : '';
+
+		return $objT->parse();
 	}
 
 	protected function isVisible($objChild)

@@ -23,6 +23,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['pages'] = array('Seitenfilter', 'Seiten 
 $GLOBALS['TL_LANG']['tl_block_module']['addPageDepth'] = array('Seitenvererbung aktivieren', 'Soll der Seitenfilter auch auf untergeordnete Seiten angewandt werden?');
 $GLOBALS['TL_LANG']['tl_block_module']['hide'] = array('Modul verstecken', 'Soll das Modul für bestimmte Nutzer versteckt werden (betrifft das Frontend-Login)?');
 $GLOBALS['TL_LANG']['tl_block_module']['keywords'] = array('Parameter', 'Parameter wie "auto_item" angeben um dieses Modul von Seiten mit diesen Parametern aus- bzw. einzuschließen. Negation mit z.B. "!auto_item" möglich. Mehrere Parameter durch ein Komma trennen.');
+$GLOBALS['TL_LANG']['tl_block_module']['addWrapper'] = array('Wrapper hinzufügen', 'Erzeugen Sie eine Wrapper DIV mit einer eindeutigen CSS-ID und beliebig viele Klassen.');
 $GLOBALS['TL_LANG']['tl_block_module']['cssID'] = array('CSS-ID/Klasse', 'Hier können Sie eine ID und beliebig viele Klassen eingeben.');
 $GLOBALS['TL_LANG']['tl_block_module']['space'] = array('Abstand davor und dahinter', 'Hier können Sie den Abstand vor und nach dem Block-Element in Pixeln eingeben. Sie sollten Inline-Styles jedoch nach Möglichkeit vermeiden und den Abstand in einem Stylesheet definieren.');
 
