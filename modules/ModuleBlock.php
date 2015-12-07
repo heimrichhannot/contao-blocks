@@ -233,7 +233,7 @@ class ModuleBlock extends \Module
 		if($objModule === null) return '';
 
 		if(!\Controller::isVisibleElement($objModule)) return '';
-
+		
 		$strClass = \Module::findClass($objModule->type);
 
 		if (!class_exists($strClass))
@@ -244,7 +244,10 @@ class ModuleBlock extends \Module
 
 		$objModule->typePrefix = 'mod_';
 
-		$objModule = $this->overrideCommonProps($objModule, $objChild);
+		if(!$objChild->addWrapper)
+		{
+			$objModule = $this->overrideCommonProps($objModule, $objChild);
+		}
 
 		$objModule = new $strClass($objModule);
 
