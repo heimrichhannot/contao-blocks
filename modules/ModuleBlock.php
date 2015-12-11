@@ -35,7 +35,7 @@ class ModuleBlock extends \Module
 			foreach($this->objBlock->row() as $key => $value)
 			{
 				// overwrite module parameter with block parameter, except the following
-				if(in_array($key, array('id', 'pid', 'tstamp', 'module', 'title', 'block', 'addWrapper'))) continue;
+				if(in_array($key, array('id', 'pid', 'tstamp', 'module', 'title'))) continue;
 
 				$this->{$key} = deserialize($value);
 			}
@@ -65,13 +65,16 @@ class ModuleBlock extends \Module
 	protected function compile()
 	{
 		$this->Template->block = null; // reset block attribute, otherwise block id will be printed
-		$this->Template->addWrapper = false; // reset
 
 		$this->objPage = $this->determineCurrentPage();
 
 		$objChilds = BlockModuleModel::findBy('pid', $this->block, array('order' => 'sorting'));
 
-		if($objChilds === null) return '';
+		if($objChilds === null)
+		{
+			$this->Template->addWrapper = false;
+			return '';
+		}
 
 		$strBuffer = '';
 
@@ -82,7 +85,12 @@ class ModuleBlock extends \Module
 				$strBuffer .= $this->renderChild($objChilds);
 			}
 		}
-		
+
+		if(strlen($strBuffer) == 0)
+		{
+			$this->Template->addWrapper = false;
+		}
+
 		$this->Template->block = $strBuffer;
 	}
 
