@@ -86,7 +86,7 @@ class tl_module_block extends \tl_module
 			if(in_array($this->Input->get('act'), array('edit', 'copy', 'cut', 'delete')))
 			{
 
-				$objModule = $this->Database->prepare("SELECT id FROM tl_module WHERE id = ? and type='block'")->execute($this->Input->get('id'));
+				$objModule = $this->Database->prepare("SELECT block FROM tl_module WHERE id = ? and type='block'")->execute($this->Input->get('id'));
 
 				if($objModule->numRows)
 				{
