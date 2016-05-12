@@ -307,7 +307,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = array
 			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addWrapper'],
 			'exclude'   => true,
 			'inputType' => 'checkbox',
-			'eval'      => array('tl_class' => 'clr'),
+			'eval'      => array('tl_class' => 'clr', 'submitOnChange' => true),
 			'sql'       => "char(1) NOT NULL default ''",
 		),
 		'headline'              => array
