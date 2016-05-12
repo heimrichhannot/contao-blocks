@@ -124,9 +124,9 @@ class ModuleBlock extends \Module
 
 	public static function createBlockWrapper($objBlock, $strContent)
 	{
-		$objT = new \FrontendTemplate('blocks_wrapper');
+		$objT = new \FrontendTemplate($objBlock->customTpl ? $objBlock->customTpl : 'blocks_wrapper');
 		$objT->block = $strContent;
-		$arrCssID = deserialize($objBlock->cssID, true);
+		$arrCssID = deserialize($objBlock->featureActive ? $objBlock->feature_cssID : $objBlock->cssID, true);
 		$arrSpace = deserialize($objBlock->space);
 		$arrStyle = array();
 
@@ -143,12 +143,18 @@ class ModuleBlock extends \Module
 		$objT->style = !empty($arrStyle) ? implode(' ', $arrStyle) : '';
 		$objT->class = trim($objT->getName() . ' ' . $arrCssID[1]);
 		$objT->cssID = ($arrCssID[0] != '') ? ' id="' . $arrCssID[0] . '"' : '';
+		$objT->blockTpl = $objBlock->customBlockTpl ? $objBlock->customBlockTpl : 'block_searchable';
+
+		$arrHeadline = deserialize($objBlock->headline);
+		$objT->headline = is_array($arrHeadline) ? $arrHeadline['value'] : $arrHeadline;
+		$objT->hl = is_array($arrHeadline) ? $arrHeadline['unit'] : 'h1';
 
 		return $objT->parse();
 	}
 
-	protected function isVisible($objChild)
+	protected function isVisible(&$objChild)
 	{
+		$time = \Date::floorToMinute();
 		$currentLang = array('', $GLOBALS['TL_LANGUAGE']);
 
 		if(!in_array($objChild->language, $currentLang))
@@ -157,8 +163,6 @@ class ModuleBlock extends \Module
 		}
 
 		$arrPages = deserialize($objChild->pages);
-
-
 
 		/**
 		 * Filter out pages
@@ -200,6 +204,44 @@ class ModuleBlock extends \Module
 					}
 				}
 			}
+		}
+
+		// filter out by feature
+		if($objChild->feature)
+		{
+			$start = $objChild->feature_start;
+			$stop = $objChild->feature_stop;
+
+			// check if in time
+			$blnFeatureActive = ($start == '' || $start <= $time) && ($stop == '' || $stop > $time + 60);
+			$blnFeatureCookie = $objChild->feature_count > 0;
+
+			if($blnFeatureActive && $blnFeatureCookie)
+			{
+				$cookieCount = \Input::cookie($objChild->feature_cookie_name);
+				$displayCount = $cookieCount == null ? 0 : intval($cookieCount);
+
+				if($cookieCount === null && session_status() == PHP_SESSION_DISABLED)
+				{
+					$blnFeatureActive = true;
+				}
+				else
+				{
+					if($displayCount < $objChild->feature_count)
+					{
+						setcookie($objChild->feature_cookie_name, ++$displayCount, $time + $objChild->feature_cookie_expire, '/');
+						$blnFeatureActive = true;
+					}
+					else
+					{
+						$blnFeatureActive = false;
+					}
+				}
+			}
+
+			$objChild->featureActive = $blnFeatureActive;
+			return $blnFeatureActive;
+
 		}
 
 		return true;

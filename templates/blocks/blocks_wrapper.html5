@@ -1,4 +1,4 @@
-<?php $this->extend('block_searchable'); ?>
+<?php $this->extend($this->blockTpl); ?>
 <?php $this->block('content'); ?>
 <?= $this->block; ?>
 <?php $this->endblock(); ?>

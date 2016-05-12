@@ -23,9 +23,22 @@ $GLOBALS['TL_LANG']['tl_block_module']['pages'] = array('Page filter', 'Specify 
 $GLOBALS['TL_LANG']['tl_block_module']['addPageDepth'] = array('Activate page inheritance', 'Should the page filter be applied to child pages?');
 $GLOBALS['TL_LANG']['tl_block_module']['hide'] = array('Hide module', 'Should the module be hidden for certain users (based on the frontend login)?');
 $GLOBALS['TL_LANG']['tl_block_module']['keywords'] = array('Keywords', 'Comma seperated keywords like as "auto_item" indicates to include or exclude this module from Pages including these parameters. Negate via "!auto_item".');
+
+$GLOBALS['TL_LANG']['tl_block_module']['feature'] = array('Feature block element', 'Feature the block element and control the display with cookies.');
+$GLOBALS['TL_LANG']['tl_block_module']['feature_start'] = array('Show from', 'Do not show the block element on the website before this day.');
+$GLOBALS['TL_LANG']['tl_block_module']['feature_stop'] = array('Show until', 'Do not show the block element on the website on and after this day.');
+$GLOBALS['TL_LANG']['tl_block_module']['feature_count'] = array('Display count by visitor', 'Determine how often the block element should be display per visitor. Enter 0 if you want the block element  to be displayed always.');
+$GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_name'] = array('Cookie name', 'Enter a unique cookie name, that is used for saving the display count for each visitor.');
+$GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_expire'] = array('Cookie duration', 'Enter the duration in milliseconds the visitors cookie should remain. After expiring, the feature will start again with display count 0.');
+$GLOBALS['TL_LANG']['tl_block_module']['feature_cssID'] = array('Overwrite CSS-ID/Class', 'Overwrite CSS-ID/Classes if the element is featured.');
+
 $GLOBALS['TL_LANG']['tl_block_module']['addWrapper'] = array('Add wrapper', 'Create a wrapper div with a unique CSS ID and any number of classes.');
+$GLOBALS['TL_LANG']['tl_block_module']['headline'] = array('Headline', 'Add a headline to the wrapper.');
 $GLOBALS['TL_LANG']['tl_block_module']['cssID'] = array('CSS ID/class', 'Here you can set an ID and one or more classes.');
 $GLOBALS['TL_LANG']['tl_block_module']['space'] = array('Space in front and after', 'Here you can enter the spacing in front of and after the block element in pixel. You should try to avoid inline styles and define the spacing in a style sheet, though.');
+$GLOBALS['TL_LANG']['tl_block_module']['customTpl'] = array('Custom wrapper-template', 'Overwrite the custom wrapper-template (Default: blocks_wrapper).');
+$GLOBALS['TL_LANG']['tl_block_module']['customBlockTpl'] = array('Custom block-template', 'Overwrite the block-template (Default: block_unsearchable).');
+
 
 /**
  * Legends
@@ -34,6 +47,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['type_legend'] = 'Type';
 $GLOBALS['TL_LANG']['tl_block_module']['title_legend'] = 'Title';
 $GLOBALS['TL_LANG']['tl_block_module']['article_legend'] = 'Article';
 $GLOBALS['TL_LANG']['tl_block_module']['module_legend'] = 'Module';
+$GLOBALS['TL_LANG']['tl_block_module']['feature_legend'] = 'Feature settings';
 $GLOBALS['TL_LANG']['tl_block_module']['page_legend'] = 'Pages';
 $GLOBALS['TL_LANG']['tl_block_module']['hide_legend'] = 'Hide module';
 $GLOBALS['TL_LANG']['tl_block_module']['expert_legend'] = 'Expert settings';
