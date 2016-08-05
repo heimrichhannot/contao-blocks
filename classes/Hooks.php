@@ -26,6 +26,7 @@ class Hooks extends \Controller
 					'isRoot' => false,
 					'isActive' => false,
 					'href' => $this->generateFrontendUrl($objPage->row()),
+					'title' => $pages[0]['title'],
 					'link' => $pages[0]['title'],
 					'data' => $pages[0],
 					'class'    => ''
