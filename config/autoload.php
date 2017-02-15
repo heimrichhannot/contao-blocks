@@ -3,7 +3,7 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2016 Leo Feyer
+ * Copyright (c) 2005-2017 Leo Feyer
  *
  * @license LGPL-3.0+
  */
@@ -23,18 +23,19 @@ ClassLoader::addNamespaces(array
  */
 ClassLoader::addClasses(array
 (
-	// Models
-	'HeimrichHannot\Blocks\BlockModuleModel' => 'system/modules/blocks/models/BlockModuleModel.php',
-	'HeimrichHannot\Blocks\BlockModel'       => 'system/modules/blocks/models/BlockModel.php',
-
 	// Modules
 	'HeimrichHannot\Blocks\ModuleBlock'      => 'system/modules/blocks/modules/ModuleBlock.php',
+
+	// Classes
+	'HeimrichHannot\Blocks\Backend\Content'  => 'system/modules/blocks/classes/backend/Content.php',
+	'HeimrichHannot\Blocks\Hooks'            => 'system/modules/blocks/classes/Hooks.php',
 
 	// Elements
 	'HeimrichHannot\Blocks\ContentBlock'     => 'system/modules/blocks/elements/ContentBlock.php',
 
-	// Classes
-	'HeimrichHannot\Blocks\Hooks'            => 'system/modules/blocks/classes/Hooks.php',
+	// Models
+	'HeimrichHannot\Blocks\BlockModel'       => 'system/modules/blocks/models/BlockModel.php',
+	'HeimrichHannot\Blocks\BlockModuleModel' => 'system/modules/blocks/models/BlockModuleModel.php',
 ));
 
 
@@ -43,8 +44,8 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_block'       => 'system/modules/blocks/templates/modules',
 	'mod_breadcrumb'  => 'system/modules/blocks/templates/modules',
-	'ce_block_module' => 'system/modules/blocks/templates/elements',
+	'mod_block'       => 'system/modules/blocks/templates/modules',
 	'blocks_wrapper'  => 'system/modules/blocks/templates/blocks',
+	'ce_block_module' => 'system/modules/blocks/templates/elements',
 ));
