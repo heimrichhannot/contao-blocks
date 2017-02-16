@@ -12,17 +12,17 @@
 /**
  * Register the namespaces
  */
-ClassLoader::addNamespaces(array
-(
-	'HeimrichHannot',
-));
+ClassLoader::addNamespaces(
+    [
+	'HeimrichHannot',]
+);
 
 
 /**
  * Register the classes
  */
-ClassLoader::addClasses(array
-(
+ClassLoader::addClasses(
+    [
 	// Modules
 	'HeimrichHannot\Blocks\ModuleBlock'      => 'system/modules/blocks/modules/ModuleBlock.php',
 
@@ -35,17 +35,17 @@ ClassLoader::addClasses(array
 
 	// Models
 	'HeimrichHannot\Blocks\BlockModel'       => 'system/modules/blocks/models/BlockModel.php',
-	'HeimrichHannot\Blocks\BlockModuleModel' => 'system/modules/blocks/models/BlockModuleModel.php',
-));
+	'HeimrichHannot\Blocks\BlockModuleModel' => 'system/modules/blocks/models/BlockModuleModel.php',]
+);
 
 
 /**
  * Register the templates
  */
-TemplateLoader::addFiles(array
-(
+TemplateLoader::addFiles(
+    [
 	'mod_breadcrumb'  => 'system/modules/blocks/templates/modules',
 	'mod_block'       => 'system/modules/blocks/templates/modules',
 	'blocks_wrapper'  => 'system/modules/blocks/templates/blocks',
-	'ce_block_module' => 'system/modules/blocks/templates/elements',
-));
+	'ce_block_module' => 'system/modules/blocks/templates/elements',]
+);

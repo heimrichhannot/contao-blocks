@@ -16,13 +16,12 @@ class Hooks extends \Controller
 	public function generateBreadcrumbHook($arrItems, $objModule)
 	{
 		global $objPage;
-		$pages = array($objPage->row());
+		$pages = [$objPage->row()];
 
 		if(\Input::get('auto_item') && $objPage->alias != \Input::get('auto_item'))
 		{
-			array_insert($arrItems, count($arrItems) - 1, array(
-				array
-				(
+			array_insert($arrItems, count($arrItems) - 1, [
+                                      [
 					'isRoot' => false,
 					'isActive' => false,
 					'href' => $this->generateFrontendUrl($objPage->row()),
@@ -30,7 +29,8 @@ class Hooks extends \Controller
 					'link' => $pages[0]['title'],
 					'data' => $pages[0],
 					'class'    => ''
-				))
+                                      ]
+                                  ]
 			);
 
 			// set pointer to last element

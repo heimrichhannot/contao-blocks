@@ -13,10 +13,10 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_block']['title'] = array('Title','Enter a descriptive title for the block.');
-$GLOBALS['TL_LANG']['tl_block']['tstamp'] = array('Revision date', 'Date and time of last modification');
-$GLOBALS['TL_LANG']['tl_block']['addWrapper'] = array('Add wrapper', 'Create a wrapper div with a unique CSS ID and any number of classes.');
-$GLOBALS['TL_LANG']['tl_block']['cssID'] = array('CSS-ID/Class', 'Here you can set an ID and one or more classes.');
+$GLOBALS['TL_LANG']['tl_block']['title'] = ['Title', 'Enter a descriptive title for the block.'];
+$GLOBALS['TL_LANG']['tl_block']['tstamp'] = ['Revision date', 'Date and time of last modification'];
+$GLOBALS['TL_LANG']['tl_block']['addWrapper'] = ['Add wrapper', 'Create a wrapper div with a unique CSS ID and any number of classes.'];
+$GLOBALS['TL_LANG']['tl_block']['cssID'] = ['CSS-ID/Class', 'Here you can set an ID and one or more classes.'];
 
 
 /**
@@ -30,12 +30,12 @@ $GLOBALS['TL_LANG']['tl_block']['expert_legend'] = 'Expert settings';
  * Buttons
  */
 
-$GLOBALS['TL_LANG']['tl_block']['new'] = array('New block','Create a new block');
-$GLOBALS['TL_LANG']['tl_block']['edit']	= array('Edit block','Edit block ID %s');
-$GLOBALS['TL_LANG']['tl_block']['copy'] = array('Duplicate block','Duplicate block ID %s');
-$GLOBALS['TL_LANG']['tl_block']['delete']= array('Delete block','Delete block ID %s');
-$GLOBALS['TL_LANG']['tl_block']['show'] = array('Show block','Show block ID %s');
-$GLOBALS['TL_LANG']['tl_block']['compose'] = array('Manage modules','Edit module blocks ID %s');
+$GLOBALS['TL_LANG']['tl_block']['new'] = ['New block', 'Create a new block'];
+$GLOBALS['TL_LANG']['tl_block']['edit']	= ['Edit block', 'Edit block ID %s'];
+$GLOBALS['TL_LANG']['tl_block']['copy'] = ['Duplicate block', 'Duplicate block ID %s'];
+$GLOBALS['TL_LANG']['tl_block']['delete']= ['Delete block', 'Delete block ID %s'];
+$GLOBALS['TL_LANG']['tl_block']['show'] = ['Show block', 'Show block ID %s'];
+$GLOBALS['TL_LANG']['tl_block']['compose'] = ['Manage modules', 'Edit module blocks ID %s'];
 
 /**
  * Misc

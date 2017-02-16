@@ -35,7 +35,7 @@ class ModuleBlock extends \Module
 			foreach($this->objBlock->row() as $key => $value)
 			{
 				// overwrite module parameter with block parameter, except the following
-				if(in_array($key, array('id', 'pid', 'tstamp', 'module', 'title'))) continue;
+				if(in_array($key, ['id', 'pid', 'tstamp', 'module', 'title'])) continue;
 
 				$this->{$key} = deserialize($value);
 			}
@@ -68,7 +68,7 @@ class ModuleBlock extends \Module
 
 		$this->objPage = $this->determineCurrentPage();
 
-		$objChilds = BlockModuleModel::findBy('pid', $this->block, array('order' => 'sorting'));
+		$objChilds = BlockModuleModel::findBy('pid', $this->block, ['order' => 'sorting']);
 
 		if($objChilds === null)
 		{
@@ -128,7 +128,7 @@ class ModuleBlock extends \Module
 		$objT->block = $strContent;
 		$arrCssID = deserialize($objBlock->featureActive ? $objBlock->feature_cssID : $objBlock->cssID, true);
 		$arrSpace = deserialize($objBlock->space);
-		$arrStyle = array();
+		$arrStyle = [];
 
 		if ($arrSpace[0] != '')
 		{
@@ -155,7 +155,7 @@ class ModuleBlock extends \Module
 	protected function isVisible(&$objChild)
 	{
 		$time = \Date::floorToMinute();
-		$currentLang = array('', $GLOBALS['TL_LANGUAGE']);
+		$currentLang = ['', $GLOBALS['TL_LANGUAGE']];
 
 		if(!in_array($objChild->language, $currentLang))
 		{
@@ -347,7 +347,7 @@ class ModuleBlock extends \Module
 		if ($objPage !== null && $objPage->count() > 1)
 		{
 			$objNewPage = null;
-			$arrPages = array();
+			$arrPages = [];
 
 			// Order by domain and language
 			while ($objPage->next())

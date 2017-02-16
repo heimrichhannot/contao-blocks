@@ -20,7 +20,7 @@ class Content extends \Backend
 
     public function getBlocks()
     {
-        $arrBlocks = array();
+        $arrBlocks = [];
         $objBlocks = \Database::getInstance()->prepare("SELECT b.title as block, bm.id, bm.title, t.name AS theme FROM tl_block_module bm LEFT JOIN tl_block b on b.id = bm.pid LEFT JOIN tl_theme t ON b.pid=t.id WHERE type=? ORDER BY b.title, bm.title")->execute('content');
 
         if($objBlocks->numRows < 1) return $arrBlocks;

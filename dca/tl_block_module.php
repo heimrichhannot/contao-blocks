@@ -12,350 +12,266 @@ $this->loadDataContainer('tl_content');
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-$GLOBALS['TL_DCA']['tl_block_module'] = array
-(
+$GLOBALS['TL_DCA']['tl_block_module'] = [
 
-	// Config
-	'config'      => array
-	(
-		'dataContainer'    => 'Table',
-		'ptable'           => 'tl_block',
-		'ctable'           => array('tl_content'),
-		'enableVersioning' => true,
-		'onload_callback'  => array(
-			array('tl_block_module', 'invokeI18nl10n'),
-		),
-		'sql'              => array
-		(
-			'keys' => array
-			(
+    // Config
+    'config'      => [
+        'dataContainer'    => 'Table',
+        'ptable'           => 'tl_block',
+        'ctable'           => ['tl_content'],
+        'enableVersioning' => true,
+        'onload_callback'  => [
+            ['tl_block_module', 'invokeI18nl10n'],
+        ],
+        'sql'              => [
+            'keys' => [
 				'id'  => 'primary',
-				'pid' => 'index',
-			),
-		),
-	),
-	'list'        => array
-	(
-		'sorting'           => array
-		(
-			'mode'                  => 4,
-			'fields'                => array('sorting'),
-			'panelLayout'           => 'filter;search,limit',
-			'headerFields'          => array('title', 'tstamp'),
-			'child_record_callback' => array('tl_block_module', 'addModuleInfo'),
-		),
-		'global_operations' => array
-		(
-			'all' => array
-			(
+				'pid' => 'index',],],],
+    'list'        => [
+        'sorting'           => [
+            'mode'                  => 4,
+            'fields'                => ['sorting'],
+            'panelLayout'           => 'filter;search,limit',
+            'headerFields'          => ['title', 'tstamp'],
+            'child_record_callback' => ['tl_block_module', 'addModuleInfo'],],
+        'global_operations' => [
+            'all' => [
 				'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
 				'href'       => 'act=select',
 				'class'      => 'header_edit_all',
-				'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
-			),
-		),
-		'operations'        => array
-		(
-			'edit'       => array
-			(
-				'label'           => &$GLOBALS['TL_LANG']['tl_block_module']['edit'],
-				'href'            => 'table=tl_content',
-				'icon'            => 'edit.gif',
-				'button_callback' => array('tl_block_module', 'editContent'),
-			),
-			'editheader' => array
-			(
+				'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',],],
+        'operations'        => [
+            'edit'       => [
+                'label'           => &$GLOBALS['TL_LANG']['tl_block_module']['edit'],
+                'href'            => 'table=tl_content',
+                'icon'            => 'edit.gif',
+                'button_callback' => ['tl_block_module', 'editContent'],],
+            'editheader' => [
 				'label' => &$GLOBALS['TL_LANG']['tl_block_module']['editheader'],
 				'href'  => 'act=edit',
-				'icon'  => 'header.gif',
-			),
-			'copy'       => array
-			(
+				'icon'  => 'header.gif',],
+            'copy'       => [
 				'label' => &$GLOBALS['TL_LANG']['tl_block_module']['copy'],
 				'href'  => 'act=copy',
-				'icon'  => 'copy.gif',
-			),
-			'cut'        => array
-			(
+				'icon'  => 'copy.gif',],
+            'cut'        => [
 				'label'      => &$GLOBALS['TL_LANG']['tl_block_module']['cut'],
 				'href'       => 'act=paste&amp;mode=cut',
 				'icon'       => 'cut.gif',
-				'attributes' => 'onclick="Backend.getScrollOffset()"',
-			),
-			'delete'     => array
-			(
+				'attributes' => 'onclick="Backend.getScrollOffset()"',],
+            'delete'     => [
 				'label'      => &$GLOBALS['TL_LANG']['tl_block_module']['delete'],
 				'href'       => 'act=delete',
 				'icon'       => 'delete.gif',
 				'attributes' => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
-								. '\')) return false; Backend.getScrollOffset();"',
-			),
-			'show'       => array
-			(
+								. '\')) return false; Backend.getScrollOffset();"',],
+            'show'       => [
 				'label' => &$GLOBALS['TL_LANG']['tl_block_module']['show'],
 				'href'  => 'act=show',
-				'icon'  => 'show.gif',
-			),
-		),
-	),
-	// Palettes
-	'palettes'    => array
-	(
-		'__selector__' => array('type', 'feature', 'addWrapper'),
-		'default'      => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
-		'article'      => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
-		'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
-	),
-	'subpalettes' => array
-	(
+				'icon'  => 'show.gif',],],],
+    // Palettes
+    'palettes'    => [
+        '__selector__' => ['type', 'feature', 'addWrapper'],
+        'default'      => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
+        'article'      => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
+        'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',],
+    'subpalettes' => [
 		'addWrapper' => 'headline,customTpl,customBlockTpl,cssID,space',
-		'feature'    => 'feature_start,feature_stop,feature_count,feature_cookie_name,feature_cookie_expire,feature_cssID',
-	),
-	'fields'      => array
-	(
-		'id'                    => array
-		(
-			'label'  => array('ID'),
-			'search' => true,
-			'sql'    => "int(10) unsigned NOT NULL auto_increment",
-		),
-		'pid'                   => array
-		(
-			'foreignKey' => 'tl_block.title',
-			'sql'        => "int(10) unsigned NOT NULL default '0'",
-			'relation'   => array('type' => 'belongsTo', 'load' => 'lazy'),
-		),
-		'sorting'               => array
-		(
+		'feature'    => 'feature_start,feature_stop,feature_count,feature_cookie_name,feature_cookie_expire,feature_cssID',],
+    'fields'      => [
+        'id'                    => [
+            'label'  => ['ID'],
+            'search' => true,
+            'sql'    => "int(10) unsigned NOT NULL auto_increment",],
+        'pid'                   => [
+            'foreignKey' => 'tl_block.title',
+            'sql'        => "int(10) unsigned NOT NULL default '0'",
+            'relation'   => ['type' => 'belongsTo', 'load' => 'lazy'],],
+        'sorting'               => [
 			'sorting' => true,
 			'flag'    => 2,
-			'sql'     => "int(10) unsigned NOT NULL default '0'",
-		),
-		'tstamp'                => array
-		(
-			'sql' => "int(10) unsigned NOT NULL default '0'",
-		),
-		'type'                  => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['type'],
-			'exclude'   => true,
-			'inputType' => 'select',
-			'options'   => array('default', 'article', 'content'),
-			'eval'      => array('mandatory' => true, 'chosen' => true, 'submitOnChange' => true),
-			'sql'       => "varchar(32) NOT NULL default 'default'",
-			'reference' => &$GLOBALS['TL_LANG']['tl_block_module']['type_reference'],
-		),
-		'title'                 => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['title'],
-			'inputType' => 'text',
-			'sorting'   => true,
-			'flag'      => 1,
-			'search'    => true,
-			'eval'      => array('mandatory' => true, 'maxlength' => 128, 'tl_class' => 'long'),
-			'sql'       => "varchar(255) NOT NULL default ''",
-		),
-		'module'                => array
-		(
-			'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['module'],
-			'exclude'          => true,
-			'inputType'        => 'select',
-			'options_callback' => array('tl_block_module', 'getModules'),
-			'eval'             => array('mandatory' => true, 'chosen' => true, 'submitOnChange' => true),
-			'wizard'           => array
-			(
-				array('tl_block_module', 'editModule'),
-			),
-			'sql'              => "int(10) unsigned NOT NULL default '0'",
-		),
-		'articleAlias'          => array
-		(
-			'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['articleAlias'],
-			'exclude'          => true,
-			'inputType'        => 'select',
-			'options_callback' => array('tl_block_module', 'getArticleAlias'),
-			'eval'             => array('mandatory' => true, 'chosen' => true, 'submitOnChange' => true),
-			'wizard'           => array
-			(
-				array('tl_content', 'editArticleAlias'),
-			),
-			'sql'              => "int(10) unsigned NOT NULL default '0'",
-		),
-		'imgSRC'                => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['imgSRC'],
-			'exclude'   => true,
-			'inputType' => 'fileTree',
-			'eval'      => array('fieldType' => 'radio', 'filesOnly' => true),
-			'sql'       => "binary(16) NULL",
-		),
-		'addVisibility'         => array(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addVisibility'],
-			'exclude'   => true,
-			'inputType' => 'radio',
-			'options'   => array('exclude', 'include'),
-			'default'   => 'exclude',
-			'reference' => &$GLOBALS['TL_LANG']['tl_block_module'],
-			'eval'      => array('submitOnChange' => true),
-			'sql'       => "varchar(32) NOT NULL default ''",
-		),
-		'pages'                 => array(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['pages'],
-			'exclude'   => true,
-			'inputType' => 'pageTree',
-			'eval'      => array('fieldType' => 'checkbox', 'multiple' => true),
-			'sql'       => "blob NULL",
-		),
-		'keywords'              => array(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['keywords'],
-			'exclude'   => true,
-			'inputType' => 'text',
-			'eval'      => array('tl_class' => 'clr'),
-			'sql'       => "varchar(255) NOT NULL default ''",
-		),
-		'addPageDepth'          => array(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addPageDepth'],
-			'exclude'   => true,
-			'inputType' => 'checkbox',
-			'default'   => true,
-			'eval'      => array('tl_class' => 'm12'),
-			'sql'       => "char(1) NOT NULL default ''",
-		),
-		'language'              => array(
-			'label'            => &$GLOBALS['TL_LANG']['MSC']['i18nl10n_fields']['language']['label'],
-			'exclude'          => true,
-			'inputType'        => 'select',
-			'default'          => '',
-			'reference'        => &$GLOBALS['TL_LANG']['LNG'],
-			'options_callback' => array('tl_block_module', 'getI18nl10nLanguages'),
-			'eval'             => array('mandatory' => false, 'rgxp' => 'alpha', 'maxlength' => 2, 'nospace' => true, 'tl_class' => 'w50 clr'),
-			'sql'              => "varchar(2) NOT NULL default ''",
-		),
-		'feature'               => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature'],
-			'exclude'   => true,
-			'inputType' => 'checkbox',
-			'eval'      => array('tl_class' => 'clr', 'submitOnChange' => true),
-			'sql'       => "char(1) NOT NULL default ''",
-		),
-		'feature_start'         => array
-		(
-			'exclude'   => true,
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_start'],
-			'inputType' => 'text',
-			'eval'      => array('rgxp' => 'datim', 'datepicker' => true, 'tl_class' => 'w50 wizard'),
-			'sql'       => "varchar(10) NOT NULL default ''",
-		),
-		'feature_stop'          => array
-		(
-			'exclude'   => true,
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_stop'],
-			'inputType' => 'text',
-			'eval'      => array('rgxp' => 'datim', 'datepicker' => true, 'tl_class' => 'w50 wizard'),
-			'sql'       => "varchar(10) NOT NULL default ''",
-		),
-		'feature_count'         => array
-		(
-			'exclude'   => true,
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_count'],
-			'inputType' => 'text',
-			'eval'      => array('rgxp' => 'digit', 'maxlength' => 5, 'tl_class' => 'w50 wizard'),
-			'sql'       => "int(10) unsigned NOT NULL default '0'",
-		),
-		'feature_cookie_name'   => array
-		(
-			'exclude'       => true,
-			'label'         => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_name'],
-			'inputType'     => 'text',
-			'save_callback' => array(
-				array('tl_block_module', 'setFeatureCookieName'),
-			),
-			'eval'          => array('tl_class' => 'w50', 'maxlenght' => 64, 'unique' => true),
-			'sql'           => "varchar(64) NOT NULL default ''",
-		),
-		'feature_cookie_expire' => array
-		(
-			'exclude'       => true,
-			'label'         => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_expire'],
-			'inputType'     => 'text',
-			'save_callback' => array(
-				array('tl_block_module', 'setFeatureCookieExpire'),
-			),
-			'eval'          => array('tl_class' => 'wizard w50'),
-			'sql'           => "varchar(10) NOT NULL default ''",
-		),
-		'feature_cssID'         => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cssID'],
-			'exclude'   => true,
-			'inputType' => 'text',
-			'eval'      => array('multiple' => true, 'size' => 2, 'tl_class' => 'w50'),
-			'sql'       => "varchar(255) NOT NULL default ''",
-		),
-		'hide'                  => array(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['hide'],
-			'exclude'   => true,
-			'inputType' => 'select',
-			'options'   => array('1' => 'dont_hide', '2' => 'hide_logged_in', '3' => 'hide_not_logged_in'),
-			'reference' => $GLOBALS['TL_LANG']['tl_block_module'],
-			'eval'      => array('tl_class' => 'm12'),
-			'sql'       => "char(1) NOT NULL default ''",
-		),
-		'addWrapper'            => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addWrapper'],
-			'exclude'   => true,
-			'inputType' => 'checkbox',
-			'eval'      => array('tl_class' => 'clr', 'submitOnChange' => true),
-			'sql'       => "char(1) NOT NULL default ''",
-		),
-		'headline'              => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['headline'],
-			'exclude'   => true,
-			'search'    => true,
-			'inputType' => 'inputUnit',
-			'options'   => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
-			'eval'      => array('maxlength' => 200),
-			'sql'       => "varchar(255) NOT NULL default ''",
-		),
-		'customTpl'             => array
-		(
-			'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['customTpl'],
-			'exclude'          => true,
-			'inputType'        => 'select',
-			'options_callback' => array('tl_block_module', 'getWrapperTemplates'),
-			'eval'             => array('includeBlankOption' => true, 'chosen' => true, 'tl_class' => 'w50'),
-			'sql'              => "varchar(64) NOT NULL default ''",
-		),
-		'customBlockTpl'        => array
-		(
-			'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['customBlockTpl'],
-			'exclude'          => true,
-			'inputType'        => 'select',
-			'options_callback' => array('tl_block_module', 'getBlockTemplates'),
-			'eval'             => array('includeBlankOption' => true, 'chosen' => true, 'tl_class' => 'w50'),
-			'sql'              => "varchar(64) NOT NULL default ''",
-		),
-		'cssID'                 => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['cssID'],
-			'exclude'   => true,
-			'inputType' => 'text',
-			'eval'      => array('multiple' => true, 'size' => 2, 'tl_class' => 'w50'),
-			'sql'       => "varchar(255) NOT NULL default ''",
-		),
-		'space'                 => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['space'],
-			'exclude'   => true,
-			'inputType' => 'text',
-			'eval'      => array('multiple' => true, 'size' => 2, 'rgxp' => 'digit', 'nospace' => true, 'tl_class' => 'w50'),
-			'sql'       => "varchar(64) NOT NULL default ''",
-		),
-	),
-);
+			'sql'     => "int(10) unsigned NOT NULL default '0'",],
+        'tstamp'                => [
+			'sql' => "int(10) unsigned NOT NULL default '0'",],
+        'type'                  => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['type'],
+            'exclude'   => true,
+            'inputType' => 'select',
+            'options'   => ['default', 'article', 'content'],
+            'eval'      => ['mandatory' => true, 'chosen' => true, 'submitOnChange' => true],
+            'sql'       => "varchar(32) NOT NULL default 'default'",
+            'reference' => &$GLOBALS['TL_LANG']['tl_block_module']['type_reference'],],
+        'title'                 => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['title'],
+            'inputType' => 'text',
+            'sorting'   => true,
+            'flag'      => 1,
+            'search'    => true,
+            'eval'      => ['mandatory' => true, 'maxlength' => 128, 'tl_class' => 'long'],
+            'sql'       => "varchar(255) NOT NULL default ''",],
+        'module'                => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['module'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => ['tl_block_module', 'getModules'],
+            'eval'             => ['mandatory' => true, 'chosen' => true, 'submitOnChange' => true],
+            'wizard'           => [
+                ['tl_block_module', 'editModule'],],
+            'sql'              => "int(10) unsigned NOT NULL default '0'",],
+        'articleAlias'          => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['articleAlias'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => ['tl_block_module', 'getArticleAlias'],
+            'eval'             => ['mandatory' => true, 'chosen' => true, 'submitOnChange' => true],
+            'wizard'           => [
+                ['tl_content', 'editArticleAlias'],],
+            'sql'              => "int(10) unsigned NOT NULL default '0'",],
+        'imgSRC'                => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['imgSRC'],
+            'exclude'   => true,
+            'inputType' => 'fileTree',
+            'eval'      => ['fieldType' => 'radio', 'filesOnly' => true],
+            'sql'       => "binary(16) NULL",],
+        'addVisibility'         => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addVisibility'],
+            'exclude'   => true,
+            'inputType' => 'radio',
+            'options'   => ['exclude', 'include'],
+            'default'   => 'exclude',
+            'reference' => &$GLOBALS['TL_LANG']['tl_block_module'],
+            'eval'      => ['submitOnChange' => true],
+            'sql'       => "varchar(32) NOT NULL default ''",
+        ],
+        'pages'                 => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['pages'],
+            'exclude'   => true,
+            'inputType' => 'pageTree',
+            'eval'      => ['fieldType' => 'checkbox', 'multiple' => true],
+            'sql'       => "blob NULL",
+        ],
+        'keywords'              => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['keywords'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => ['tl_class' => 'clr'],
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ],
+        'addPageDepth'          => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addPageDepth'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => ['tl_class' => 'm12'],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'language'              => [
+            'label'            => &$GLOBALS['TL_LANG']['MSC']['i18nl10n_fields']['language']['label'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'default'          => '',
+            'reference'        => &$GLOBALS['TL_LANG']['LNG'],
+            'options_callback' => ['tl_block_module', 'getI18nl10nLanguages'],
+            'eval'             => ['mandatory' => false, 'rgxp' => 'alpha', 'maxlength' => 2, 'nospace' => true, 'tl_class' => 'w50 clr'],
+            'sql'              => "varchar(2) NOT NULL default ''",
+        ],
+        'feature'               => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'eval'      => ['tl_class' => 'clr', 'submitOnChange' => true],
+            'sql'       => "char(1) NOT NULL default ''",],
+        'feature_start'         => [
+            'exclude'   => true,
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_start'],
+            'inputType' => 'text',
+            'eval'      => ['rgxp' => 'datim', 'datepicker' => true, 'tl_class' => 'w50 wizard'],
+            'sql'       => "varchar(10) NOT NULL default ''",],
+        'feature_stop'          => [
+            'exclude'   => true,
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_stop'],
+            'inputType' => 'text',
+            'eval'      => ['rgxp' => 'datim', 'datepicker' => true, 'tl_class' => 'w50 wizard'],
+            'sql'       => "varchar(10) NOT NULL default ''",],
+        'feature_count'         => [
+            'exclude'   => true,
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_count'],
+            'inputType' => 'text',
+            'eval'      => ['rgxp' => 'digit', 'maxlength' => 5, 'tl_class' => 'w50 wizard'],
+            'sql'       => "int(10) unsigned NOT NULL default '0'",],
+        'feature_cookie_name'   => [
+            'exclude'       => true,
+            'label'         => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_name'],
+            'inputType'     => 'text',
+            'save_callback' => [
+                ['tl_block_module', 'setFeatureCookieName'],
+            ],
+            'eval'          => ['tl_class' => 'w50', 'maxlenght' => 64, 'unique' => true],
+            'sql'           => "varchar(64) NOT NULL default ''",],
+        'feature_cookie_expire' => [
+            'exclude'       => true,
+            'label'         => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_expire'],
+            'inputType'     => 'text',
+            'save_callback' => [
+                ['tl_block_module', 'setFeatureCookieExpire'],
+            ],
+            'eval'          => ['tl_class' => 'wizard w50'],
+            'sql'           => "varchar(10) NOT NULL default ''",],
+        'feature_cssID'         => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cssID'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => ['multiple' => true, 'size' => 2, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",],
+        'hide'                  => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['hide'],
+            'exclude'   => true,
+            'inputType' => 'select',
+            'options'   => ['1' => 'dont_hide', '2' => 'hide_logged_in', '3' => 'hide_not_logged_in'],
+            'reference' => $GLOBALS['TL_LANG']['tl_block_module'],
+            'eval'      => ['tl_class' => 'm12'],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'addWrapper'            => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addWrapper'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'eval'      => ['tl_class' => 'clr', 'submitOnChange' => true],
+            'sql'       => "char(1) NOT NULL default ''",],
+        'headline'              => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['headline'],
+            'exclude'   => true,
+            'search'    => true,
+            'inputType' => 'inputUnit',
+            'options'   => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+            'eval'      => ['maxlength' => 200],
+            'sql'       => "varchar(255) NOT NULL default ''",],
+        'customTpl'             => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['customTpl'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => ['tl_block_module', 'getWrapperTemplates'],
+            'eval'             => ['includeBlankOption' => true, 'chosen' => true, 'tl_class' => 'w50'],
+            'sql'              => "varchar(64) NOT NULL default ''",],
+        'customBlockTpl'        => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['customBlockTpl'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => ['tl_block_module', 'getBlockTemplates'],
+            'eval'             => ['includeBlankOption' => true, 'chosen' => true, 'tl_class' => 'w50'],
+            'sql'              => "varchar(64) NOT NULL default ''",],
+        'cssID'                 => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['cssID'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => ['multiple' => true, 'size' => 2, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",],
+        'space'                 => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['space'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => ['multiple' => true, 'size' => 2, 'rgxp' => 'digit', 'nospace' => true, 'tl_class' => 'w50'],
+            'sql'       => "varchar(64) NOT NULL default ''",],],];
 
 class tl_block_module extends Backend
 {
@@ -412,7 +328,7 @@ class tl_block_module extends Backend
 
 	public function getI18nl10nLanguages()
 	{
-		$arrLanguages = array();
+		$arrLanguages = [];
 		if (in_array('i18nl10n', $this->Config->getActiveModules())) {
 			$arrLanguages = deserialize($GLOBALS['TL_CONFIG']['i18nl10n_languages']);
 			array_unshift($arrLanguages, '');
@@ -428,7 +344,7 @@ class tl_block_module extends Backend
 	 */
 	public function getModules()
 	{
-		$arrModules = array();
+		$arrModules = [];
 		$objModules = $this->Database->execute(
 			"SELECT m.id, m.name, t.name AS theme FROM tl_module m LEFT JOIN tl_theme t ON m.pid=t.id WHERE type != 'block' ORDER BY t.name, m.name"
 		);
@@ -449,8 +365,8 @@ class tl_block_module extends Backend
 	 */
 	public function getArticleAlias(DataContainer $dc)
 	{
-		$arrPids  = array();
-		$arrAlias = array();
+		$arrPids  = [];
+		$arrAlias = [];
 
 		if (!$this->User->isAdmin) {
 			foreach ($this->User->pagemounts as $id) {
@@ -544,12 +460,12 @@ class tl_block_module extends Backend
 
 	public function getTypes(DataContainer $dc)
 	{
-		$options = array('default', 'section');
+		$options = ['default', 'section'];
 
 		$objBlock = HeimrichHannot\Blocks\BlockModel::findByPk($dc->activeRecord->pid);
 
 		if ($objBlock->carousel) {
-			return array('article');
+			return ['article'];
 		}
 
 		return $options;

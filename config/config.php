@@ -27,10 +27,10 @@ $GLOBALS['TL_MODELS']['tl_block_module'] = 'HeimrichHannot\Blocks\BlockModuleMod
 /**
  * Front end modules
  */
-array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
-(
-	'block' => 'HeimrichHannot\Blocks\ModuleBlock'
-));
+array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0,
+             [
+	'block' => 'HeimrichHannot\Blocks\ModuleBlock']
+);
 
 /**
  * Content elements
@@ -43,18 +43,15 @@ $GLOBALS['TL_CTE']['includes']['block'] = '\HeimrichHannot\Blocks\ContentBlock';
 
 $GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge
 (
-	array
-	(
-		'blocks' => array
-		(
+    [
+        'blocks' => [
 			'href_fragment' => 'table=tl_block',
-			'icon'          => 'system/modules/blocks/assets/icon.png',
-		),
-	),
-	is_array($GLOBALS['TL_EASY_THEMES_MODULES']) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : array()
+			'icon'          => 'system/modules/blocks/assets/icon.png',],
+    ],
+    is_array($GLOBALS['TL_EASY_THEMES_MODULES']) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : []
 );
 
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['generateBreadcrumb'][] = array('HeimrichHannot\Blocks\Hooks', 'generateBreadcrumbHook');
+$GLOBALS['TL_HOOKS']['generateBreadcrumb'][] = ['HeimrichHannot\Blocks\Hooks', 'generateBreadcrumbHook'];

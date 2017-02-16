@@ -10,151 +10,101 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-$GLOBALS['TL_DCA']['tl_block'] = array
-(
+$GLOBALS['TL_DCA']['tl_block'] = [
 
-	// Config
-	'config'      => array
-	(
-		'dataContainer'     => 'Table',
-		'ptable'            => 'tl_theme',
-		'ctable'            => array('tl_block_module'),
-		'enableVersioning'  => true,
-		'onsubmit_callback' => array(
-			array('tl_block', 'updateFEModule'),
-		),
-		'oncopy_callback'   => array(
-			array('tl_block', 'copyBlock'),
-		),
-		'ondelete_callback' => array(
-			array('tl_block', 'deleteFEModule'),
-		),
-		'sql'               => array
-		(
-			'keys' => array
-			(
-				'id' => 'primary',
-			),
-		),
-	),
-	'list'        => array
-	(
-		'sorting'           => array
-		(
-			'mode'        => 2,
-			'fields'      => array('title'),
-			'flag'        => 1,
-			'panelLayout' => 'sort,search,limit',
-		),
-		'label'             => array
-		(
-			'fields' => array('title'),
-			'format' => '%s',
-		),
-		'global_operations' => array
-		(
-			'all' => array
-			(
+    // Config
+    'config'      => [
+        'dataContainer'     => 'Table',
+        'ptable'            => 'tl_theme',
+        'ctable'            => ['tl_block_module'],
+        'enableVersioning'  => true,
+        'onsubmit_callback' => [
+            ['tl_block', 'updateFEModule'],
+        ],
+        'oncopy_callback'   => [
+            ['tl_block', 'copyBlock'],
+        ],
+        'ondelete_callback' => [
+            ['tl_block', 'deleteFEModule'],
+        ],
+        'sql'               => [
+            'keys' => [
+				'id' => 'primary',],],],
+    'list'        => [
+        'sorting'           => [
+            'mode'        => 2,
+            'fields'      => ['title'],
+            'flag'        => 1,
+            'panelLayout' => 'sort,search,limit',],
+        'label'             => [
+            'fields' => ['title'],
+            'format' => '%s',],
+        'global_operations' => [
+            'all' => [
 				'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
 				'href'       => 'act=select',
 				'class'      => 'header_edit_all',
-				'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
-			),
-		),
-		'operations'        => array
-		(
-			'edit'       => array
-			(
+				'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',],],
+        'operations'        => [
+            'edit'       => [
 				'label' => &$GLOBALS['TL_LANG']['tl_block']['edit'],
 				'href'  => 'table=tl_block_module',
-				'icon'  => 'edit.gif',
-			),
-			'editHeader' => array
-			(
+				'icon'  => 'edit.gif',],
+            'editHeader' => [
 				'label' => &$GLOBALS['TL_LANG']['tl_block']['editHeader'],
 				'href'  => 'act=edit',
-				'icon'  => 'header.gif',
-			),
-			'copy'       => array
-			(
+				'icon'  => 'header.gif',],
+            'copy'       => [
 				'label' => &$GLOBALS['TL_LANG']['tl_block']['copy'],
 				'href'  => 'act=copy',
-				'icon'  => 'copy.gif',
-			),
-			'delete'     => array
-			(
+				'icon'  => 'copy.gif',],
+            'delete'     => [
 				'label'      => &$GLOBALS['TL_LANG']['tl_block']['delete'],
 				'href'       => 'act=delete',
 				'icon'       => 'delete.gif',
 				'attributes' => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
-								. '\')) return false; Backend.getScrollOffset();"',
-			),
-			'show'       => array
-			(
+								. '\')) return false; Backend.getScrollOffset();"',],
+            'show'       => [
 				'label' => &$GLOBALS['TL_LANG']['tl_block']['show'],
 				'href'  => 'act=show',
-				'icon'  => 'show.gif',
-			),
-		),
-	),
-	// Palettes
-	'palettes'    => array
-	(
-		'__selector__' => array('addWrapper'),
-		'default'      => '{title_legend},title;{expert_legend:hide},addWrapper',
-	),
-	'subpalettes' => array
-	(
-		'addWrapper' => 'cssID',
-	),
-	'fields'      => array
-	(
-		'id'           => array
-		(
-			'sql' => "int(10) unsigned NOT NULL auto_increment",
-		),
-		'pid'          => array
-		(
-			'foreignKey' => 'tl_theme.name',
-			'sql'        => "int(10) unsigned NOT NULL default '0'",
-			'relation'   => array('type' => 'belongsTo', 'load' => 'eager'),
-		),
-		'tstamp'       => array
-		(
-			'sql' => "int(10) unsigned NOT NULL default '0'",
-		),
-		'module'       => array
-		(
-			'sql' => "int(10) unsigned NOT NULL default '0'",
-		),
-		'title'        => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block']['title'],
-			'inputType' => 'text',
-			'sorting'   => true,
-			'flag'      => 1,
-			'search'    => true,
-			'eval'      => array('mandatory' => true, 'maxlength' => 128, 'tl_class' => 'w50'),
-			'sql'       => "varchar(255) NOT NULL default ''",
-		),
-		'addWrapper'   => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block']['addWrapper'],
-			'exclude'   => true,
-			'inputType' => 'checkbox',
-			'eval'      => array('tl_class' => 'clr', 'submitOnChange' => true),
-			'sql'       => "char(1) NOT NULL default ''",
-		),
-		'cssID'        => array
-		(
-			'label'     => &$GLOBALS['TL_LANG']['tl_block']['cssID'],
-			'exclude'   => true,
-			'inputType' => 'text',
-			'eval'      => array('multiple' => true, 'size' => 2, 'tl_class' => 'w50'),
-			'sql'       => "varchar(255) NOT NULL default ''",
-		),
-	),
-);
+				'icon'  => 'show.gif',],],],
+    // Palettes
+    'palettes'    => [
+        '__selector__' => ['addWrapper'],
+        'default'      => '{title_legend},title;{expert_legend:hide},addWrapper',],
+    'subpalettes' => [
+		'addWrapper' => 'cssID',],
+    'fields'      => [
+        'id'           => [
+			'sql' => "int(10) unsigned NOT NULL auto_increment",],
+        'pid'          => [
+            'foreignKey' => 'tl_theme.name',
+            'sql'        => "int(10) unsigned NOT NULL default '0'",
+            'relation'   => ['type' => 'belongsTo', 'load' => 'eager'],],
+        'tstamp'       => [
+			'sql' => "int(10) unsigned NOT NULL default '0'",],
+        'module'       => [
+			'sql' => "int(10) unsigned NOT NULL default '0'",],
+        'title'        => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block']['title'],
+            'inputType' => 'text',
+            'sorting'   => true,
+            'flag'      => 1,
+            'search'    => true,
+            'eval'      => ['mandatory' => true, 'maxlength' => 128, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",],
+        'addWrapper'   => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block']['addWrapper'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'eval'      => ['tl_class' => 'clr', 'submitOnChange' => true],
+            'sql'       => "char(1) NOT NULL default ''",],
+        'cssID'        => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block']['cssID'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => ['multiple' => true, 'size' => 2, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",],],];
 
 class tl_block extends \Backend
 {

@@ -10,4 +10,4 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-$GLOBALS['TL_LANG']['tl_theme']['blocks'] = array('Block', 'Edit the blocks of theme %s');
+$GLOBALS['TL_LANG']['tl_theme']['blocks'] = ['Block', 'Edit the blocks of theme %s'];

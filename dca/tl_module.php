@@ -14,44 +14,42 @@ $dc = &$GLOBALS['TL_DCA']['tl_module'];
 
 $dc['palettes']['block'] = '{title_legend},headline,type;{block_legend},block';
 
-$dc['fields']['block'] = array(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['block'],
-	'exclude'                 => true,
-	'inputType'               => 'select',
-	'options_callback'        => array('tl_module_block', 'getBlocks'),
-	'eval'                    => array('tl_class'=>'w50', 'mandatory' => true, 'readonly' => true),
-	'sql'											=> "int(10) unsigned NOT NULL default '0'"
-);
+$dc['fields']['block'] = [
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['block'],
+    'exclude'                 => true,
+    'inputType'               => 'select',
+    'options_callback'        => ['tl_module_block', 'getBlocks'],
+    'eval'                    => ['tl_class' =>'w50', 'mandatory' => true, 'readonly' => true],
+    'sql'											=> "int(10) unsigned NOT NULL default '0'"
+];
 
-$dc['fields']['type']['save_callback'] = array(array('tl_module_block', 'disableBlockModule'));
+$dc['fields']['type']['save_callback'] = [['tl_module_block', 'disableBlockModule']];
 
 foreach($dc['list']['operations'] as $key => $button)
 {
-	if(in_array($key, array('edit', 'copy', 'cut', 'delete')))
+	if(in_array($key, ['edit', 'copy', 'cut', 'delete']))
 	{
-		$dc['list']['operations'][$key]['button_callback'] = array('tl_module_block', 'editBlockButtons');
+		$dc['list']['operations'][$key]['button_callback'] = ['tl_module_block', 'editBlockButtons'];
 	}
 }
 
 
-$dc['config']['onload_callback'][]= array('tl_module_block', 'checkBlockPermission');
-$dc['config']['onload_callback'][]= array('tl_module_block', 'cleanup');
+$dc['config']['onload_callback'][]= ['tl_module_block', 'checkBlockPermission'];
+$dc['config']['onload_callback'][]= ['tl_module_block', 'cleanup'];
 
-$dc['list']['sorting']['child_record_callback'] = array('tl_module_block', 'listModule');
+$dc['list']['sorting']['child_record_callback'] = ['tl_module_block', 'listModule'];
 
 /**
  * Breadcrumb tweaks for auto_item
  */
 $dc['palettes']['breadcrumb'] = str_replace('showHidden;', 'showHidden;{block_legend},hideAutoItem;', $dc['palettes']['breadcrumb']);
 
-$dc['fields']['hideAutoItem'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['hideAutoItem'],
-	'exclude'                 => true,
-	'inputType'               => 'checkbox',
-	'eval'                    => array('tl_class'=>'w50'),
-	'sql'                     => "char(1) NOT NULL default ''"
-);
+$dc['fields']['hideAutoItem'] = [
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['hideAutoItem'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+    'eval'                    => ['tl_class' =>'w50'],
+    'sql'                     => "char(1) NOT NULL default ''"];
 
 class tl_module_block extends \tl_module
 {
@@ -83,7 +81,7 @@ class tl_module_block extends \tl_module
 		if($this->Input->get('act'))
 		{
 			// single actions
-			if(in_array($this->Input->get('act'), array('edit', 'copy', 'cut', 'delete')))
+			if(in_array($this->Input->get('act'), ['edit', 'copy', 'cut', 'delete']))
 			{
 
 				$objModule = $this->Database->prepare("SELECT block FROM tl_module WHERE id = ? and type='block'")->execute($this->Input->get('id'));
@@ -95,7 +93,7 @@ class tl_module_block extends \tl_module
 			}
 
 			// batch actions
-			if(in_array($this->Input->get('act'), array('editAll', 'copyAll', 'deleteAll', 'cutAll', 'showAll')))
+			if(in_array($this->Input->get('act'), ['editAll', 'copyAll', 'deleteAll', 'cutAll', 'showAll']))
 			{
 				$session = $this->Session->getData();
 
@@ -121,7 +119,7 @@ class tl_module_block extends \tl_module
 
 	public function getBlocks(DataContainer $dc)
 	{
-		$blocks = array();
+		$blocks = [];
 
 		$objBlocks = $this->Database->prepare('SELECT id, title FROM tl_block WHERE pid = ?')->execute($dc->activeRecord->pid);
 

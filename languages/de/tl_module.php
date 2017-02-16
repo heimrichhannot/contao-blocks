@@ -14,8 +14,8 @@
  * Fields
  */
 
-$GLOBALS['TL_LANG']['tl_module']['block'] = array('Block', 'Kann nicht geändert werden. Wird durch Blöcke verwaltet.');
-$GLOBALS['TL_LANG']['tl_module']['hideAutoItem'] = array('auto_item verstecken', 'Die Seite mit dem auto_item in der Navigation anzeigen sobald Liste und Details auf selbiger Seite angezeigt werden, jedoch das auto_item selbst nicht anzeigen (Nachrichtenüberschrift, Eventtitel).');
+$GLOBALS['TL_LANG']['tl_module']['block'] = ['Block', 'Kann nicht geändert werden. Wird durch Blöcke verwaltet.'];
+$GLOBALS['TL_LANG']['tl_module']['hideAutoItem'] = ['auto_item verstecken', 'Die Seite mit dem auto_item in der Navigation anzeigen sobald Liste und Details auf selbiger Seite angezeigt werden, jedoch das auto_item selbst nicht anzeigen (Nachrichtenüberschrift, Eventtitel).'];
 /**
  * Legends
  */

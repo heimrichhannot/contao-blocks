@@ -23,26 +23,53 @@ namespace HeimrichHannot\Blocks;
 class BlockModuleModel extends \Model
 {
 
-	protected static $strTable = 'tl_block_module';
+    protected static $strTable = 'tl_block_module';
 
-	public static function findByType($strType, array $arrOptions=array())
-	{
-		if (empty($strType))
-		{
-			return null;
-		}
+    public static function findByType($strType, array $arrOptions = [])
+    {
+        if (empty($strType))
+        {
+            return null;
+        }
 
-		$t = static::$strTable;
-		$arrColumns = array("$t.type = ?");
+        $t          = static::$strTable;
+        $arrColumns = ["$t.type = ?"];
 
-		if (!isset($arrOptions['order']))
-		{
-			$arrOptions['order']  = "$t.title DESC";
-		}
+        if (!isset($arrOptions['order']))
+        {
+            $arrOptions['order'] = "$t.title DESC";
+        }
 
-		$arrValues = array($strType);
+        $arrValues = [$strType];
 
-		return static::findBy($arrColumns, $arrValues, $arrOptions);
+        return static::findBy($arrColumns, $arrValues, $arrOptions);
 
-	}
+    }
+
+    public static function generateContent($intBlockModule)
+    {
+        if (($objBlock = BlockModuleModel::findByPk($intBlockModule)) === null)
+        {
+            return '';
+        }
+
+        $arrContent = [];
+
+        if (($objElement = \ContentModel::findPublishedByPidAndTable($intBlockModule, 'tl_block_module')) !== null)
+        {
+            while ($objElement->next())
+            {
+                $arrContent[] = \Controller::getContentElement($objElement->current());
+            }
+        }
+
+        $strReturn = implode('', $arrContent);
+
+        if ($objBlock->addWrapper)
+        {
+            $strReturn = ModuleBlock::createBlockWrapper($objBlock, $strReturn);
+        }
+
+        return $strReturn;
+    }
 }
