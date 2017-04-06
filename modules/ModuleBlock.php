@@ -281,30 +281,44 @@ class ModuleBlock extends \Module
 
 	protected function renderModule($objChild)
 	{
-		$objModule = \ModuleModel::findByPK($objChild->module);
+		$objModel = \ModuleModel::findByPK($objChild->module);
 
-		if($objModule === null) return '';
+		if($objModel === null) return '';
 
-		if(!\Controller::isVisibleElement($objModule)) return '';
+		if(!\Controller::isVisibleElement($objModel)) return '';
 		
-		$strClass = \Module::findClass($objModule->type);
+		$strClass = \Module::findClass($objModel->type);
 
 		if (!class_exists($strClass))
 		{
-			$this->log('Module class "'.$GLOBALS['FE_MOD'][$objModule->type].'" (module "'.$objModule->type.'") does not exist', 'ModuleBlock renderModule()', TL_ERROR);
+			$this->log('Module class "'.$GLOBALS['FE_MOD'][$objModel->type].'" (module "'.$objModel->type.'") does not exist', 'ModuleBlock renderModule()', TL_ERROR);
 			return '';
 		}
 
-		$objModule->typePrefix = 'mod_';
+        $objChild->typePrefix = 'mod_';
 
 		if(!$objChild->addWrapper)
 		{
-			$objModule = $this->overrideCommonProps($objModule, $objChild);
+            $objModel = $this->overrideCommonProps($objModel, $objChild);
 		}
 
-		$objModule = new $strClass($objModule);
+        /**
+         * @var \Module $objModule
+         */
+		$objModule = new $strClass($objModel);
 
-		return $objModule->generate();
+		$strBuffer = $objModule->generate();
+
+        // HOOK: add custom logic
+        if (isset($GLOBALS['TL_HOOKS']['getFrontendModule']) && is_array($GLOBALS['TL_HOOKS']['getFrontendModule']))
+        {
+            foreach ($GLOBALS['TL_HOOKS']['getFrontendModule'] as $callback)
+            {
+                $strBuffer = static::importStatic($callback[0])->{$callback[1]}($objModel, $strBuffer, $objModule);
+            }
+        }
+
+        return $strBuffer;
 	}
 
 	protected function overrideCommonProps($objItem, $objChild)
