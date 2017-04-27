@@ -20,10 +20,10 @@ $arrFields = [
         'options_callback' => ['HeimrichHannot\Blocks\Backend\Content', 'getBlocks'],
         'eval'             => ['mandatory' => true, 'chosen' => true, 'submitOnChange' => true],
         'wizard'           => [
-            ['HeimrichHannot\Blocks\Backend\Content', 'editBlock']
+            ['HeimrichHannot\Blocks\Backend\Content', 'editBlock'],
         ],
-        'sql'              => "int(10) unsigned NOT NULL default '0'"
-    ]
+        'sql'              => "int(10) unsigned NOT NULL default '0'",
+    ],
 ];
 
 $arrDca['fields'] = array_merge($arrDca['fields'], $arrFields);
@@ -39,5 +39,5 @@ if (\Input::get('do') == 'themes')
 }
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['module']['wizard'] = [
-    ['HeimrichHannot\Blocks\Backend\Content', 'editModule']
+    ['HeimrichHannot\Blocks\Backend\Content', 'editModule'],
 ];
