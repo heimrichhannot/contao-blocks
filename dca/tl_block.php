@@ -124,8 +124,8 @@ $GLOBALS['TL_DCA']['tl_block'] = [
             'label'     => &$GLOBALS['TL_LANG']['tl_block']['cssID'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => ['multiple' => true, 'maxlength' => 64, 'size' => 2, 'tl_class' => 'w50'],
-            'sql'       => "varchar(64) NOT NULL default ''",
+            'eval'      => ['multiple' => true, 'maxlength' => 255, 'size' => 2, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",
         ],
     ],
 ];

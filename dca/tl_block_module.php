@@ -253,8 +253,8 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cssID'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => ['multiple' => true, 'maxlength' => 32, 'size' => 2, 'tl_class' => 'w50'],
-            'sql'       => "varchar(32) NOT NULL default ''",
+            'eval'      => ['multiple' => true, 'maxlength' => 255, 'size' => 2, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'hide'                  => [
             'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['hide'],
@@ -301,8 +301,8 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['cssID'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => ['multiple' => true, 'maxlength' => 32, 'size' => 2, 'tl_class' => 'w50'],
-            'sql'       => "varchar(32) NOT NULL default ''",
+            'eval'      => ['multiple' => true, 'maxlength' => 255, 'size' => 2, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'space'                 => [
             'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['space'],

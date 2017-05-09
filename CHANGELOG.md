@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.31] - 2017-05-09
+
+### Fixed
+- too small cssID size
+
 ## [1.0.30] - 2017-04-27
 
 ### Changed
