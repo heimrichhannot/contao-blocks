@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.0.32] - 2017-07-03
+
+### Fixed
+- when tl_block addWrapper is active, css id and css class were not generated
+
 ## [1.0.31] - 2017-05-09
 
 ### Fixed
