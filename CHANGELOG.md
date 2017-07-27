@@ -1,5 +1,10 @@
-# Change Log
+# Changelog
 All notable changes to this project will be documented in this file.
+
+## [1.0.33] - 2017-07-27
+
+### Fixed
+- enhanced readability of module list
 
 ## [1.0.32] - 2017-07-03
 

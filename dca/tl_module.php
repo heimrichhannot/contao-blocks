@@ -213,6 +213,8 @@ class tl_module_block extends \tl_module
                    . "</div>\n";
         }
 
-        return parent::listModule($row);
+        $intMarginLeft = version_compare(VERSION, '4.0', '<') ? 19 : 20;
+
+        return '<div style="margin-left: ' . $intMarginLeft . 'px; float:left">'. $row['name'] .' <span style="color:#b3b3b3;padding-left:3px">['. (isset($GLOBALS['TL_LANG']['FMD'][$row['type']][0]) ? $GLOBALS['TL_LANG']['FMD'][$row['type']][0] : $row['type']) .']</span>' . "</div>\n";
     }
 }
