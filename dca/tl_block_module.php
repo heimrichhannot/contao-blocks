@@ -328,8 +328,7 @@ class tl_block_module extends Backend
 
     public function setFeatureCookieName($varValue, DataContainer $dc)
     {
-        if ($varValue == '')
-        {
+        if ($varValue == '') {
             $varValue = 'block_feature_' . $dc->id;
         }
 
@@ -338,8 +337,7 @@ class tl_block_module extends Backend
 
     public function setFeatureCookieExpire($varValue, DataContainer $dc)
     {
-        if ($varValue == '')
-        {
+        if ($varValue == '') {
             $varValue = (43200 * 60); // 30 Tage
         }
 
@@ -362,8 +360,7 @@ class tl_block_module extends Backend
 
     public function invokeI18nl10n(DataContainer $dc)
     {
-        if (in_array('i18nl10n', $this->Config->getActiveModules()))
-        {
+        if (in_array('i18nl10n', $this->Config->getActiveModules())) {
             $this->loadLanguageFile('languages');
             $GLOBALS['TL_DCA']['tl_block_module']['palettes']['default'] =
                 str_replace('keywords', 'keywords, language', $GLOBALS['TL_DCA']['tl_block_module']['palettes']['default']);
@@ -373,9 +370,8 @@ class tl_block_module extends Backend
     public function getI18nl10nLanguages()
     {
         $arrLanguages = [];
-        if (in_array('i18nl10n', $this->Config->getActiveModules()))
-        {
-            $arrLanguages = deserialize($GLOBALS['TL_CONFIG']['i18nl10n_languages']);
+        if (in_array('i18nl10n', $this->Config->getActiveModules())) {
+            $arrLanguages = version_compare(VERSION, '4.0', '<') ? deserialize($GLOBALS['TL_CONFIG']['i18nl10n_languages'], true) : \StringUtil::deserialize($GLOBALS['TL_CONFIG']['i18nl10n_languages'], true);;
             array_unshift($arrLanguages, '');
         }
 
@@ -394,8 +390,7 @@ class tl_block_module extends Backend
             "SELECT m.id, m.name, t.name AS theme FROM tl_module m LEFT JOIN tl_theme t ON m.pid=t.id WHERE type != 'block' ORDER BY t.name, m.name"
         );
 
-        while ($objModules->next())
-        {
+        while ($objModules->next()) {
             $arrModules[$objModules->theme][$objModules->id] = $objModules->name . ' (ID ' . $objModules->id . ')';
         }
 
@@ -414,16 +409,13 @@ class tl_block_module extends Backend
         $arrPids  = [];
         $arrAlias = [];
 
-        if (!$this->User->isAdmin)
-        {
-            foreach ($this->User->pagemounts as $id)
-            {
+        if (!$this->User->isAdmin) {
+            foreach ($this->User->pagemounts as $id) {
                 $arrPids[] = $id;
                 $arrPids   = array_merge($arrPids, $this->Database->getChildRecords($id, 'tl_page'));
             }
 
-            if (empty($arrPids))
-            {
+            if (empty($arrPids)) {
                 return $arrAlias;
             }
 
@@ -438,20 +430,16 @@ class tl_block_module extends Backend
                     )
                 ) . ") ORDER BY parent, a.sorting"
             )->execute($dc->id);
-        }
-        else
-        {
+        } else {
             $objAlias = $this->Database->prepare(
                 "SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid ORDER BY parent, a.sorting"
             )->execute($dc->id);
         }
 
-        if ($objAlias->numRows)
-        {
+        if ($objAlias->numRows) {
             System::loadLanguageFile('tl_article');
 
-            while ($objAlias->next())
-            {
+            while ($objAlias->next()) {
                 $key                           = $objAlias->parent . ' (ID ' . $objAlias->pid . ')';
                 $arrAlias[$key][$objAlias->id] =
                     $objAlias->title . ' (' . ($GLOBALS['TL_LANG']['tl_article'][$objAlias->inColumn] ?: $objAlias->inColumn) . ', ID ' . $objAlias->id . ')';
@@ -472,33 +460,28 @@ class tl_block_module extends Backend
     {
         $output = $arrRow['id'];
 
-        if ($arrRow['type'] == 'section')
-        {
+        if ($arrRow['type'] == 'section') {
             $output = '<div style="float:left">';
             $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/layout.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
             $output .= $arrRow['section'] . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['section'][0]
-                       . ']</span>' . "</div>\n";
+                . ']</span>' . "</div>\n";
 
             return $output;
-        }
-        elseif ($arrRow['type'] == 'article')
-        {
+        } elseif ($arrRow['type'] == 'article') {
             $objArticle = \ArticleModel::findByPk($arrRow['articleAlias']);
 
             $output = '<div style="float:left">';
             $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/article.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
             $output .= $objArticle->title . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['articleAlias'][0]
-                       . ']</span>' . "</div>\n";
+                . ']</span>' . "</div>\n";
 
             return $output;
-        }
-        elseif ($arrRow['type'] == 'content')
-        {
+        } elseif ($arrRow['type'] == 'content') {
             $output = '<div style="float:left">';
             $output .= '<img alt="" src="system/themes/' . $this->getTheme()
-                       . '/images/published.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+                . '/images/published.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
             $output .= $arrRow['title'] . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['contentElements']
-                       . ']</span>' . "</div>\n";
+                . ']</span>' . "</div>\n";
 
             return $output;
         }
@@ -506,13 +489,12 @@ class tl_block_module extends Backend
 
         $objModule = $this->Database->prepare('SELECT name,type FROM tl_module WHERE id = ?')->execute($arrRow['module']);
 
-        if ($objModule->numRows)
-        {
+        if ($objModule->numRows) {
             $output = '<div style="float:left">';
             $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/modules.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
             $output .= $objModule->name . ' <span style="color:#b3b3b3;padding-left:3px">['
-                       . (isset($GLOBALS['TL_LANG']['FMD'][$objModule->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$objModule->type][0] : $objModule->type)
-                       . '] - ID:' . $arrRow['module'] . '</span>' . "</div>\n";
+                . (isset($GLOBALS['TL_LANG']['FMD'][$objModule->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$objModule->type][0] : $objModule->type)
+                . '] - ID:' . $arrRow['module'] . '</span>' . "</div>\n";
         }
 
         return $output;
@@ -524,8 +506,7 @@ class tl_block_module extends Backend
 
         $objBlock = HeimrichHannot\Blocks\BlockModel::findByPk($dc->activeRecord->pid);
 
-        if ($objBlock->carousel)
-        {
+        if ($objBlock->carousel) {
             return ['article'];
         }
 
@@ -541,15 +522,14 @@ class tl_block_module extends Backend
 
     public function editContent($row, $href, $label, $title, $icon, $attributes)
     {
-        if ($row['type'] != 'content')
-        {
+        if ($row['type'] != 'content') {
             return '';
         }
 
         return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . specialchars($title) . '"' . $attributes . '>' . Image::getHtml(
-            $icon,
-            $label
-        ) . '</a> ';
+                $icon,
+                $label
+            ) . '</a> ';
     }
 
     /**

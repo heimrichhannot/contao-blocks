@@ -21,15 +21,16 @@ $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_content';
 /**
  * Models
  */
-$GLOBALS['TL_MODELS']['tl_block'] = 'HeimrichHannot\Blocks\BlockModel';
+$GLOBALS['TL_MODELS']['tl_block']        = 'HeimrichHannot\Blocks\BlockModel';
 $GLOBALS['TL_MODELS']['tl_block_module'] = 'HeimrichHannot\Blocks\BlockModuleModel';
 
 /**
  * Front end modules
  */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0,
-             [
-	'block' => 'HeimrichHannot\Blocks\ModuleBlock']
+    [
+        'block' => 'HeimrichHannot\Blocks\ModuleBlock'
+    ]
 );
 
 /**
@@ -45,8 +46,9 @@ $GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge
 (
     [
         'blocks' => [
-			'href_fragment' => 'table=tl_block',
-			'icon'          => 'system/modules/blocks/assets/icon.png',],
+            'href_fragment' => 'table=tl_block',
+            'icon'          => 'system/modules/blocks/assets/icon.png',
+        ],
     ],
     is_array($GLOBALS['TL_EASY_THEMES_MODULES']) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : []
 );

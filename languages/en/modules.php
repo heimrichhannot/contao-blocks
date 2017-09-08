@@ -18,4 +18,4 @@ $GLOBALS['TL_LANG']['MOD']['blocks'] = 'Blocks';
 /**
  * Front end modules
  */
-$GLOBALS['TL_LANG']['FMD']['block']	= ['Block', 'A block is a collection of front-end modules.'];
+$GLOBALS['TL_LANG']['FMD']['block'] = ['Block', 'A block is a collection of front-end modules.'];

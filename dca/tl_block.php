@@ -138,13 +138,25 @@ class tl_block extends \Backend
         $this->import('BackendUser', 'User');
     }
 
+    public function copyBlock($insertID, DataContainer $dc)
+    {
+        $objBlock         = \HeimrichHannot\Blocks\BlockModel::findByPk($insertID);
+        $objBlock->module = 0;
+
+        if ($objBlock === null) {
+            return;
+        }
+
+        $this->createBlockModule($objBlock);
+
+    }
+
     public function createBlockModule($objBlock)
     {
         $strTitle = $objBlock->title;
 
         // create new module, if non existing yet
-        if (($objModule = \ModuleModel::findByPk($objBlock->module)) === null)
-        {
+        if (($objModule = \ModuleModel::findByPk($objBlock->module)) === null) {
             $objModule        = new \ModuleModel();
             $objModule->pid   = $objBlock->pid;
             $objModule->type  = 'block';
@@ -162,20 +174,6 @@ class tl_block extends \Backend
         $objBlock->save();
     }
 
-    public function copyBlock($insertID, DataContainer $dc)
-    {
-        $objBlock         = \HeimrichHannot\Blocks\BlockModel::findByPk($insertID);
-        $objBlock->module = 0;
-
-        if ($objBlock === null)
-        {
-            return;
-        }
-
-        $this->createBlockModule($objBlock);
-
-    }
-
     public function updateFEModule(DataContainer $dc)
     {
         $objBlock = new \HeimrichHannot\Blocks\BlockModel();
@@ -185,8 +183,7 @@ class tl_block extends \Backend
 
     public function deleteFEModule(DataContainer $dc)
     {
-        if (($objModule = \ModuleModel::findByPk($dc->activeRecord->module)) !== null)
-        {
+        if (($objModule = \ModuleModel::findByPk($dc->activeRecord->module)) !== null) {
             $objModule->delete();
         }
     }

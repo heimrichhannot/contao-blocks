@@ -14,7 +14,8 @@
  */
 ClassLoader::addNamespaces(
     [
-	'HeimrichHannot',]
+        'HeimrichHannot',
+    ]
 );
 
 
@@ -23,19 +24,20 @@ ClassLoader::addNamespaces(
  */
 ClassLoader::addClasses(
     [
-	// Modules
-	'HeimrichHannot\Blocks\ModuleBlock'      => 'system/modules/blocks/modules/ModuleBlock.php',
+        // Modules
+        'HeimrichHannot\Blocks\ModuleBlock'      => 'system/modules/blocks/modules/ModuleBlock.php',
 
-	// Classes
-	'HeimrichHannot\Blocks\Backend\Content'  => 'system/modules/blocks/classes/backend/Content.php',
-	'HeimrichHannot\Blocks\Hooks'            => 'system/modules/blocks/classes/Hooks.php',
+        // Classes
+        'HeimrichHannot\Blocks\Backend\Content'  => 'system/modules/blocks/classes/backend/Content.php',
+        'HeimrichHannot\Blocks\Hooks'            => 'system/modules/blocks/classes/Hooks.php',
 
-	// Elements
-	'HeimrichHannot\Blocks\ContentBlock'     => 'system/modules/blocks/elements/ContentBlock.php',
+        // Elements
+        'HeimrichHannot\Blocks\ContentBlock'     => 'system/modules/blocks/elements/ContentBlock.php',
 
-	// Models
-	'HeimrichHannot\Blocks\BlockModel'       => 'system/modules/blocks/models/BlockModel.php',
-	'HeimrichHannot\Blocks\BlockModuleModel' => 'system/modules/blocks/models/BlockModuleModel.php',]
+        // Models
+        'HeimrichHannot\Blocks\BlockModel'       => 'system/modules/blocks/models/BlockModel.php',
+        'HeimrichHannot\Blocks\BlockModuleModel' => 'system/modules/blocks/models/BlockModuleModel.php',
+    ]
 );
 
 
@@ -44,8 +46,9 @@ ClassLoader::addClasses(
  */
 TemplateLoader::addFiles(
     [
-	'mod_breadcrumb'  => 'system/modules/blocks/templates/modules',
-	'mod_block'       => 'system/modules/blocks/templates/modules',
-	'blocks_wrapper'  => 'system/modules/blocks/templates/blocks',
-	'ce_block_module' => 'system/modules/blocks/templates/elements',]
+        'mod_breadcrumb'  => 'system/modules/blocks/templates/modules',
+        'mod_block'       => 'system/modules/blocks/templates/modules',
+        'blocks_wrapper'  => 'system/modules/blocks/templates/blocks',
+        'ce_block_module' => 'system/modules/blocks/templates/elements',
+    ]
 );

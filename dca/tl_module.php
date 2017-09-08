@@ -25,10 +25,8 @@ $dc['fields']['block'] = [
 
 $dc['fields']['type']['save_callback'] = [['tl_module_block', 'disableBlockModule']];
 
-foreach ($dc['list']['operations'] as $key => $button)
-{
-    if (in_array($key, ['edit', 'copy', 'cut', 'delete']))
-    {
+foreach ($dc['list']['operations'] as $key => $button) {
+    if (in_array($key, ['edit', 'copy', 'cut', 'delete'])) {
         $dc['list']['operations'][$key]['button_callback'] = ['tl_module_block', 'editBlockButtons'];
     }
 }
@@ -71,8 +69,7 @@ class tl_module_block extends \tl_module
             'SELECT m.id FROM tl_module m LEFT JOIN tl_block b ON b.module = m.id WHERE m.block > 0 AND m.type = ? and b.id IS NULL'
         )->execute('block');
 
-        if ($objModules->numRows < 1)
-        {
+        if ($objModules->numRows < 1) {
             return;
         }
 
@@ -82,16 +79,13 @@ class tl_module_block extends \tl_module
     public function checkBlockPermission()
     {
         // Check current action
-        if ($this->Input->get('act'))
-        {
+        if ($this->Input->get('act')) {
             // single actions
-            if (in_array($this->Input->get('act'), ['edit', 'copy', 'cut', 'delete']))
-            {
+            if (in_array($this->Input->get('act'), ['edit', 'copy', 'cut', 'delete'])) {
 
                 $objModule = $this->Database->prepare("SELECT block FROM tl_module WHERE id = ? and type='block'")->execute($this->Input->get('id'));
 
-                if ($objModule->numRows)
-                {
+                if ($objModule->numRows) {
                     $this->redirect(
                         'contao/main.php?do=themes&amp;table=tl_block_module&amp;id=' . $objModule->block . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN
                     );
@@ -99,20 +93,17 @@ class tl_module_block extends \tl_module
             }
 
             // batch actions
-            if (in_array($this->Input->get('act'), ['editAll', 'copyAll', 'deleteAll', 'cutAll', 'showAll']))
-            {
+            if (in_array($this->Input->get('act'), ['editAll', 'copyAll', 'deleteAll', 'cutAll', 'showAll'])) {
                 $session = $this->Session->getData();
 
                 $ids = $session['CURRENT']['IDS'];
 
-                if (is_array($ids) && count($ids) > 0)
-                {
+                if (is_array($ids) && count($ids) > 0) {
                     $objModules = $this->Database->prepare("SELECT * FROM tl_module WHERE id IN (" . implode(',', $ids) . ") and type='block'")->execute(
                         $this->Input->get('id')
                     );
 
-                    while ($objModules->next())
-                    {
+                    while ($objModules->next()) {
                         $index = array_search($objModules->id, $ids);
                         unset($ids[$index]);
                     }
@@ -131,8 +122,7 @@ class tl_module_block extends \tl_module
 
         $objBlocks = $this->Database->prepare('SELECT id, title FROM tl_block WHERE pid = ?')->execute($dc->activeRecord->pid);
 
-        while ($objBlocks->next())
-        {
+        while ($objBlocks->next()) {
             $blocks[$objBlocks->id] = $objBlocks->title;
         }
 
@@ -142,15 +132,11 @@ class tl_module_block extends \tl_module
     public function disableBlockModule($varValue, DataContainer $dc)
     {
         // prevent changing block module
-        if ($dc->activeRecord->type == 'block' && !is_null($dc->activeRecord->block))
-        {
+        if ($dc->activeRecord->type == 'block' && !is_null($dc->activeRecord->block)) {
             return $dc->activeRecord->type;
-        }
-        // prevent block module creation
-        else
-        {
-            if ($dc->activeRecord->type != 'block' && $varValue == 'block')
-            {
+        } // prevent block module creation
+        else {
+            if ($dc->activeRecord->type != 'block' && $varValue == 'block') {
                 return $dc->activeRecord->type;
             }
         }
@@ -161,14 +147,12 @@ class tl_module_block extends \tl_module
     public function editBlockButtons($row, $href, $label, $title, $icon, $attributes)
     {
 
-        if ($row['type'] == 'block')
-        {
+        if ($row['type'] == 'block') {
             $html = '';
 
             \Controller::loadLanguageFile('tl_block');
 
-            if ($href == 'act=edit')
-            {
+            if ($href == 'act=edit') {
                 // edit button
                 $html .= '<a href="' . $this->addToUrl('&table=tl_block_module&id=' . $row['block']) . '" title="' . specialchars(
                         sprintf($GLOBALS['TL_LANG']['tl_block']['edit'][1], $row['block'])
@@ -185,9 +169,9 @@ class tl_module_block extends \tl_module
         }
 
         return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . specialchars($title) . '"' . $attributes . '>' . Image::getHtml(
-            $icon,
-            $label
-        ) . '</a> ';
+                $icon,
+                $label
+            ) . '</a> ';
     }
 
     /**
@@ -199,22 +183,21 @@ class tl_module_block extends \tl_module
      */
     public function listModule($row)
     {
-        if ($row['type'] == 'block')
-        {
+        if ($row['type'] == 'block') {
             \Controller::loadLanguageFile('tl_block');
 
             $icon = '<a href="' . $this->addToUrl('&table=tl_block_module&id=' . $row['block']) . '" title="' . specialchars(
                     $GLOBALS['TL_LANG']['tl_block']['show'][0]
                 ) . '">' . Image::getHtml('/system/modules/blocks/assets/icon.png', $GLOBALS['TL_LANG']['MOD']['blocks'], 'style="vertical-align: -4px;"')
-                    . '</a> ';
+                . '</a> ';
 
             return '<div style="float:left">' . $icon . $row['name'] . ' <span style="color:#b3b3b3;padding-left:3px">['
-                   . (isset($GLOBALS['TL_LANG']['FMD'][$row['type']][0]) ? $GLOBALS['TL_LANG']['FMD'][$row['type']][0] : $row['type']) . ']</span>'
-                   . "</div>\n";
+                . (isset($GLOBALS['TL_LANG']['FMD'][$row['type']][0]) ? $GLOBALS['TL_LANG']['FMD'][$row['type']][0] : $row['type']) . ']</span>'
+                . "</div>\n";
         }
 
         $intMarginLeft = version_compare(VERSION, '4.0', '<') ? 19 : 20;
 
-        return '<div style="margin-left: ' . $intMarginLeft . 'px; float:left">'. $row['name'] .' <span style="color:#b3b3b3;padding-left:3px">['. (isset($GLOBALS['TL_LANG']['FMD'][$row['type']][0]) ? $GLOBALS['TL_LANG']['FMD'][$row['type']][0] : $row['type']) .']</span>' . "</div>\n";
+        return '<div style="margin-left: ' . $intMarginLeft . 'px; float:left">' . $row['name'] . ' <span style="color:#b3b3b3;padding-left:3px">[' . (isset($GLOBALS['TL_LANG']['FMD'][$row['type']][0]) ? $GLOBALS['TL_LANG']['FMD'][$row['type']][0] : $row['type']) . ']</span>' . "</div>\n";
     }
 }

@@ -15,6 +15,7 @@
 /**
  * Namespace
  */
+
 namespace HeimrichHannot\Blocks;
 
 /**
@@ -23,6 +24,6 @@ namespace HeimrichHannot\Blocks;
 class BlockModel extends \Model
 {
 
-	protected static $strTable = 'tl_block';
+    protected static $strTable = 'tl_block';
 
 }

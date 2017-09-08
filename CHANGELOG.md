@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2017-09-08
+
+### Fixed
+- deprecation functions updated for contao 4
+- psr 2 code styling
+
 ## [1.0.34] - 2017-07-31
 
 ### Fixed
