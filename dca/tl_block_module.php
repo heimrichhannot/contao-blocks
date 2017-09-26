@@ -348,7 +348,7 @@ class tl_block_module extends Backend
     {
         return ($dc->value < 1)
             ? ''
-            : ' <a href="contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $dc->value . '&amp;popup=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(
+            : ' <a href="contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $dc->value . '&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(
                 specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]),
                 $dc->value
             ) . '" style="padding-left:3px">' . $this->generateImage(
