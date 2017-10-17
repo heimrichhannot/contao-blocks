@@ -169,8 +169,16 @@ class ModuleBlock extends \Module
                 $strReturn = $this->renderContent($objChild);
                 break;
             case 'module':
-            default:
+            case 'default':
                 $strReturn = $this->renderModule($objChild);
+                break;
+            default:
+                // HOOK: add custom logic
+                if (isset($GLOBALS['TL_HOOKS']['renderCustomBlockModule']) && is_array($GLOBALS['TL_HOOKS']['renderCustomBlockModule'])) {
+                    foreach ($GLOBALS['TL_HOOKS']['renderCustomBlockModule'] as $callback) {
+                        $strReturn = static::importStatic($callback[0])->{$callback[1]}($objChild, $strReturn);
+                    }
+                }
                 break;
         }
 

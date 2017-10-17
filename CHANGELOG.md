@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2] - 2017-10-17
+
+### Added
+- hook for custom block module types
+
 ## [1.1.1] - 2017-09-26
 
 ### Fixed

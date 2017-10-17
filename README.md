@@ -4,6 +4,12 @@ Contao blocks module is a site-dependent container, that manipulates the visibil
 
 ## Features
 
+### Hooks
+
+Name | Arguments | Expected return value | Description
+---- | --------- | --------------------- | -----------
+renderCustomBlockModule | $objBlockModule, $strReturn | the rendered module as string | Add custom block module type rendering
+
 ### Modules
 
 Name | Description
