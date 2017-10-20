@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.2] - 2017-10-20
+
+### Changed
+- `tl_block_module` label in list view for unknown types
+
 ## [1.2.1] - 2017-10-20
 
 ### Changed

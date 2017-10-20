@@ -484,18 +484,22 @@ class tl_block_module extends Backend
                 . ']</span>' . "</div>\n";
 
             return $output;
-        }
+        } else if ($arrRow['type'] == 'default') {
+            $objModule = $this->Database->prepare('SELECT name,type FROM tl_module WHERE id = ?')->execute($arrRow['module']);
 
-
-        $objModule = $this->Database->prepare('SELECT name,type FROM tl_module WHERE id = ?')->execute($arrRow['module']);
-
-        if ($objModule->numRows) {
+            if ($objModule->numRows) {
+                $output = '<div style="float:left">';
+                $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/modules.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+                $output .= $objModule->name . ' <span style="color:#b3b3b3;padding-left:3px">['
+                    . (isset($GLOBALS['TL_LANG']['FMD'][$objModule->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$objModule->type][0] : $objModule->type)
+                    . '] - ID:' . $arrRow['module'] . '</span>' . "</div>\n";
+            }
+        } else {
             $output = '<div style="float:left">';
-            $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/modules.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-            $output .= $objModule->name . ' <span style="color:#b3b3b3;padding-left:3px">['
-                . (isset($GLOBALS['TL_LANG']['FMD'][$objModule->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$objModule->type][0] : $objModule->type)
-                . '] - ID:' . $arrRow['module'] . '</span>' . "</div>\n";
+            $output .= $GLOBALS['TL_LANG']['tl_block_module']['type_reference'][$arrRow['type']] ?: $arrRow['type'];
+            $output .= '</div>';
         }
+
 
         return $output;
     }
