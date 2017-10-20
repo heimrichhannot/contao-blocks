@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.2] - 2017-10-17
+## [1.2.1] - 2017-10-20
+
+### Changed
+- removed `menatwork/contao-multicolumnwizard` dependency
+
+## [1.2.0] - 2017-10-17
 
 ### Added
 - hook for custom block module types
