@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.2] - 2018-01-08
+
+### Fixed
+- hiding for visibility "include" and nothing selected
+
 ## [1.2.2] - 2017-10-20
 
 ### Changed

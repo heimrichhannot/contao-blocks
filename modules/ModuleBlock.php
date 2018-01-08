@@ -218,6 +218,10 @@ class ModuleBlock extends \Module
                 return false;
             }
         }
+        elseif ($objChild->addVisibility == 'include')
+        {
+            return false;
+        }
 
         // filter out modules by keywords
         if (strlen($objChild->keywords) > 0) {
