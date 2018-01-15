@@ -31,6 +31,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_name']   = ['Cookie-Name'
 $GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_expire'] = ['Cookie-Dauer', 'Geben Sie die Dauer in Millisekunden an, die der Cookie beim Besucher gespeichert werden soll, danach beginnt das Hervorheben erneut.'];
 $GLOBALS['TL_LANG']['tl_block_module']['feature_cssID']         = ['CSS-ID/Klasse überschreiben', 'Überschreiben Sie die ID und Klassen, wenn das Block-Element hervorgehoben wird.'];
 $GLOBALS['TL_LANG']['tl_block_module']['addWrapper']            = ['Wrapper hinzufügen', 'Erzeugen Sie eine Wrapper DIV mit einer eindeutigen CSS-ID und beliebig viele Klassen.'];
+$GLOBALS['TL_LANG']['tl_block_module']['backgroundSRC']         = ['Hintergrundbild', 'Wählen Sie ein Hintergrundbild aus der Dateiverwaltung aus.'];
 $GLOBALS['TL_LANG']['tl_block_module']['headline']              = ['Überschrift', 'Hier können Sie dem Wrapper eine Überschrift hinzufügen.'];
 $GLOBALS['TL_LANG']['tl_block_module']['cssID']                 = ['CSS-ID/Klasse', 'Hier können Sie eine ID und beliebig viele Klassen eingeben.'];
 $GLOBALS['TL_LANG']['tl_block_module']['space']                 = ['Abstand davor und dahinter', 'Hier können Sie den Abstand vor und nach dem Block-Element in Pixeln eingeben. Sie sollten Inline-Styles jedoch nach Möglichkeit vermeiden und den Abstand in einem Stylesheet definieren.'];

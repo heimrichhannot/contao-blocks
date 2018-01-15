@@ -90,7 +90,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
         'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
     ],
     'subpalettes' => [
-        'addWrapper' => 'headline,customTpl,customBlockTpl,cssID,space',
+        'addWrapper' => 'headline,backgroundSRC,customTpl,customBlockTpl,cssID,space',
         'feature'    => 'feature_start,feature_stop,feature_count,feature_cookie_name,feature_cookie_expire,feature_cssID',
     ],
     'fields'      => [
@@ -280,6 +280,13 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'options'   => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
             'eval'      => ['maxlength' => 196],
             'sql'       => "varchar(196) NOT NULL default ''",
+        ],
+        'backgroundSRC'       => [
+            'label'         => &$GLOBALS['TL_LANG']['tl_block_module']['backgroundSRC'],
+            'exclude'       => true,
+            'inputType'     => 'fileTree',
+            'eval'          => ['filesOnly' => true, 'fieldType' => 'radio', 'tl_class' => 'clr'],
+            'sql'           => "binary(16) NULL"
         ],
         'customTpl'             => [
             'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['customTpl'],

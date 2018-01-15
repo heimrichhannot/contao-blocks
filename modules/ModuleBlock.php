@@ -390,6 +390,14 @@ class ModuleBlock extends \Module
         $objT->cssID    = ($arrCssID[0] != '') ? ' id="' . $arrCssID[0] . '"' : '';
         $objT->blockTpl = $objBlock->customBlockTpl ? $objBlock->customBlockTpl : 'block_searchable';
 
+        // Add an image
+        if ('' !== $objBlock->backgroundSRC && null !== ($objModel = \FilesModel::findByUuid($objBlock->backgroundSRC))) {
+            if ($objModel !== null && is_file(TL_ROOT . '/' . $objModel->path)) {
+                $objT->background = $objModel->path;
+                $objT->style      .= sprintf('background-image: url(%s); background-size:cover;', $objModel->path);
+            }
+        }
+
         $arrHeadline    = version_compare(VERSION, '4.0', '<') ? deserialize($objBlock->headline, true) : \StringUtil::deserialize($objBlock->headline, true);
         $objT->headline = is_array($arrHeadline) ? $arrHeadline['value'] : $arrHeadline;
         $objT->hl       = is_array($arrHeadline) ? $arrHeadline['unit'] : 'h1';

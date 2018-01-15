@@ -34,6 +34,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['feature_cssID']         = ['Overwrite CS
 
 $GLOBALS['TL_LANG']['tl_block_module']['addWrapper']     = ['Add wrapper', 'Create a wrapper div with a unique CSS ID and any number of classes.'];
 $GLOBALS['TL_LANG']['tl_block_module']['headline']       = ['Headline', 'Add a headline to the wrapper.'];
+$GLOBALS['TL_LANG']['tl_block_module']['backgroundSRC']  = ['Background-image', 'Select a background image from the filetree.'];
 $GLOBALS['TL_LANG']['tl_block_module']['cssID']          = ['CSS ID/class', 'Here you can set an ID and one or more classes.'];
 $GLOBALS['TL_LANG']['tl_block_module']['space']          = ['Space in front and after', 'Here you can enter the spacing in front of and after the block element in pixel. You should try to avoid inline styles and define the spacing in a style sheet, though.'];
 $GLOBALS['TL_LANG']['tl_block_module']['customTpl']      = ['Custom wrapper-template', 'Overwrite the custom wrapper-template (Default: blocks_wrapper).'];
