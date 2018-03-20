@@ -198,7 +198,8 @@ class ModuleBlock extends \Module
             return false;
         }
 
-        $arrPages = version_compare(VERSION, '4.0', '<') ? deserialize($objChild->pages, true) : \StringUtil::deserialize($objChild->pages, true);
+        $arrPages        = version_compare(VERSION, '4.0', '<') ? deserialize($objChild->pages, true) : \StringUtil::deserialize($objChild->pages, true);
+        $arrKeywordPages = version_compare(VERSION, '4.0', '<') ? deserialize($objChild->keywordPages, true) : \StringUtil::deserialize($objChild->keywordPages, true);
 
         /**
          * Filter out pages
@@ -217,9 +218,7 @@ class ModuleBlock extends \Module
             if (in_array($this->objPage->id, $arrPages) == $check) {
                 return false;
             }
-        }
-        elseif ($objChild->addVisibility == 'include')
-        {
+        } elseif ($objChild->addVisibility == 'include') {
             return false;
         }
 
@@ -233,7 +232,9 @@ class ModuleBlock extends \Module
                     $keyword = $negate ? substr($keyword, 1, strlen($keyword)) : $keyword;
 
                     if ($this->Input->get($keyword) != $negate) {
-                        return false;
+                        if (empty($arrKeywordPages) || (!empty($arrKeywordPages) && in_array($this->objPage->id, $arrKeywordPages))) {
+                            return false;
+                        }
                     }
                 }
             }

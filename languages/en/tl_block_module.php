@@ -23,6 +23,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['pages']         = ['Page filter', 'Speci
 $GLOBALS['TL_LANG']['tl_block_module']['addPageDepth']  = ['Activate page inheritance', 'Should the page filter be applied to child pages?'];
 $GLOBALS['TL_LANG']['tl_block_module']['hide']          = ['Hide module', 'Should the module be hidden for certain users (based on the frontend login)?'];
 $GLOBALS['TL_LANG']['tl_block_module']['keywords']      = ['Keywords', 'Comma seperated keywords like as "auto_item" indicates to include or exclude this module from Pages including these parameters. Negate via "!auto_item".'];
+$GLOBALS['TL_LANG']['tl_block_module']['keywordPages']  = ['Keyword page filter', 'Specify on which pages the keywords should be considered.'];
 
 $GLOBALS['TL_LANG']['tl_block_module']['feature']               = ['Feature block element', 'Feature the block element and control the display with cookies.'];
 $GLOBALS['TL_LANG']['tl_block_module']['feature_start']         = ['Show from', 'Do not show the block element on the website before this day.'];

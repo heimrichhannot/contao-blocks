@@ -85,9 +85,9 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
     // Palettes
     'palettes'    => [
         '__selector__' => ['type', 'feature', 'addWrapper'],
-        'default'      => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
-        'article'      => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
-        'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
+        'default'      => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
+        'article'      => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
+        'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper',
     ],
     'subpalettes' => [
         'addWrapper' => 'headline,backgroundSRC,customTpl,customBlockTpl,cssID,space',
@@ -182,6 +182,13 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'inputType' => 'text',
             'eval'      => ['tl_class' => 'clr', 'maxlength' => 196],
             'sql'       => "varchar(196) NOT NULL default ''",
+        ],
+        'keywordPages'                 => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['keywordPages'],
+            'exclude'   => true,
+            'inputType' => 'pageTree',
+            'eval'      => ['fieldType' => 'checkbox', 'multiple' => true],
+            'sql'       => "blob NULL",
         ],
         'addPageDepth'          => [
             'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['addPageDepth'],

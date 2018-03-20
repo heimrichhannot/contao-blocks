@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2018-03-20
+
+### Added
+- `tl_block_module.keywordPages` to limit the pages where keywords are considered
+
+### Changed
+- licence from `LGPL-3.0+` to `LGPL-3.0-or-later`
+
 ## [1.2.4] - 2018-01-15
 
 ### Added

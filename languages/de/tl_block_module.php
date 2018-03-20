@@ -23,6 +23,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['pages']                 = ['Seitenfilter
 $GLOBALS['TL_LANG']['tl_block_module']['addPageDepth']          = ['Seitenvererbung aktivieren', 'Soll der Seitenfilter auch auf untergeordnete Seiten angewandt werden?'];
 $GLOBALS['TL_LANG']['tl_block_module']['hide']                  = ['Modul verstecken', 'Soll das Modul für bestimmte Nutzer versteckt werden (betrifft das Frontend-Login)?'];
 $GLOBALS['TL_LANG']['tl_block_module']['keywords']              = ['Parameter', 'Parameter wie "auto_item" angeben um dieses Modul von Seiten mit diesen Parametern aus- bzw. einzuschließen. Negation mit z.B. "!auto_item" möglich. Mehrere Parameter durch ein Komma trennen.'];
+$GLOBALS['TL_LANG']['tl_block_module']['keywordPages']          = ['Parameter Seitenfilter', 'Legen Sie fest, auf welchen Seiten die Parameter berücksichtigt werden sollen..'];
 $GLOBALS['TL_LANG']['tl_block_module']['feature']               = ['Block-Element hervorheben', 'Heben Sie das Block-Element hervor und steuern die Anzeige geziehlt über Cookies.'];
 $GLOBALS['TL_LANG']['tl_block_module']['feature_start']         = ['Anzeigen ab', 'Das Element erst ab diesem Tag auf der Webseite anzeigen.'];
 $GLOBALS['TL_LANG']['tl_block_module']['feature_stop']          = ['Anzeigen bis', 'Das Element nur bis zu diesem Tag auf der Webseite anzeigen.'];
