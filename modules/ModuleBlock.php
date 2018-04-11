@@ -297,7 +297,7 @@ class ModuleBlock extends \Module
         if ($objElement !== null) {
             while ($objElement->next()) {
                 if (!\Controller::isVisibleElement($objElement->current())) {
-                    return '';
+                    continue;
                 }
 
                 $strContent .= \Controller::getContentElement($objElement->current());
