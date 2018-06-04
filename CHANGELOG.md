@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.1] - 2018-06-04
+
+### Changed
+- published default true 
+
 ## [1.4.0] - 2018-06-04
 
 ### Added

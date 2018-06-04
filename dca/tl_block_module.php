@@ -338,7 +338,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'filter'    => true,
             'inputType' => 'checkbox',
             'eval'      => ['doNotCopy' => true, 'submitOnChange' => true],
-            'sql'       => "char(1) NOT NULL default ''",
+            'sql'       => "char(1) NOT NULL default '1'",
         ],
         'start'                 => [
             'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['start'],
