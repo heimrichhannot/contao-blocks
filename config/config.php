@@ -56,4 +56,5 @@ $GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['generateBreadcrumb'][] = ['HeimrichHannot\Blocks\Hooks', 'generateBreadcrumbHook'];
+$GLOBALS['TL_HOOKS']['generateBreadcrumb']['huh.blocks'] = ['HeimrichHannot\Blocks\Hooks', 'generateBreadcrumbHook'];
+$GLOBALS['TL_HOOKS']['replaceInsertTags']['huh.blocks'] = ['HeimrichHannot\Blocks\InsertTagsListener', 'onReplaceInsertTags'];

@@ -40,7 +40,10 @@ $GLOBALS['TL_LANG']['tl_block_module']['cssID']          = ['CSS ID/class', 'Her
 $GLOBALS['TL_LANG']['tl_block_module']['space']          = ['Space in front and after', 'Here you can enter the spacing in front of and after the block element in pixel. You should try to avoid inline styles and define the spacing in a style sheet, though.'];
 $GLOBALS['TL_LANG']['tl_block_module']['customTpl']      = ['Custom wrapper-template', 'Overwrite the custom wrapper-template (Default: blocks_wrapper).'];
 $GLOBALS['TL_LANG']['tl_block_module']['customBlockTpl'] = ['Custom block-template', 'Overwrite the block-template (Default: block_unsearchable).'];
+$GLOBALS['TL_LANG']['tl_block_module']['uncached']       = ['Exclude from cache', 'Exclude this section with active page cache.'];
 
+$GLOBALS['TL_LANG']['tl_block_module']['start'] = ['Show from', 'Show block element from the selected date.'];
+$GLOBALS['TL_LANG']['tl_block_module']['stop']  = ['Show until', 'Show block element until the selected date.'];
 
 /**
  * Legends
@@ -64,6 +67,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['editheader'] = ['Edit block element', 'E
 $GLOBALS['TL_LANG']['tl_block_module']['copy']       = ['Duplicate block element', 'Duplicate block element ID %s'];
 $GLOBALS['TL_LANG']['tl_block_module']['delete']     = ['Delete block element', 'Delete block element ID %s'];
 $GLOBALS['TL_LANG']['tl_block_module']['show']       = ['Show block element', 'Show block element ID %s'];
+$GLOBALS['TL_LANG']['tl_block_module']['toggle']     = ['Publish block element', 'Publish/hide block element ID %s'];
 
 /**
  * References

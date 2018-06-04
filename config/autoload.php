@@ -12,43 +12,39 @@
 /**
  * Register the namespaces
  */
-ClassLoader::addNamespaces(
-    [
+ClassLoader::addNamespaces([
         'HeimrichHannot',
-    ]
-);
+    ]);
 
 
 /**
  * Register the classes
  */
-ClassLoader::addClasses(
-    [
+ClassLoader::addClasses([
         // Modules
-        'HeimrichHannot\Blocks\ModuleBlock'      => 'system/modules/blocks/modules/ModuleBlock.php',
+        'HeimrichHannot\Blocks\ModuleBlock'        => 'system/modules/blocks/modules/ModuleBlock.php',
 
         // Classes
-        'HeimrichHannot\Blocks\Backend\Content'  => 'system/modules/blocks/classes/backend/Content.php',
-        'HeimrichHannot\Blocks\Hooks'            => 'system/modules/blocks/classes/Hooks.php',
+        'HeimrichHannot\Blocks\Backend\Content'    => 'system/modules/blocks/classes/backend/Content.php',
+        'HeimrichHannot\Blocks\Hooks'              => 'system/modules/blocks/classes/Hooks.php',
+        'HeimrichHannot\Blocks\InsertTagsListener' => 'system/modules/blocks/classes/InsertTagsListener.php',
+        'HeimrichHannot\Blocks\BlockChild' => 'system/modules/blocks/classes/BlockChild.php',
 
         // Elements
-        'HeimrichHannot\Blocks\ContentBlock'     => 'system/modules/blocks/elements/ContentBlock.php',
+        'HeimrichHannot\Blocks\ContentBlock'       => 'system/modules/blocks/elements/ContentBlock.php',
 
         // Models
-        'HeimrichHannot\Blocks\BlockModel'       => 'system/modules/blocks/models/BlockModel.php',
-        'HeimrichHannot\Blocks\BlockModuleModel' => 'system/modules/blocks/models/BlockModuleModel.php',
-    ]
-);
+        'HeimrichHannot\Blocks\BlockModel'         => 'system/modules/blocks/models/BlockModel.php',
+        'HeimrichHannot\Blocks\BlockModuleModel'   => 'system/modules/blocks/models/BlockModuleModel.php',
+    ]);
 
 
 /**
  * Register the templates
  */
-TemplateLoader::addFiles(
-    [
+TemplateLoader::addFiles([
         'mod_breadcrumb'  => 'system/modules/blocks/templates/modules',
         'mod_block'       => 'system/modules/blocks/templates/modules',
         'blocks_wrapper'  => 'system/modules/blocks/templates/blocks',
         'ce_block_module' => 'system/modules/blocks/templates/elements',
-    ]
-);
+    ]);

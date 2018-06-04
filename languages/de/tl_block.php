@@ -17,7 +17,9 @@ $GLOBALS['TL_LANG']['tl_block']['title']      = ['Titel', 'Geben Sie einen aussa
 $GLOBALS['TL_LANG']['tl_block']['tstamp']     = ['Änderungsdatum', 'Datum und Uhrzeit der letzten Änderung'];
 $GLOBALS['TL_LANG']['tl_block']['addWrapper'] = ['Wrapper hinzufügen', 'Erzeugen Sie eine Wrapper DIV mit einer eindeutigen CSS-ID und beliebig viele Klassen.'];
 $GLOBALS['TL_LANG']['tl_block']['cssID']      = ['CSS-ID/Klasse', 'Hier können Sie eine ID und beliebig viele Klassen eingeben.'];
-
+$GLOBALS['TL_LANG']['tl_block']['start']      = ['Anzeigen ab', 'Block erst ab diesem Tag auf der Webseite anzeigen.'];
+$GLOBALS['TL_LANG']['tl_block']['stop']       = ['Anzeigen bis', 'Block nur bis zu diesem Tag auf der Webseite anzeigen.'];
+$GLOBALS['TL_LANG']['tl_block']['published']  = ['Veröffentlichen', 'Wählen Sie diese Option zum Veröffentlichen.'];
 
 /**
  * Legends
@@ -36,6 +38,8 @@ $GLOBALS['TL_LANG']['tl_block']['copy']       = ['Block duplizieren', 'Block ID 
 $GLOBALS['TL_LANG']['tl_block']['delete']     = ['Block löschen', 'Block ID %s löschen'];
 $GLOBALS['TL_LANG']['tl_block']['show']       = ['Block anzeigen', 'Block ID %s anzeigen'];
 $GLOBALS['TL_LANG']['tl_block']['edit']       = ['Module verwalten', 'Module des Blocks ID %s verwalten'];
+$GLOBALS['TL_LANG']['tl_block']['toggle']     = ['Block veröffentlichen', 'Block ID %s veröffentlichen/verstecken'];
+
 
 /**
  * Misc

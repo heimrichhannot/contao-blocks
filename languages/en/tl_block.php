@@ -17,7 +17,8 @@ $GLOBALS['TL_LANG']['tl_block']['title']      = ['Title', 'Enter a descriptive t
 $GLOBALS['TL_LANG']['tl_block']['tstamp']     = ['Revision date', 'Date and time of last modification'];
 $GLOBALS['TL_LANG']['tl_block']['addWrapper'] = ['Add wrapper', 'Create a wrapper div with a unique CSS ID and any number of classes.'];
 $GLOBALS['TL_LANG']['tl_block']['cssID']      = ['CSS-ID/Class', 'Here you can set an ID and one or more classes.'];
-
+$GLOBALS['TL_LANG']['tl_block']['start']      = ['Show from', 'Show block from the selected date.'];
+$GLOBALS['TL_LANG']['tl_block']['stop']       = ['Show until', 'Show block until the selected date.'];
 
 /**
  * Legends
@@ -36,6 +37,7 @@ $GLOBALS['TL_LANG']['tl_block']['copy']    = ['Duplicate block', 'Duplicate bloc
 $GLOBALS['TL_LANG']['tl_block']['delete']  = ['Delete block', 'Delete block ID %s'];
 $GLOBALS['TL_LANG']['tl_block']['show']    = ['Show block', 'Show block ID %s'];
 $GLOBALS['TL_LANG']['tl_block']['compose'] = ['Manage modules', 'Edit module blocks ID %s'];
+$GLOBALS['TL_LANG']['tl_block']['toggle']  = ['Publish block', 'Publish/hide block ID %s'];
 
 /**
  * Misc

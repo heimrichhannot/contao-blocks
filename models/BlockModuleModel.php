@@ -18,10 +18,12 @@
 
 namespace HeimrichHannot\Blocks;
 
+use Contao\Model;
+
 /**
  * Class BlockModuleModel
  */
-class BlockModuleModel extends \Model
+class BlockModuleModel extends Model
 {
 
     protected static $strTable = 'tl_block_module';
@@ -66,5 +68,26 @@ class BlockModuleModel extends \Model
         }
 
         return $strReturn;
+    }
+
+    /**
+     * Find published block elements by primary key
+     *
+     * @param integer $pid
+     * @param array   $options
+     *
+     * @return \Contao\Model\Collection|\Contao\Model[]|\Contao\Model|null A collection of models or null if there are no news
+     */
+    public static function findPublishedByPid($pid, $options = [])
+    {
+        $t         = static::$strTable;
+        $columns[] = "$t.pid=" . $pid;
+
+        if (isset($arrOptions['ignoreFePreview']) || !BE_USER_LOGGED_IN) {
+            $time      = \Date::floorToMinute();
+            $columns[] = "($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.published='1'";
+        }
+
+        return static::findBy($columns, null, $options);
     }
 }

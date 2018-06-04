@@ -38,7 +38,10 @@ $GLOBALS['TL_LANG']['tl_block_module']['cssID']                 = ['CSS-ID/Klass
 $GLOBALS['TL_LANG']['tl_block_module']['space']                 = ['Abstand davor und dahinter', 'Hier können Sie den Abstand vor und nach dem Block-Element in Pixeln eingeben. Sie sollten Inline-Styles jedoch nach Möglichkeit vermeiden und den Abstand in einem Stylesheet definieren.'];
 $GLOBALS['TL_LANG']['tl_block_module']['customTpl']             = ['Individuelles Wrapper-Template', 'Hier können Sie das Wrapper-Template überschreiben (Standard: blocks_wrapper).'];
 $GLOBALS['TL_LANG']['tl_block_module']['customBlockTpl']        = ['Individuelles Block-Template', 'Hier können Sie das Block-Template überschreiben (Standard: block_unsearchable).'];
-
+$GLOBALS['TL_LANG']['tl_block_module']['uncached']              = ['Vom Cache ausschließen', 'Diesen Bereich bei aktiven Seitencache nicht zwischenspeichern.'];
+$GLOBALS['TL_LANG']['tl_block_module']['start']                 = ['Anzeigen ab', 'Block-Element erst ab diesem Tag auf der Webseite anzeigen.'];
+$GLOBALS['TL_LANG']['tl_block_module']['stop']                  = ['Anzeigen bis', 'Block-Element nur bis zu diesem Tag auf der Webseite anzeigen.'];
+$GLOBALS['TL_LANG']['tl_block_module']['published']             = ['Veröffentlichen', 'Wählen Sie diese Option zum Veröffentlichen.'];
 
 /**
  * Legends
@@ -62,6 +65,7 @@ $GLOBALS['TL_LANG']['tl_block_module']['editheader'] = ['Block-Element bearbeite
 $GLOBALS['TL_LANG']['tl_block_module']['copy']       = ['Block-Element duplizieren', 'Block-Element ID %s duplizieren'];
 $GLOBALS['TL_LANG']['tl_block_module']['delete']     = ['Block-Element löschen', 'Block-Element ID %s löschen'];
 $GLOBALS['TL_LANG']['tl_block_module']['show']       = ['Block-Element anzeigen', 'Block-Element ID %s anzeigen'];
+$GLOBALS['TL_LANG']['tl_block_module']['toggle']     = ['Block-Element veröffentlichen', 'Block ID %s veröffentlichen/verstecken'];
 
 /**
  * References

@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2018-06-04
+
+### Added
+- toggle visibility
+- uncached function, output block module as "{{insert_block_module::id|uncached}}" if you dont want to cache the block module (contao cache)
+
 ## [1.3.1] - 2018-04-11
 
 ### Fixed

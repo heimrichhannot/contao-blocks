@@ -74,6 +74,12 @@ $GLOBALS['TL_DCA']['tl_block'] = [
                 'icon'       => 'delete.gif',
                 'attributes' => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"',
             ],
+            'toggle'     => [
+                'label'           => &$GLOBALS['TL_LANG']['tl_block']['toggle'],
+                'icon'            => 'visible.gif',
+                'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'button_callback' => ['tl_block', 'toggleIcon'],
+            ],
             'show'       => [
                 'label' => &$GLOBALS['TL_LANG']['tl_block']['show'],
                 'href'  => 'act=show',
@@ -83,11 +89,12 @@ $GLOBALS['TL_DCA']['tl_block'] = [
     ],
     // Palettes
     'palettes'    => [
-        '__selector__' => ['addWrapper'],
-        'default'      => '{title_legend},title;{expert_legend:hide},addWrapper',
+        '__selector__' => ['addWrapper', 'published'],
+        'default'      => '{title_legend},title;{expert_legend:hide},addWrapper,published',
     ],
     'subpalettes' => [
         'addWrapper' => 'cssID',
+        'published'  => 'start,stop',
     ],
     'fields'      => [
         'id'         => [
@@ -126,6 +133,28 @@ $GLOBALS['TL_DCA']['tl_block'] = [
             'inputType' => 'text',
             'eval'      => ['multiple' => true, 'maxlength' => 255, 'size' => 2, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
+        ],
+        'published'  => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block']['published'],
+            'exclude'   => true,
+            'filter'    => true,
+            'inputType' => 'checkbox',
+            'eval'      => ['doNotCopy' => true, 'submitOnChange' => true],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'start'      => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block']['start'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => ['rgxp' => 'datim', 'datepicker' => true, 'tl_class' => 'w50 wizard'],
+            'sql'       => "varchar(10) NOT NULL default ''",
+        ],
+        'stop'       => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block']['stop'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => ['rgxp' => 'datim', 'datepicker' => true, 'tl_class' => 'w50 wizard'],
+            'sql'       => "varchar(10) NOT NULL default ''",
         ],
     ],
 ];
@@ -186,5 +215,107 @@ class tl_block extends \Backend
         if (($objModule = \ModuleModel::findByPk($dc->activeRecord->module)) !== null) {
             $objModule->delete();
         }
+    }
+
+    public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        $user = \Contao\BackendUser::getInstance();
+
+        if (strlen(\Contao\Input::get('tid'))) {
+            $this->toggleVisibility(\Contao\Input::get('tid'), (\Contao\Input::get('state') == 1), (@func_get_arg(12) ?: null));
+            $this->redirect($this->getReferer());
+        }
+
+        // Check permissions AFTER checking the tid, so hacking attempts are logged
+        if (!$user->hasAccess('tl_block::published', 'alexf')) {
+            return '';
+        }
+
+        $href .= '&amp;tid=' . $row['id'] . '&amp;state=' . ($row['published'] ? '' : 1);
+
+        if (!$row['published']) {
+            $icon = 'invisible.svg';
+        }
+
+        return '<a href="' . $this->addToUrl($href) . '" title="' . \StringUtil::specialchars($title) . '"' . $attributes . '>' . \Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"') . '</a> ';
+    }
+
+    public function toggleVisibility($intId, $blnVisible, \DataContainer $dc = null)
+    {
+        $user     = \Contao\BackendUser::getInstance();
+        $database = \Contao\Database::getInstance();
+
+        // Set the ID and action
+        \Contao\Input::setGet('id', $intId);
+        \Contao\Input::setGet('act', 'toggle');
+
+        if ($dc) {
+            $dc->id = $intId; // see #8043
+        }
+
+        // Trigger the onload_callback
+        if (is_array($GLOBALS['TL_DCA']['tl_block']['config']['onload_callback'])) {
+            foreach ($GLOBALS['TL_DCA']['tl_block']['config']['onload_callback'] as $callback) {
+                if (is_array($callback)) {
+                    $this->import($callback[0]);
+                    $this->{$callback[0]}->{$callback[1]}($dc);
+                } elseif (is_callable($callback)) {
+                    $callback($dc);
+                }
+            }
+        }
+
+        // Check the field access
+        if (!$user->hasAccess('tl_block::published', 'alexf')) {
+            throw new \Contao\CoreBundle\Exception\AccessDeniedException('Not enough permissions to publish/unpublish quiz item ID ' . $intId . '.');
+        }
+
+        // Set the current record
+        if ($dc) {
+            $objRow = $database->prepare("SELECT * FROM tl_block WHERE id=?")->limit(1)->execute($intId);
+
+            if ($objRow->numRows) {
+                $dc->activeRecord = $objRow;
+            }
+        }
+
+        $objVersions = new \Versions('tl_block', $intId);
+        $objVersions->initialize();
+
+        // Trigger the save_callback
+        if (is_array($GLOBALS['TL_DCA']['tl_block']['fields']['published']['save_callback'])) {
+            foreach ($GLOBALS['TL_DCA']['tl_block']['fields']['published']['save_callback'] as $callback) {
+                if (is_array($callback)) {
+                    $this->import($callback[0]);
+                    $blnVisible = $this->{$callback[0]}->{$callback[1]}($blnVisible, $dc);
+                } elseif (is_callable($callback)) {
+                    $blnVisible = $callback($blnVisible, $dc);
+                }
+            }
+        }
+
+        $time = time();
+
+        // Update the database
+        $database->prepare("UPDATE tl_block SET tstamp=$time, published='" . ($blnVisible ? '1' : '') . "' WHERE id=?")->execute($intId);
+
+        if ($dc) {
+            $dc->activeRecord->tstamp    = $time;
+            $dc->activeRecord->published = ($blnVisible ? '1' : '');
+        }
+
+        // Trigger the onsubmit_callback
+        if (is_array($GLOBALS['TL_DCA']['tl_block']['config']['onsubmit_callback'])) {
+            foreach ($GLOBALS['TL_DCA']['tl_block']['config']['onsubmit_callback'] as $callback) {
+                if (is_array($callback)) {
+                    $this->import($callback[0]);
+                    $this->{$callback[0]}->{$callback[1]}($dc);
+                } elseif (is_callable($callback)) {
+                    $callback($dc);
+                }
+            }
+        }
+
+        $objVersions->create();
     }
 }
