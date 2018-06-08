@@ -235,8 +235,8 @@ class BlockChild
         $objT->blockTpl = $this->objModel->customBlockTpl ? $this->objModel->customBlockTpl : 'block_searchable';
 
         // Add an image
-        if ('' !== $this->objModel->backgroundSRC && null !== ($objModel = \FilesModel::findByUuid($this->objModel->backgroundSRC))) {
-            if ($objModel !== null && is_file(TL_ROOT . '/' . $objModel->path)) {
+        if (!empty($this->objModel->backgroundSRC)) {
+            if (null !== ($objModel = \FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(TL_ROOT . '/' . $objModel->path)) {
                 $objT->background = $objModel->path;
                 $objT->style      .= sprintf('background-image: url(%s); background-size:cover;', $objModel->path);
             }

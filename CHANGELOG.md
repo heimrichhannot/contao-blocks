@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.2] - 2018-06-08
+
+### Fixed
+- BlockChild-> check null $this->objModel->backgroundSRC  
+
 ## [1.4.1] - 2018-06-04
 
 ### Changed
