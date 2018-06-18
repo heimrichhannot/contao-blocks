@@ -1,10 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.3] - 2018-06-18
+
+### Fixed
+- Empty buffer check fixed (wrapper was added before due to \n characters)
+
 ## [1.4.2] - 2018-06-08
 
 ### Fixed
-- BlockChild-> check null $this->objModel->backgroundSRC  
+- BlockChild-> check null $this->objModel->backgroundSRC
 
 ## [1.4.1] - 2018-06-04
 

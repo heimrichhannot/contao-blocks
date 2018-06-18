@@ -85,7 +85,7 @@ class ModuleBlock extends \Module
             $this->cssID = version_compare(VERSION, '4.0', '<') ? deserialize($this->objBlock->cssID) : \StringUtil::deserialize($this->objBlock->cssID);
         }
 
-        if (strlen($strBuffer) == 0) {
+        if (strlen(preg_replace('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', '', $strBuffer)) == 0) {
             $this->Template->addWrapper = false;
         }
 
@@ -103,3 +103,4 @@ class ModuleBlock extends \Module
         return $blockChild->generate();
     }
 }
+
