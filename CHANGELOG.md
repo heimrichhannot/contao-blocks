@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2018-06-18
+
+### Added
+- `backgroundSize` added to resize block_module background images
+
 ## [1.4.3] - 2018-06-18
 
 ### Fixed

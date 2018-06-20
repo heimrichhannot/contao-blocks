@@ -11,6 +11,7 @@ namespace HeimrichHannot\Blocks;
 use Contao\Controller;
 use Contao\Environment;
 use Contao\Frontend;
+use Contao\Image;
 use Contao\Input;
 use Contao\Module;
 use Contao\ModuleLoader;
@@ -151,7 +152,7 @@ class BlockChild
         $strClass = Module::findClass($objModel->type);
 
         if (!class_exists($strClass)) {
-            Controller::log('Module class "' . $GLOBALS['FE_MOD'][$objModel->type] . '" (module "' . $objModel->type . '") does not exist', 'ModuleBlock renderModule()', TL_ERROR);
+            Controller::log('Module class "'.$GLOBALS['FE_MOD'][$objModel->type].'" (module "'.$objModel->type.'") does not exist', 'ModuleBlock renderModule()', TL_ERROR);
 
             return '';
         }
@@ -222,23 +223,27 @@ class BlockChild
         $arrStyle    = [];
 
         if ($arrSpace[0] != '') {
-            $arrStyle[] = 'margin-top:' . $arrSpace[0] . 'px;';
+            $arrStyle[] = 'margin-top:'.$arrSpace[0].'px;';
         }
 
         if ($arrSpace[1] != '') {
-            $arrStyle[] = 'margin-bottom:' . $arrSpace[1] . 'px;';
+            $arrStyle[] = 'margin-bottom:'.$arrSpace[1].'px;';
         }
 
         $objT->style    = !empty($arrStyle) ? implode(' ', $arrStyle) : '';
-        $objT->class    = trim($objT->getName() . ' ' . $arrCssID[1]);
-        $objT->cssID    = ($arrCssID[0] != '') ? ' id="' . $arrCssID[0] . '"' : '';
+        $objT->class    = trim($objT->getName().' '.$arrCssID[1]);
+        $objT->cssID    = ($arrCssID[0] != '') ? ' id="'.$arrCssID[0].'"' : '';
         $objT->blockTpl = $this->objModel->customBlockTpl ? $this->objModel->customBlockTpl : 'block_searchable';
 
         // Add an image
         if (!empty($this->objModel->backgroundSRC)) {
-            if (null !== ($objModel = \FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(TL_ROOT . '/' . $objModel->path)) {
-                $objT->background = $objModel->path;
-                $objT->style      .= sprintf('background-image: url(%s); background-size:cover;', $objModel->path);
+            if (null !== ($objModel = \FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(TL_ROOT.'/'.$objModel->path)) {
+
+                $size = deserialize($this->objModel->backgroundSize, true);
+                $path = Image::get($objModel->path, $size[0] ?? null, $size[1] ?? null, $size[2] ?? '');
+
+                $objT->background = $path;
+                $objT->style      .= sprintf('background-image: url(%s); background-size:cover;', $path);
             }
         }
 

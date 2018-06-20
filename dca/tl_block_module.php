@@ -73,7 +73,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
                 'label'      => &$GLOBALS['TL_LANG']['tl_block_module']['delete'],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"',
+                'attributes' => 'onclick="if (!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\')) return false; Backend.getScrollOffset();"',
             ],
             'toggle'     => [
                 'label'           => &$GLOBALS['TL_LANG']['tl_block_module']['toggle'],
@@ -96,7 +96,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
         'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper,uncached,published',
     ],
     'subpalettes' => [
-        'addWrapper' => 'headline,backgroundSRC,customTpl,customBlockTpl,cssID,space',
+        'addWrapper' => 'headline,backgroundSRC,backgroundSize,customTpl,customBlockTpl,cssID,space',
         'feature'    => 'feature_start,feature_stop,feature_count,feature_cookie_name,feature_cookie_expire,feature_cssID',
         'published'  => 'start,stop',
     ],
@@ -302,6 +302,15 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'eval'      => ['filesOnly' => true, 'fieldType' => 'radio', 'tl_class' => 'clr'],
             'sql'       => "binary(16) NULL",
         ],
+        'backgroundSize'        => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['backgroundSize'],
+            'exclude'   => true,
+            'inputType' => 'imageSize',
+            'options'   => System::getImageSizes(),
+            'reference' => &$GLOBALS['TL_LANG']['MSC'],
+            'eval'      => ['rgxp' => 'natural', 'includeBlankOption' => true, 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'w50'],
+            'sql'       => "varchar(64) NOT NULL default ''",
+        ],
         'customTpl'             => [
             'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['customTpl'],
             'exclude'          => true,
@@ -379,7 +388,7 @@ class tl_block_module extends Backend
     public function setFeatureCookieName($varValue, DataContainer $dc)
     {
         if ($varValue == '') {
-            $varValue = 'block_feature_' . $dc->id;
+            $varValue = 'block_feature_'.$dc->id;
         }
 
         return $varValue;
@@ -396,8 +405,7 @@ class tl_block_module extends Backend
 
     public function editModule(DataContainer $dc)
     {
-        return ($dc->value < 1) ? ''
-            : ' <a href="contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $dc->value . '&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->value) . '" style="padding-left:3px">' . $this->generateImage('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"') . '</a>';
+        return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id='.$dc->value.'&amp;rt='.REQUEST_TOKEN.'" title="'.sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->value).'" style="padding-left:3px">'.$this->generateImage('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"').'</a>';
     }
 
     public function invokeI18nl10n(DataContainer $dc)
@@ -430,7 +438,7 @@ class tl_block_module extends Backend
         $objModules = $this->Database->execute("SELECT m.id, m.name, t.name AS theme FROM tl_module m LEFT JOIN tl_theme t ON m.pid=t.id WHERE type != 'block' ORDER BY t.name, m.name");
 
         while ($objModules->next()) {
-            $arrModules[$objModules->theme][$objModules->id] = $objModules->name . ' (ID ' . $objModules->id . ')';
+            $arrModules[$objModules->theme][$objModules->id] = $objModules->name.' (ID '.$objModules->id.')';
         }
 
         return $arrModules;
@@ -458,7 +466,7 @@ class tl_block_module extends Backend
                 return $arrAlias;
             }
 
-            $objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN(" . implode(',', array_map('intval', array_unique($arrPids))) . ") ORDER BY parent, a.sorting")->execute($dc->id);
+            $objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN(".implode(',', array_map('intval', array_unique($arrPids))).") ORDER BY parent, a.sorting")->execute($dc->id);
         } else {
             $objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid ORDER BY parent, a.sorting")->execute($dc->id);
         }
@@ -467,8 +475,8 @@ class tl_block_module extends Backend
             System::loadLanguageFile('tl_article');
 
             while ($objAlias->next()) {
-                $key                           = $objAlias->parent . ' (ID ' . $objAlias->pid . ')';
-                $arrAlias[$key][$objAlias->id] = $objAlias->title . ' (' . ($GLOBALS['TL_LANG']['tl_article'][$objAlias->inColumn] ?: $objAlias->inColumn) . ', ID ' . $objAlias->id . ')';
+                $key                           = $objAlias->parent.' (ID '.$objAlias->pid.')';
+                $arrAlias[$key][$objAlias->id] = $objAlias->title.' ('.($GLOBALS['TL_LANG']['tl_article'][$objAlias->inColumn] ?: $objAlias->inColumn).', ID '.$objAlias->id.')';
             }
         }
 
@@ -488,22 +496,22 @@ class tl_block_module extends Backend
 
         if ($arrRow['type'] == 'section') {
             $output = '<div style="float:left">';
-            $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/layout.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-            $output .= $arrRow['section'] . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['section'][0] . ']</span>' . "</div>\n";
+            $output .= '<img alt="" src="system/themes/'.$this->getTheme().'/images/layout.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+            $output .= $arrRow['section'].' <span style="color:#b3b3b3;padding-left:3px">['.$GLOBALS['TL_LANG']['tl_block_module']['section'][0].']</span>'."</div>\n";
 
             return $output;
         } elseif ($arrRow['type'] == 'article') {
             $objArticle = \ArticleModel::findByPk($arrRow['articleAlias']);
 
             $output = '<div style="float:left">';
-            $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/article.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-            $output .= $objArticle->title . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['articleAlias'][0] . ']</span>' . "</div>\n";
+            $output .= '<img alt="" src="system/themes/'.$this->getTheme().'/images/article.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+            $output .= $objArticle->title.' <span style="color:#b3b3b3;padding-left:3px">['.$GLOBALS['TL_LANG']['tl_block_module']['articleAlias'][0].']</span>'."</div>\n";
 
             return $output;
         } elseif ($arrRow['type'] == 'content') {
             $output = '<div style="float:left">';
-            $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/published.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-            $output .= $arrRow['title'] . ' <span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_block_module']['contentElements'] . ']</span>' . "</div>\n";
+            $output .= '<img alt="" src="system/themes/'.$this->getTheme().'/images/published.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+            $output .= $arrRow['title'].' <span style="color:#b3b3b3;padding-left:3px">['.$GLOBALS['TL_LANG']['tl_block_module']['contentElements'].']</span>'."</div>\n";
 
             return $output;
         } else if ($arrRow['type'] == 'default') {
@@ -511,8 +519,8 @@ class tl_block_module extends Backend
 
             if ($objModule->numRows) {
                 $output = '<div style="float:left">';
-                $output .= '<img alt="" src="system/themes/' . $this->getTheme() . '/images/modules.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
-                $output .= $objModule->name . ' <span style="color:#b3b3b3;padding-left:3px">[' . (isset($GLOBALS['TL_LANG']['FMD'][$objModule->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$objModule->type][0] : $objModule->type) . '] - ID:' . $arrRow['module'] . '</span>' . "</div>\n";
+                $output .= '<img alt="" src="system/themes/'.$this->getTheme().'/images/modules.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+                $output .= $objModule->name.' <span style="color:#b3b3b3;padding-left:3px">['.(isset($GLOBALS['TL_LANG']['FMD'][$objModule->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$objModule->type][0] : $objModule->type).'] - ID:'.$arrRow['module'].'</span>'."</div>\n";
             }
         } else {
             $output = '<div style="float:left">';
@@ -550,7 +558,7 @@ class tl_block_module extends Backend
             return '';
         }
 
-        return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . specialchars($title) . '"' . $attributes . '>' . Image::getHtml($icon, $label) . '</a> ';
+        return '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
     }
 
     /**
@@ -587,13 +595,13 @@ class tl_block_module extends Backend
             return '';
         }
 
-        $href .= '&amp;tid=' . $row['id'] . '&amp;state=' . ($row['published'] ? '' : 1);
+        $href .= '&amp;tid='.$row['id'].'&amp;state='.($row['published'] ? '' : 1);
 
         if (!$row['published']) {
             $icon = 'invisible.svg';
         }
 
-        return '<a href="' . $this->addToUrl($href) . '" title="' . \StringUtil::specialchars($title) . '"' . $attributes . '>' . \Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"') . '</a> ';
+        return '<a href="'.$this->addToUrl($href).'" title="'.\StringUtil::specialchars($title).'"'.$attributes.'>'.\Image::getHtml($icon, $label, 'data-state="'.($row['published'] ? 1 : 0).'"').'</a> ';
     }
 
     public function toggleVisibility($intId, $blnVisible, \DataContainer $dc = null)
@@ -623,7 +631,7 @@ class tl_block_module extends Backend
 
         // Check the field access
         if (!$user->hasAccess('tl_block_module::published', 'alexf')) {
-            throw new \Contao\CoreBundle\Exception\AccessDeniedException('Not enough permissions to publish/unpublish quiz item ID ' . $intId . '.');
+            throw new \Contao\CoreBundle\Exception\AccessDeniedException('Not enough permissions to publish/unpublish quiz item ID '.$intId.'.');
         }
 
         // Set the current record
@@ -653,7 +661,7 @@ class tl_block_module extends Backend
         $time = time();
 
         // Update the database
-        $database->prepare("UPDATE tl_block_module SET tstamp=$time, published='" . ($blnVisible ? '1' : '') . "' WHERE id=?")->execute($intId);
+        $database->prepare("UPDATE tl_block_module SET tstamp=$time, published='".($blnVisible ? '1' : '')."' WHERE id=?")->execute($intId);
 
         if ($dc) {
             $dc->activeRecord->tstamp    = $time;
