@@ -24,6 +24,20 @@ use Contao\Model;
 
 /**
  * Class BlockModuleModel
+ *
+ * @property int $id
+ * @property int $pid
+ * @property int $sorting
+ * @property int $tstamp
+ * @property string $type
+ * @property string $title
+ * @property int $module
+ * @property int $articleAlias
+ * @property string $imgSRC
+ * @property string $addVisibility
+ * @property string $pages
+ * @property string $keywords
+ * @property string $keywordPages
  */
 class BlockModuleModel extends Model
 {
