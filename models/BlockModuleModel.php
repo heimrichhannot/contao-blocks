@@ -18,6 +18,8 @@
 
 namespace HeimrichHannot\Blocks;
 
+use Contao\ContentModel;
+use Contao\Controller;
 use Contao\Model;
 
 /**
@@ -55,17 +57,13 @@ class BlockModuleModel extends Model
 
         $arrContent = [];
 
-        if (($objElement = \ContentModel::findPublishedByPidAndTable($intBlockModule, 'tl_block_module')) !== null) {
+        if (($objElement = ContentModel::findPublishedByPidAndTable($intBlockModule, 'tl_block_module')) !== null) {
             while ($objElement->next()) {
-                $arrContent[] = \Controller::getContentElement($objElement->current());
+                $arrContent[] = Controller::getContentElement($objElement->current());
             }
         }
 
         $strReturn = implode('', $arrContent);
-
-        if ($objBlock->addWrapper) {
-            $strReturn = ModuleBlock::createBlockWrapper($objBlock, $strReturn);
-        }
 
         return $strReturn;
     }
