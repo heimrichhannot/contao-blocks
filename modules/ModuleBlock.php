@@ -13,9 +13,12 @@
 namespace HeimrichHannot\Blocks;
 
 use Contao\Input;
+use Contao\Module;
 
-class ModuleBlock extends \Module
+class ModuleBlock extends Module
 {
+    const TYPE = 'block';
+
     protected $strTemplate = 'mod_block';
 
     protected $strBuffer = '';

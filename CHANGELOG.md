@@ -1,9 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.5.1] - 2018-06-21
+## [1.5.2] - 2018-06-21
 
 ### Changed
+* added Module constant
+
+## [1.5.1] - 2018-06-21
+
+### Fixed
 * removed missing method call
 
 ## [1.5.0] - 2018-06-18

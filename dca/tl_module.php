@@ -12,7 +12,7 @@
 
 $dc = &$GLOBALS['TL_DCA']['tl_module'];
 
-$dc['palettes']['block'] = '{title_legend},headline,type;{block_legend},block';
+$dc['palettes'][\HeimrichHannot\Blocks\ModuleBlock::TYPE] = '{title_legend},headline,type;{block_legend},block';
 
 $dc['fields']['block'] = [
     'label'            => &$GLOBALS['TL_LANG']['tl_module']['block'],

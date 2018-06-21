@@ -29,7 +29,7 @@ $GLOBALS['TL_MODELS']['tl_block_module'] = 'HeimrichHannot\Blocks\BlockModuleMod
  */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0,
     [
-        'block' => 'HeimrichHannot\Blocks\ModuleBlock'
+        \HeimrichHannot\Blocks\ModuleBlock::TYPE => \HeimrichHannot\Blocks\ModuleBlock::class
     ]
 );
 
