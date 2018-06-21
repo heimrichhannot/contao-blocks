@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.1] - 2018-06-21
+
+### Changed
+* removed missing method call
+
 ## [1.5.0] - 2018-06-18
 
 ### Added
