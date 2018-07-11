@@ -52,7 +52,7 @@ class BlockChild
     /**
      * Render the block child
      */
-    public function generate(): string
+    public function generate()
     {
         $strReturn = '';
 
@@ -93,7 +93,7 @@ class BlockChild
      *
      * @return bool|string
      */
-    protected function renderArticle(): string
+    protected function renderArticle()
     {
         $objArticles = \ArticleModel::findPublishedById($this->objModel->articleAlias);
 
@@ -113,7 +113,7 @@ class BlockChild
      *
      * @return string
      */
-    protected function renderContent(): string
+    protected function renderContent()
     {
         $strContent = '';
         $objElement = \ContentModel::findPublishedByPidAndTable($this->objModel->id, 'tl_block_module');
@@ -136,7 +136,7 @@ class BlockChild
      *
      * @return string
      */
-    protected function renderModule(): string
+    protected function renderModule()
     {
         $objModel = \ModuleModel::findByPK($this->objModel->module);
 
@@ -187,7 +187,7 @@ class BlockChild
      *
      * @return ModuleModel
      */
-    protected function overrideCommonProps($objItem): ModuleModel
+    protected function overrideCommonProps($objItem)
     {
         $space = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->space) : StringUtil::deserialize($this->objModel->space);
         $cssID = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->cssID, true) : StringUtil::deserialize($this->objModel->cssID, true);
@@ -213,7 +213,7 @@ class BlockChild
      *
      * @return string
      */
-    protected function addBlockWrapper($strContent): string
+    protected function addBlockWrapper($strContent)
     {
         $objT        = new \FrontendTemplate($this->objModel->customTpl ? $this->objModel->customTpl : 'blocks_wrapper');
         $objT->block = $strContent;
@@ -259,7 +259,7 @@ class BlockChild
      *
      * @return bool
      */
-    protected function isVisible(): bool
+    protected function isVisible()
     {
         $time        = \Date::floorToMinute();
         $currentLang = ['', $GLOBALS['TL_LANGUAGE']];
@@ -348,7 +348,7 @@ class BlockChild
      * Do not use global $objPage, as long as pagelink module is enabled
      * because $objPage will hold the target page
      */
-    protected function determineCurrentPage(): PageModel
+    protected function determineCurrentPage()
     {
         global $objPage;
 

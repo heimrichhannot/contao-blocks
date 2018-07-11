@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.3] - 2018-07-11
+
+### Fixed
+* reverted php 5.4+ support
+
 ## [1.5.2] - 2018-06-21
 
 ### Changed
