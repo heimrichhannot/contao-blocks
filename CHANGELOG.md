@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.4] - 2018-09-04
+
+### Fixed
+* `ContentBlock` did not render wrapper at all, make use of new `BlockChild` object to get rid off
+
 ## [1.5.3] - 2018-07-11
 
 ### Fixed

@@ -69,17 +69,8 @@ class BlockModuleModel extends Model
             return '';
         }
 
-        $arrContent = [];
-
-        if (($objElement = ContentModel::findPublishedByPidAndTable($intBlockModule, 'tl_block_module')) !== null) {
-            while ($objElement->next()) {
-                $arrContent[] = Controller::getContentElement($objElement->current());
-            }
-        }
-
-        $strReturn = implode('', $arrContent);
-
-        return $strReturn;
+        $block = new BlockChild($objBlock);
+        return $block->generate();
     }
 
     /**
