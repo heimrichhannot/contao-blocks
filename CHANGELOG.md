@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.6] - 2018-10-11
+
+### Fixed 
+* method not found error in tl_block_module
+
 ## [1.5.5] - 2018-10-11
 
 ### Fixed 
