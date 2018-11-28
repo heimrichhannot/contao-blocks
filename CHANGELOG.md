@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.7] - 2018-11-28
+
+### Fixed 
+* `Blockchild::determineCurrentPage()` that caused $objPage to be null in certain premises
+
 ## [1.5.6] - 2018-10-11
 
 ### Fixed 

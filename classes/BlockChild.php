@@ -358,48 +358,9 @@ class BlockChild
         }
 
         $pageId  = Frontend::getPageIdFromUrl();
-        $objPage = PageModel::findPublishedByIdOrAlias($pageId);
+        $objPage = PageModel::findPublishedByIdOrAlias($pageId) ?: Frontend::getRootPageFromUrl();
 
-        // Check the URL and language of each page if there are multiple results
-        if ($objPage !== null && $objPage->count() > 1) {
-            $objNewPage = null;
-            $arrPages   = [];
-
-            // Order by domain and language
-            while ($objPage->next()) {
-                $objCurrentPage = $objPage->current()->loadDetails();
-
-                $domain                                           = $objCurrentPage->domain ?: '*';
-                $arrPages[$domain][$objCurrentPage->rootLanguage] = $objCurrentPage;
-
-                // Also store the fallback language
-                if ($objCurrentPage->rootIsFallback) {
-                    $arrPages[$domain]['*'] = $objCurrentPage;
-                }
-            }
-
-            $strHost = Environment::get('host');
-
-            // Look for a root page whose domain name matches the host name
-            if (isset($arrPages[$strHost])) {
-                $arrLangs = $arrPages[$strHost];
-            } else {
-                $arrLangs = $arrPages['*']; // Empty domain
-            }
-
-            // Use the first result (see #4872)
-            if (!$GLOBALS['TL_CONFIG']['addLanguageToUrl']) {
-                $objNewPage = current($arrLangs);
-            } // Try to find a page matching the language parameter
-            elseif (($lang = Input::get('language')) != '' && isset($arrLangs[$lang])) {
-                $objNewPage = $arrLangs[$lang];
-            }
-
-            // Store the page object
-            if (is_object($objNewPage)) {
-                $objPage = $objNewPage;
-            }
-        } elseif ($objPage instanceof \Contao\Model\Collection) {
+        if ($objPage instanceof \Contao\Model\Collection) {
             $objPage = $objPage->current();
         }
 
