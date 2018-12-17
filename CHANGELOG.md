@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.0] - 2018-12-17
+
+### Changed
+* php7 only
+
 ## [1.5.7] - 2018-11-28
 
 ### Fixed 
