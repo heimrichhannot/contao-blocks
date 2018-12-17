@@ -240,7 +240,14 @@ class BlockChild
             if (null !== ($objModel = \FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(TL_ROOT.'/'.$objModel->path)) {
 
                 $size = deserialize($this->objModel->backgroundSize, true);
-                $path = Image::get($objModel->path, $size[0] ?? null, $size[1] ?? null, $size[2] ?? '');
+                $width = null;
+                $height = null;
+                $mode = '';
+                if (isset($size[0])) $width = $size[0];
+                if (isset($size[1])) $height = $size[1];
+                if (isset($size[2])) $mode = $size[2];
+
+                $path = Image::get($objModel->path, $width, $height, $mode);
 
                 $objT->background = $path;
                 $objT->style      .= sprintf('background-image: url(%s); background-size:cover;', $path);

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.8] - 2018-12-17
+
+### Fixed
+* php5 incompatible changes
+
 ## [1.5.7] - 2018-11-28
 
 ### Fixed 
