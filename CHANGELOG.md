@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.6.1] - 2019-01-24
+
+### Fixed 
+* check if child exists to prevent printing an empty block
+
 ## [1.6.0] - 2018-12-17
 
 ### Changed

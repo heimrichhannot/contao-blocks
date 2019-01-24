@@ -80,7 +80,13 @@ class ModuleBlock extends Module
 
         while ($objChilds->next()) {
             if (strlen($objChilds->hide) == 0 || $objChilds->hide == 1 || ($objChilds->hide == 2 && !FE_USER_LOGGED_IN) || ($objChilds->hide == 3 && FE_USER_LOGGED_IN)) {
-                $strBuffer .= $this->renderChild($objChilds->current()) . "\n";
+                $child = $this->renderChild($objChilds->current());
+
+                if(!$child){
+                    continue;
+                }
+
+                $strBuffer .= $child . "\n";
             }
         }
 
