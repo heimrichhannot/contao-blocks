@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.0] - 2019-01-24
+
+### Fixed 
+* added `huh.utils.cache.database_tree` caching to get childRecords of tl_page from cache
+
 ## [1.6.1] - 2019-01-24
 
 ### Fixed 

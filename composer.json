@@ -1,40 +1,43 @@
 {
-  "name": "heimrichhannot/contao-blocks",
-  "description": "Contao blocks module is a site-dependent container, that manipulates the visibility of elements.",
-  "keywords": [
-    "contao",
-    "blocks",
-    "content"
-  ],
-  "type": "contao-module",
-  "homepage": "https://github.com/heimrichhannot/contao-blocks",
-  "license": "LGPL-3.0-or-later",
-  "authors": [
-    {
-      "name": "Heimrich & Hannot",
-      "email": "digitales@heimrich-hannot.de",
-      "homepage": "http://www.heimrich-hannot.de",
-      "role": "Developer"
+    "name": "heimrichhannot/contao-blocks",
+    "description": "Contao blocks module is a site-dependent container, that manipulates the visibility of elements.",
+    "keywords": [
+        "contao",
+        "blocks",
+        "content"
+    ],
+    "type": "contao-module",
+    "homepage": "https://github.com/heimrichhannot/contao-blocks",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Heimrich & Hannot",
+            "email": "digitales@heimrich-hannot.de",
+            "homepage": "http://www.heimrich-hannot.de",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/heimrichhannot/contao-blocks/issues"
+    },
+    "require": {
+        "php": "~7.0",
+        "contao/core-bundle": "^3.5.1 || ~4.1",
+        "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
+    },
+    "autoload": {
+        "classmap": [
+            ""
+        ]
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "": "system/modules/blocks"
+            }
+        }
+    },
+    "suggest": {
+        "heimrichhannot/contao-utils-bundle": "Improves performance by using the huh.utils.cache.database_tree service to load tl_page childRecords from cache"
     }
-  ],
-  "support": {
-    "issues": "https://github.com/heimrichhannot/contao-blocks/issues"
-  },
-  "require": {
-    "php": "~7.0",
-    "contao/core-bundle": "^3.5.1 || ~4.1",
-    "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
-  },
-  "autoload": {
-    "classmap": [
-      ""
-    ]
-  },
-  "extra": {
-    "contao": {
-      "sources": {
-        "": "system/modules/blocks"
-      }
-    }
-  }
 }

@@ -9,6 +9,7 @@ namespace HeimrichHannot\Blocks;
 
 
 use Contao\Controller;
+use Contao\Database;
 use Contao\Environment;
 use Contao\Frontend;
 use Contao\Image;
@@ -279,9 +280,16 @@ class BlockChild
         if (is_array($arrPages) && count($arrPages) > 0) {
             // add nested pages to the filter
             if ($this->objModel->addPageDepth) {
-                $arrPages = array_merge($arrPages, \Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
+                if (version_compare(VERSION, '4.0', '>=')) {
+                    if (\Contao\System::getContainer()->has('huh.utils.cache.database_tree')) {
+                        $arrPages = array_merge($arrPages, \Contao\System::getContainer()->get('huh.utils.cache.database_tree')->getChildRecords('tl_page', $arrPages));
+                    } else {
+                        $arrPages = array_merge($arrPages, Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
+                    }
+                } else {
+                    $arrPages = array_merge($arrPages, Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
+                }
             }
-
 
             $check = ($this->objModel->addVisibility == 'exclude') ? true : false;
 
