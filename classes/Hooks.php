@@ -11,20 +11,27 @@
 namespace HeimrichHannot\Blocks;
 
 
-class Hooks extends \Controller
+use Contao\Controller;
+use Contao\Environment;
+use Contao\Input;
+use Contao\PageModel;
+use Contao\StringUtil;
+
+class Hooks extends Controller
 {
     public function generateBreadcrumbHook($arrItems, $objModule)
     {
+        /** @var PageModel $objPage */
         global $objPage;
         $pages = [$objPage->row()];
 
-        if (\Input::get('auto_item') && $objPage->alias != \Input::get('auto_item')) {
+        if (Input::get('auto_item') && $objPage->alias != Input::get('auto_item')) {
             array_insert($arrItems, count($arrItems) - 1, [
                     [
                         'isRoot'   => false,
                         'isActive' => false,
-                        'href'     => $this->generateFrontendUrl($objPage->row()),
-                        'title'    => $pages[0]['title'],
+                        'href'     => $objPage->getFrontendUrl(),
+                        'title'    => StringUtil::specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true),
                         'link'     => $pages[0]['title'],
                         'data'     => $pages[0],
                         'class'    => ''
@@ -38,7 +45,7 @@ class Hooks extends \Controller
             // get key for last item
             $idxLastItem = key($arrItems);
 
-            $arrItems[$idxLastItem]['href'] = \Environment::get('request');
+            $arrItems[$idxLastItem]['href'] = Environment::get('request');
 
             // hide news, event itself …
             if ($objModule->hideAutoItem && is_array($arrItems)) {

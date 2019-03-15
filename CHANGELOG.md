@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.1] - 2019-03-15
+
+## Fixed
+* breadcrumb now also respects pageTitle if set for auto_items
+* some deprecation warnings
+* some namespaces
+
 ## [1.7.0] - 2019-01-24
 
 ### Fixed 
