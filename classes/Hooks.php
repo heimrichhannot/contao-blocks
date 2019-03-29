@@ -31,7 +31,7 @@ class Hooks extends Controller
                         'isRoot'   => false,
                         'isActive' => false,
                         'href'     => $objPage->getFrontendUrl(),
-                        'title'    => StringUtil::specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true),
+                        'title'    => version_compare(VERSION, '4.0', '<') ? specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true) : \Contao\StringUtil::specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true),
                         'link'     => $pages[0]['title'],
                         'data'     => $pages[0],
                         'class'    => ''

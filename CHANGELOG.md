@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.2] - 2019-03-29
+
+## Fixed
+* contao 3 support
+
 ## [1.7.1] - 2019-03-15
 
 ## Fixed
