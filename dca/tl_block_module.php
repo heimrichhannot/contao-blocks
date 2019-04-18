@@ -306,7 +306,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['backgroundSize'],
             'exclude'   => true,
             'inputType' => 'imageSize',
-            'options'   => System::getImageSizes(),
+            'options_callback'   => function() { return System::getImageSizes(); },
             'reference' => &$GLOBALS['TL_LANG']['MSC'],
             'eval'      => ['rgxp' => 'natural', 'includeBlankOption' => true, 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'w50'],
             'sql'       => "varchar(64) NOT NULL default ''",

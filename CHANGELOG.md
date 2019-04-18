@@ -1,14 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.7.3] - 2019-04-18
+
+### Fixed
+* database error when fresh contao install
+
 ## [1.7.2] - 2019-03-29
 
-## Fixed
+### Fixed
 * contao 3 support
 
 ## [1.7.1] - 2019-03-15
 
-## Fixed
+### Fixed
 * breadcrumb now also respects pageTitle if set for auto_items
 * some deprecation warnings
 * some namespaces
