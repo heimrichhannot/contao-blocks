@@ -43,9 +43,6 @@ $GLOBALS['TL_LANG']['tl_block_module']['uncached']              = ['Vom Cache au
 $GLOBALS['TL_LANG']['tl_block_module']['start']                 = ['Anzeigen ab', 'Block-Element erst ab diesem Tag auf der Webseite anzeigen.'];
 $GLOBALS['TL_LANG']['tl_block_module']['stop']                  = ['Anzeigen bis', 'Block-Element nur bis zu diesem Tag auf der Webseite anzeigen.'];
 $GLOBALS['TL_LANG']['tl_block_module']['published']             = ['Veröffentlichen', 'Wählen Sie diese Option zum Veröffentlichen.'];
-$GLOBALS['TL_LANG']['tl_block_module']['useFilter']             = ['Filter-Einschränkung nutzen', 'Wählen Sie diese Option um die Sichtbarkeit anhand von Filterparametern einzuschränken.'];
-$GLOBALS['TL_LANG']['tl_block_module']['filter']                = ['Filter', 'Wählen Sie hier die relevante Filterkonfiguration aus.'];
-$GLOBALS['TL_LANG']['tl_block_module']['filterKeywords']        = ['Parameter', 'Tragen Sie hier die Feld-Wert-Angaben ein. Dieses Modul wird nur angezeigt, wenn die Bedingung erfüllt ist. Mehrere Feld-Wert-Paare durch Komma trennen.'];
 
 /**
  * Legends

@@ -91,7 +91,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
     ],
     // Palettes
     'palettes'    => [
-        '__selector__' => ['type', 'feature', 'addWrapper', 'published', 'useFilter'],
+        '__selector__' => ['type', 'feature', 'addWrapper', 'published'],
         'default'      => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper,uncached,published',
         'article'      => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper,uncached,published',
         'content'      => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper,uncached,published',
@@ -99,7 +99,6 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
     'subpalettes' => [
         'addWrapper' => 'headline,backgroundSRC,backgroundSize,customTpl,customBlockTpl,cssID,space',
         'feature'    => 'feature_start,feature_stop,feature_count,feature_cookie_name,feature_cookie_expire,feature_cssID',
-        'useFilter'  => 'filter,filterKeywords',
         'published'  => 'start,stop',
     ],
     'fields'      => [
@@ -373,41 +372,9 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'clr'],
             'sql'       => "char(1) NOT NULL default ''",
-        ],
-        'useFilter'             => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['useFilter'],
-            'exclude'   => true,
-            'inputType' => 'checkbox',
-            'eval'      => ['tl_class' => 'clr', 'submitOnChange' => true],
-            'sql'       => "char(1) NOT NULL default ''",
-        ],
-        'filter'                => [
-            'label'      => &$GLOBALS['TL_LANG']['tl_block_module']['filter'],
-            'exclude'    => true,
-            'inputType'  => 'select',
-            'foreignKey' => 'tl_filter_config.title',
-            'eval'       => ['mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'clr'],
-            'sql'        => "char(64) NOT NULL default ''",
-        ],
-        'filterKeywords'        => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['filterKeywords'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => ['mandatory' => true, 'tl_class' => 'clr'],
-            'sql'       => "char(128) NOT NULL default ''",
-        ],
+        ]
     ],
 ];
-
-if (version_compare(VERSION, '4.4', '>=')
-    && \Contao\System::getContainer()
-        ->get('huh.utils.container')
-        ->isBundleActive(\HeimrichHannot\FilterBundle\HeimrichHannotContaoFilterBundle::class)) {
-    
-    $GLOBALS['TL_DCA']['tl_block_module']['palettes']['default'] = str_replace('keywordPages','keywordPages,useFilter',$GLOBALS['TL_DCA']['tl_block_module']['palettes']['default']);
-    $GLOBALS['TL_DCA']['tl_block_module']['palettes']['article'] = str_replace('keywordPages','keywordPages,useFilter',$GLOBALS['TL_DCA']['tl_block_module']['palettes']['article']);
-    $GLOBALS['TL_DCA']['tl_block_module']['palettes']['content'] = str_replace('keywordPages','keywordPages,useFilter',$GLOBALS['TL_DCA']['tl_block_module']['palettes']['content']);
-}
 
 class tl_block_module extends Backend
 {
