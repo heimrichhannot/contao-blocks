@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.1] - 2019-05-23
+
+### changed
+* move include/exclude filter param handling to hook
+* hook is defined in [heimrichhannot/contao-filter-bundle](https://github.com/heimrichhannot/contao-filter-bundle)
+
 ## [1.8.0] - 2019-05-23
 
 ### Added

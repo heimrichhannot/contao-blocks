@@ -269,13 +269,6 @@ class BlockChild
             return false;
         }
         
-        if($this->objModel->useFilter) {
-//            $filter =
-            
-            $filterData = System::getContainer()->get('huh.filter.session')->getData('huh.filter.session.newsroom');
-            
-        }
-        
         $arrPages        = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->pages, true) : \StringUtil::deserialize($this->objModel->pages, true);
         $arrKeywordPages = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->keywordPages, true) : \StringUtil::deserialize($this->objModel->keywordPages, true);
         
@@ -326,23 +319,6 @@ class BlockChild
             }
         }
     
-        if($this->objModel->useFilter) {
-            $sessionKey  = System::getContainer()->get('huh.filter.manager')->findById($this->objModel->filter)->getSessionKey();
-            $sessionData = System::getContainer()->get('huh.filter.session')->getData($sessionKey);
-            
-            $filterKeywords = preg_split('/\s*,\s*/', trim($this->objModel->filterKeywords), -1, PREG_SPLIT_NO_EMPTY);
-            foreach($filterKeywords as $keyword) {
-                $keyword = html_entity_decode($keyword);
-                $equals     = false === strpos($keyword,'!=') ? true : false;
-                $delimeter  = $equals ? '=' : '!=';
-                $params     = explode($delimeter,$keyword);
-    
-                if(isset($sessionData[$params[0]]) && ((!$equals && $sessionData[$params[0]] == $params[1]) || ($equals && $sessionData[$params[0]] != $params[1]))) {
-                    return false;
-                }
-            }
-        }
-
         // filter out by feature
         if ($this->objModel->feature) {
             $start = $this->objModel->feature_start;
@@ -372,6 +348,14 @@ class BlockChild
 
             return $blnFeatureActive;
 
+        }
+    
+        if (isset($GLOBALS['TL_HOOKS']['isBlockVisibleHook']) && is_array($GLOBALS['TL_HOOKS']['isBlockVisibleHook'])) {
+            foreach ($GLOBALS['TL_HOOKS']['isBlockVisibleHook'] as $callback) {
+                if(!($visible = Controller::importStatic($callback[0])->{$callback[1]}($this->objModel))) {
+                    return false;
+                }
+            }
         }
 
         return true;
