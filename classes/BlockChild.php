@@ -268,10 +268,17 @@ class BlockChild
         if (!in_array($this->objModel->language, $currentLang)) {
             return false;
         }
-
+        
+        if($this->objModel->useFilter) {
+//            $filter =
+            
+            $filterData = System::getContainer()->get('huh.filter.session')->getData('huh.filter.session.newsroom');
+            
+        }
+        
         $arrPages        = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->pages, true) : \StringUtil::deserialize($this->objModel->pages, true);
         $arrKeywordPages = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->keywordPages, true) : \StringUtil::deserialize($this->objModel->keywordPages, true);
-
+        
         /**
          * Filter out pages
          * (exclude == display module not on this page)
@@ -292,7 +299,7 @@ class BlockChild
             }
 
             $check = ($this->objModel->addVisibility == 'exclude') ? true : false;
-
+    
             if (in_array($this->objPage->id, $arrPages) == $check) {
                 return false;
             }
@@ -305,15 +312,33 @@ class BlockChild
             $arrKeywords = preg_split('/\s*,\s*/', trim($this->objModel->keywords), -1, PREG_SPLIT_NO_EMPTY);
 
             if (is_array($arrKeywords) && !empty($arrKeywords)) {
+    
                 foreach ($arrKeywords as $keyword) {
                     $negate  = substr($keyword, 0, 1) == '!';
                     $keyword = $negate ? substr($keyword, 1, strlen($keyword)) : $keyword;
-
+                    
                     if (Input::get($keyword) != $negate) {
                         if (empty($arrKeywordPages) || (!empty($arrKeywordPages) && in_array($this->objPage->id, $arrKeywordPages))) {
                             return false;
                         }
                     }
+                }
+            }
+        }
+    
+        if($this->objModel->useFilter) {
+            $sessionKey  = System::getContainer()->get('huh.filter.manager')->findById($this->objModel->filter)->getSessionKey();
+            $sessionData = System::getContainer()->get('huh.filter.session')->getData($sessionKey);
+            
+            $filterKeywords = preg_split('/\s*,\s*/', trim($this->objModel->filterKeywords), -1, PREG_SPLIT_NO_EMPTY);
+            foreach($filterKeywords as $keyword) {
+                $keyword = html_entity_decode($keyword);
+                $equals     = false === strpos($keyword,'!=') ? true : false;
+                $delimeter  = $equals ? '=' : '!=';
+                $params     = explode($delimeter,$keyword);
+    
+                if(isset($sessionData[$params[0]]) && ((!$equals && $sessionData[$params[0]] == $params[1]) || ($equals && $sessionData[$params[0]] != $params[1]))) {
+                    return false;
                 }
             }
         }

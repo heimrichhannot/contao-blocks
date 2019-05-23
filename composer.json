@@ -38,6 +38,7 @@
         }
     },
     "suggest": {
-        "heimrichhannot/contao-utils-bundle": "Improves performance by using the huh.utils.cache.database_tree service to load tl_page childRecords from cache"
+        "heimrichhannot/contao-utils-bundle": "Improves performance by using the huh.utils.cache.database_tree service to load tl_page childRecords from cache",
+        "heimrichhannot/contao-filter-bundle": "To enable include/exclude of block module by filter parameters"
     }
 }

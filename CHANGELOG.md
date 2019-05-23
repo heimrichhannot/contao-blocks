@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.0] - 2019-05-23
+
+### Added
+* inlcude or exclude block module by filter parameter from `heimrichhannot/contao-filter-bundle` (only available in Contao 4.4 or higher and with installed [heimrichhannot/contao-filter-bundle](https://github.com/heimrichhannot/contao-filter-bundle))
+
 ## [1.7.3] - 2019-04-18
 
 ### Fixed
