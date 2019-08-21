@@ -113,8 +113,6 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'relation'   => ['type' => 'belongsTo', 'load' => 'lazy'],
         ],
         'sorting'               => [
-            'sorting' => true,
-            'flag'    => 2,
             'sql'     => "int(10) unsigned NOT NULL default '0'",
         ],
         'tstamp'                => [
@@ -133,7 +131,6 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['title'],
             'inputType' => 'text',
             'sorting'   => true,
-            'flag'      => 1,
             'search'    => true,
             'eval'      => ['mandatory' => true, 'maxlength' => 128, 'tl_class' => 'long'],
             'sql'       => "varchar(128) NOT NULL default ''",

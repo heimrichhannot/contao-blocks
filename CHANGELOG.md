@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.3] - 2019-08-21
+
+### Fixed
+* sorting in tl_block_module broken since contao 4.4.41
+
 ## [1.8.2] - 2019-05-23
 
 ### changed
