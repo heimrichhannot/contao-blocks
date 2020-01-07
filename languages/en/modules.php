@@ -14,6 +14,7 @@
  * Back end modules
  */
 $GLOBALS['TL_LANG']['MOD']['blocks'] = 'Blocks';
+$GLOBALS['TL_LANG']['MOD']['tl_block'] = 'Blocks';
 
 /**
  * Front end modules

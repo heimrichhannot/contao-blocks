@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.4] - 2020-01-07
+- added missing heading translations for backend modules (Themes -> [Theme] -> Blocks)
+
 ## [1.8.3] - 2019-08-21
 
 ### Fixed
