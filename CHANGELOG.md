@@ -1,96 +1,99 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.8.5] - 2020-08-20
+- added database tree cache since only used in this module and too general for contao-utils-bundle
+
 ## [1.8.4] - 2020-01-07
 - added missing heading translations for backend modules (Themes -> [Theme] -> Blocks)
 
 ## [1.8.3] - 2019-08-21
 
 ### Fixed
-* sorting in tl_block_module broken since contao 4.4.41
+- sorting in tl_block_module broken since contao 4.4.41
 
 ## [1.8.2] - 2019-05-23
 
 ### changed
-* removed unnecessary fields in dca
+- removed unnecessary fields in dca
 
 ## [1.8.1] - 2019-05-23
 
 ### changed
-* move include/exclude filter param handling to hook
-* hook is defined in [heimrichhannot/contao-filter-bundle](https://github.com/heimrichhannot/contao-filter-bundle)
+- move include/exclude filter param handling to hook
+- hook is defined in [heimrichhannot/contao-filter-bundle](https://github.com/heimrichhannot/contao-filter-bundle)
 
 ## [1.8.0] - 2019-05-23
 
 ### Added
-* inlcude or exclude block module by filter parameter from `heimrichhannot/contao-filter-bundle` (only available in Contao 4.4 or higher and with installed [heimrichhannot/contao-filter-bundle](https://github.com/heimrichhannot/contao-filter-bundle))
+- inlcude or exclude block module by filter parameter from `heimrichhannot/contao-filter-bundle` (only available in Contao 4.4 or higher and with installed [heimrichhannot/contao-filter-bundle](https://github.com/heimrichhannot/contao-filter-bundle))
 
 ## [1.7.3] - 2019-04-18
 
 ### Fixed
-* database error when fresh contao install
+- database error when fresh contao install
 
 ## [1.7.2] - 2019-03-29
 
 ### Fixed
-* contao 3 support
+- contao 3 support
 
 ## [1.7.1] - 2019-03-15
 
 ### Fixed
-* breadcrumb now also respects pageTitle if set for auto_items
-* some deprecation warnings
-* some namespaces
+- breadcrumb now also respects pageTitle if set for auto_items
+- some deprecation warnings
+- some namespaces
 
 ## [1.7.0] - 2019-01-24
 
 ### Fixed 
-* added `huh.utils.cache.database_tree` caching to get childRecords of tl_page from cache
+- added `huh.utils.cache.database_tree` caching to get childRecords of tl_page from cache
 
 ## [1.6.1] - 2019-01-24
 
 ### Fixed 
-* check if child exists to prevent printing an empty block
+- check if child exists to prevent printing an empty block
 
 ## [1.6.0] - 2018-12-17
 
 ### Changed
-* php7 only
+- php7 only
 
 ## [1.5.7] - 2018-11-28
 
 ### Fixed 
-* `Blockchild::determineCurrentPage()` that caused $objPage to be null in certain premises
+- `Blockchild::determineCurrentPage()` that caused $objPage to be null in certain premises
 
 ## [1.5.6] - 2018-10-11
 
 ### Fixed 
-* method not found error in tl_block_module
+- method not found error in tl_block_module
 
 ## [1.5.5] - 2018-10-11
 
 ### Fixed 
-* method not found error in tl_block
+- method not found error in tl_block
 
 ## [1.5.4] - 2018-09-04
 
 ### Fixed
-* `ContentBlock` did not render wrapper at all, make use of new `BlockChild` object to get rid off
+- `ContentBlock` did not render wrapper at all, make use of new `BlockChild` object to get rid off
 
 ## [1.5.3] - 2018-07-11
 
 ### Fixed
-* reverted php 5.4+ support
+- reverted php 5.4+ support
 
 ## [1.5.2] - 2018-06-21
 
 ### Changed
-* added Module constant
+- added Module constant
 
 ## [1.5.1] - 2018-06-21
 
 ### Fixed
-* removed missing method call
+- removed missing method call
 
 ## [1.5.0] - 2018-06-18
 
