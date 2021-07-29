@@ -65,6 +65,9 @@ class BlockChild
             case 'article':
                 $strReturn = $this->renderArticle();
                 break;
+            case 'included_content':
+                $strReturn = $this->renderIncludedContentBlockElement();
+                break;
             case 'content':
                 $strReturn = $this->renderContent();
                 break;
@@ -107,6 +110,29 @@ class BlockChild
         }
 
         return \Controller::getArticle($objArticles) ?: '';
+    }
+
+    /**
+     * Render current block child as included content block element
+     *
+     * @return string
+     */
+    protected function renderIncludedContentBlockElement()
+    {
+        $strContent = '';
+        $objElement = \ContentModel::findPublishedByPidAndTable($this->objModel->contentBlockModuleAlias, 'tl_block_module');
+
+        if ($objElement !== null) {
+            while ($objElement->next()) {
+                if (!\Controller::isVisibleElement($objElement->current())) {
+                    continue;
+                }
+
+                $strContent .= \Controller::getContentElement($objElement->current());
+            }
+        }
+
+        return $strContent;
     }
 
     /**
