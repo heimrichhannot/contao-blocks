@@ -1,15 +1,5 @@
 <?php
 
-/**
- * Contao Open Source CMS
- *
- * Copyright (C) 2005-2012 Leo Feyer
- *
- * @package Blocks
- * @link    http://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
- */
-
 array_insert(
     $GLOBALS['TL_DCA']['tl_theme']['list']['operations'],
     5,
@@ -21,3 +11,5 @@ array_insert(
         ],
     ]
 );
+
+$GLOBALS['TL_DCA']['tl_theme']['config']['ctable'][] = 'tl_block';
