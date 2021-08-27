@@ -21,7 +21,7 @@
         "issues": "https://github.com/heimrichhannot/contao-blocks/issues"
     },
     "require": {
-        "php": "~7.0",
+        "php": "^7.0|^8.0",
         "contao/core-bundle": "^3.5.1 || ~4.1",
         "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
     },

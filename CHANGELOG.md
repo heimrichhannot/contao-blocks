@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.2] - 2021-08-27
+
+- Added: php8 support
+
 ## [1.9.1] - 2021-07-29
 
 - Added: `tl_block` as ctable of `tl_theme` in order to support deletion of blocks if the parent theme is removed
