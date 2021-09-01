@@ -1,13 +1,7 @@
 <?php
 
-/**
- * Contao Open Source CMS
- *
- * Copyright (C) 2005-2012 Leo Feyer
- *
- * @package Blocks
- * @link    http://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
- */
-
-$GLOBALS['TL_LANG']['tl_theme']['blocks'] = ['Blöcke', 'Die Blöcke des Theme %s bearbeiten.'];
+if (version_compare(VERSION, '4.8', '>=')) {
+    $GLOBALS['TL_LANG']['tl_theme']['blocks'] = 'Die Blöcke des Theme ID %s bearbeiten';
+} else {
+    $GLOBALS['TL_LANG']['tl_theme']['blocks'] = ['Blöcke', 'Die Blöcke des Theme ID %s bearbeiten'];
+}

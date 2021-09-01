@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.3] - 2021-09-01
+
+- Fixed: theme labels for contao 4.8+ and php 8
+
 ## [1.9.2] - 2021-08-27
 
 - Added: php8 support
