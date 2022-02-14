@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.4] - 2022-02-14
+
+- Fixed: array index issues in php 8+
+
 ## [1.9.3] - 2021-09-01
 
 - Fixed: theme labels for contao 4.8+ and php 8

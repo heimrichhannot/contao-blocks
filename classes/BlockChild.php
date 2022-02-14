@@ -219,14 +219,13 @@ class BlockChild
         $space = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->space) : StringUtil::deserialize($this->objModel->space);
         $cssID = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->cssID, true) : StringUtil::deserialize($this->objModel->cssID, true);
 
-
         // override original space settings with block module settings
-        if ($space[0] != '' || $space[1] != '') {
+        if (is_array($space) && (isset($space[0]) && $space[0] || isset($space[1]) && $space[1])) {
             $objItem->space = $this->objModel->space;
         }
 
         // override original cssID with block module settings
-        if ($cssID[0] != '' || $cssID[1] != '') {
+        if (is_array($cssID) && (isset($cssID[0]) && $cssID[0] || isset($cssID[1]) && $cssID[1])) {
             $objItem->cssID = $this->objModel->cssID;
         }
 

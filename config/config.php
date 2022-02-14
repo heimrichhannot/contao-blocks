@@ -50,7 +50,7 @@ $GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge
             'icon'          => 'system/modules/blocks/assets/icon.png',
         ],
     ],
-    is_array($GLOBALS['TL_EASY_THEMES_MODULES']) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : []
+    isset($GLOBALS['TL_EASY_THEMES_MODULES']) && is_array($GLOBALS['TL_EASY_THEMES_MODULES']) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : []
 );
 
 /**
