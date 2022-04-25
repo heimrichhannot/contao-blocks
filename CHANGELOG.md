@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.5] - 2022-04-25
+- Fixed: corrupt modal titles for tl_content module wizard
+
 ## [1.9.4] - 2022-02-14
 
 - Fixed: array index issues in php 8+

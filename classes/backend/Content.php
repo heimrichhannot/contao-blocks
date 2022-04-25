@@ -11,8 +11,30 @@
 namespace HeimrichHannot\Blocks\Backend;
 
 
+use Contao\ContentModel;
+use Contao\DataContainer;
+use Contao\Input;
+
 class Content extends \Backend
 {
+    /**
+     * @param DataContainer|null $dc
+     * @return void
+     */
+    public function onLoadCallback($dc = null)
+    {
+        if (null === $dc || !$dc->id || 'edit' !== Input::get('act')) {
+            return;
+        }
+
+        $objModule = \Database::getInstance()->prepare("SELECT * FROM tl_module WHERE id = ? AND type = 'block'")->execute($dc->value);
+        if ($objModule->numRows) {
+            $GLOBALS['TL_DCA']['tl_content']['fields']['module']['wizard'] = [
+                ['HeimrichHannot\Blocks\Backend\Content', 'editModule'],
+            ];
+        }
+    }
+
     public function editBlock(\DataContainer $dc)
     {
         return ($dc->activeRecord->block < 1) ? '' : ' <a href="contao/main.php?do=themes&amp;table=tl_content&amp;id=' . $dc->activeRecord->block . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]),

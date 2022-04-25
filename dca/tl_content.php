@@ -3,6 +3,12 @@
 $arrDca = &$GLOBALS['TL_DCA']['tl_content'];
 
 /**
+ * Config
+ */
+
+$arrDca['config']['onload_callback'][] = ['HeimrichHannot\Blocks\Backend\Content', 'onLoadCallback'];
+
+/**
  * Palettes
  */
 
@@ -36,7 +42,3 @@ if (\Input::get('do') == 'themes') {
     $arrDca['config']['ptable']            = 'tl_block_module';
     $arrDca['config']['onload_callback'][] = ['HeimrichHannot\Blocks\Backend\Content', 'checkPermission'];
 }
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['module']['wizard'] = [
-    ['HeimrichHannot\Blocks\Backend\Content', 'editModule'],
-];
