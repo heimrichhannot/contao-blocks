@@ -26,6 +26,11 @@ class Hooks extends Controller
         $pages = [$objPage->row()];
 
         if (Input::get('auto_item') && $objPage->alias != Input::get('auto_item')) {
+            if ($objPage->requireItem) {
+                $url = $objPage->getFrontendUrl('/'.Input::get('auto_item'));
+            } else {
+                $url = $objPage->getFrontendUrl();
+            }
             array_insert($arrItems, count($arrItems) - 1, [
                     [
                         'isRoot'   => false,
