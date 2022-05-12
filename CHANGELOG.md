@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.7] - 2022-05-12
+See 1.9.6
+
 ## [1.9.6] - 2022-05-12
 - Fixed: exception in breadcrump if page has requireItem option set (contao 4.13)
 
