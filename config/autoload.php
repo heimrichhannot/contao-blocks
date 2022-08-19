@@ -29,6 +29,7 @@ ClassLoader::addClasses([
         'HeimrichHannot\Blocks\Hooks'              => 'system/modules/blocks/classes/Hooks.php',
         'HeimrichHannot\Blocks\InsertTagsListener' => 'system/modules/blocks/classes/InsertTagsListener.php',
         'HeimrichHannot\Blocks\BlockChild' => 'system/modules/blocks/classes/BlockChild.php',
+        'HeimrichHannot\Blocks\Exception\NoBlockChildrenException' => 'system/modules/blocks/classes/Exception/NoBlockChildrenException.php',
 
         // Elements
         'HeimrichHannot\Blocks\ContentBlock'       => 'system/modules/blocks/elements/ContentBlock.php',

@@ -14,6 +14,7 @@ namespace HeimrichHannot\Blocks;
 
 use Contao\Input;
 use Contao\Module;
+use HeimrichHannot\Blocks\Exception\NoBlockChildrenException;
 
 class ModuleBlock extends Module
 {
@@ -61,7 +62,11 @@ class ModuleBlock extends Module
             return '';
         }
 
-        return parent::generate();
+        try {
+            return parent::generate();
+        } catch (NoBlockChildrenException $e) {
+            return '';
+        }
     }
 
     protected function compile()
@@ -71,23 +76,25 @@ class ModuleBlock extends Module
         $objChilds = BlockModuleModel::findPublishedByPid($this->block, ['order' => 'sorting']);
 
         if ($objChilds === null) {
-            $this->Template->addWrapper = false;
-
-            return '';
+            throw new NoBlockChildrenException("No block children found.");
         }
 
         $strBuffer = '';
 
+        $childrenCount = 0;
         while ($objChilds->next()) {
             if (strlen($objChilds->hide) == 0 || $objChilds->hide == 1 || ($objChilds->hide == 2 && !FE_USER_LOGGED_IN) || ($objChilds->hide == 3 && FE_USER_LOGGED_IN)) {
                 $child = $this->renderChild($objChilds->current());
-
-                if(!$child){
+                if (empty($child)) {
                     continue;
                 }
+                $childrenCount++;
 
                 $strBuffer .= $child . "\n";
             }
+        }
+        if ($childrenCount < 1) {
+            throw new NoBlockChildrenException("No visible block child!");
         }
 
         if ($this->objBlock->addWrapper) {
