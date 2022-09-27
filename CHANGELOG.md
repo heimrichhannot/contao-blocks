@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.1] - 2022-09-27
+- Fixed: breadcrumb breaks routing ([#4])
+
 ## [1.10.0] - 2022-08-19
 - Changed: do not output anything if no active children exist (also skip dev template comments)
 

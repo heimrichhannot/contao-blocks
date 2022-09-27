@@ -25,9 +25,9 @@ class Hooks extends Controller
         global $objPage;
         $pages = [$objPage->row()];
 
-        if (Input::get('auto_item') && $objPage->alias != Input::get('auto_item')) {
+        if (Input::get('auto_item', false, true) && $objPage->alias != Input::get('auto_item', false, true)) {
             if ($objPage->requireItem) {
-                $url = $objPage->getFrontendUrl('/'.Input::get('auto_item'));
+                $url = $objPage->getFrontendUrl('/'.Input::get('auto_item', false, true));
             } else {
                 $url = $objPage->getFrontendUrl();
             }
