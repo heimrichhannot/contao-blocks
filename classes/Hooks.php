@@ -15,7 +15,7 @@ use Contao\Controller;
 use Contao\Environment;
 use Contao\Input;
 use Contao\PageModel;
-use Contao\StringUtil;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class Hooks extends Controller
 {
@@ -23,26 +23,42 @@ class Hooks extends Controller
     {
         /** @var PageModel $objPage */
         global $objPage;
+
         $pages = [$objPage->row()];
 
+        if ($objPage->is)
+
         if (Input::get('auto_item', false, true) && $objPage->alias != Input::get('auto_item', false, true)) {
-            if ($objPage->requireItem) {
-                $url = $objPage->getFrontendUrl('/'.Input::get('auto_item', false, true));
-            } else {
-                $url = $objPage->getFrontendUrl();
+            $addItem = true;
+            try {
+                if ($objPage->requireItem) {
+                    $url = $objPage->getFrontendUrl('/'.Input::get('auto_item', false, true));
+                } else {
+                    $url = $objPage->getFrontendUrl();
+                }
+            } catch (\Exception $exception) {
+                if (class_exists(RouteNotFoundException::class) && $exception instanceof RouteNotFoundException) {
+                    $addItem = false;
+                } else {
+                    throw $exception;
+                }
             }
-            array_insert($arrItems, count($arrItems) - 1, [
-                    [
-                        'isRoot'   => false,
-                        'isActive' => false,
-                        'href'     => $url,
-                        'title'    => version_compare(VERSION, '4.0', '<') ? specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true) : \Contao\StringUtil::specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true),
-                        'link'     => $pages[0]['title'],
-                        'data'     => $pages[0],
-                        'class'    => ''
+
+            if ($addItem) {
+                array_insert($arrItems, count($arrItems) - 1, [
+                        [
+                            'isRoot'   => false,
+                            'isActive' => false,
+                            'href'     => $url,
+                            'title'    => version_compare(VERSION, '4.0', '<') ? specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true) : \Contao\StringUtil::specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true),
+                            'link'     => $pages[0]['title'],
+                            'data'     => $pages[0],
+                            'class'    => ''
+                        ]
                     ]
-                ]
-            );
+                );
+            }
+
 
             // set pointer to last element
             end($arrItems);

@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.2] - 2023-02-15
+- Fixed: exception when trying to route error page
+
 ## [1.10.1] - 2022-09-27
 - Fixed: breadcrumb breaks routing ([#4])
 
