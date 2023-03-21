@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.0] - 2023-03-21
+- Changed: hide block type in module type select ([#5])
+- Changed: dropped contao 3 support
+- Changed: dropped php 7.0 support
+
 ## [1.10.2] - 2023-02-15
 - Fixed: exception when trying to route error page
 
@@ -281,3 +286,6 @@ See 1.9.6
 ### Added
 
 - trigger `$GLOBALS['TL_HOOKS']['getFrontendModule']` for block children of type module 
+
+
+[#5]: https://github.com/heimrichhannot/contao-blocks/issues/5

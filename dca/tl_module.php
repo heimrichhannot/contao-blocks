@@ -10,7 +10,21 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
+use HeimrichHannot\Blocks\DataContainer\ModuleContainer;
+
 $dc = &$GLOBALS['TL_DCA']['tl_module'];
+
+$dc['config']['onload_callback'][] = ['tl_module_block', 'checkBlockPermission'];
+$dc['config']['onload_callback'][] = ['tl_module_block', 'cleanup'];
+$dc['config']['onload_callback'][] = [ModuleContainer::class, 'onLoadCallback'];
+
+$dc['list']['sorting']['child_record_callback'] = ['tl_module_block', 'listModule'];
+
+foreach ($dc['list']['operations'] as $key => $button) {
+    if (in_array($key, ['edit', 'copy', 'cut', 'delete'])) {
+        $dc['list']['operations'][$key]['button_callback'] = ['tl_module_block', 'editBlockButtons'];
+    }
+}
 
 $dc['palettes'][\HeimrichHannot\Blocks\ModuleBlock::TYPE] = '{title_legend},headline,type;{block_legend},block';
 
@@ -24,18 +38,6 @@ $dc['fields']['block'] = [
 ];
 
 $dc['fields']['type']['save_callback'] = [['tl_module_block', 'disableBlockModule']];
-
-foreach ($dc['list']['operations'] as $key => $button) {
-    if (in_array($key, ['edit', 'copy', 'cut', 'delete'])) {
-        $dc['list']['operations'][$key]['button_callback'] = ['tl_module_block', 'editBlockButtons'];
-    }
-}
-
-
-$dc['config']['onload_callback'][] = ['tl_module_block', 'checkBlockPermission'];
-$dc['config']['onload_callback'][] = ['tl_module_block', 'cleanup'];
-
-$dc['list']['sorting']['child_record_callback'] = ['tl_module_block', 'listModule'];
 
 /**
  * Breadcrumb tweaks for auto_item
