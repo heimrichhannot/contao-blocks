@@ -520,7 +520,7 @@ class tl_block_module extends Backend
             while ($objAlias->next()) {
                 $key                           = $objAlias->parent . ' (ID ' . $objAlias->pid . ')';
                 $arrAlias[$key][$objAlias->id] =
-                    $objAlias->title . ' (' . ($GLOBALS['TL_LANG']['tl_article'][$objAlias->inColumn] ?: $objAlias->inColumn) . ', ID '
+                    $objAlias->title . ' (' . ($GLOBALS['TL_LANG']['tl_article'][$objAlias->inColumn] ?? $objAlias->inColumn) . ', ID '
                     . $objAlias->id . ')';
             }
         }
