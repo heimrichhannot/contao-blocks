@@ -2,8 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.2] - 2023-10-17
+- Fixed: warning in tl_module
+
 ## [1.11.1] - 2023-06-22
-- FIxed: warning in tl_block_module
+- Fixed: warning in tl_block_module
 
 ## [1.11.0] - 2023-03-21
 - Changed: hide block type in module type select ([#5])

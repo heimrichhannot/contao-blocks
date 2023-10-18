@@ -152,25 +152,25 @@ class tl_module_block extends \tl_module
         if ($row['type'] == 'block') {
             $html = '';
 
-            \Controller::loadLanguageFile('tl_block');
+            Controller::loadLanguageFile('tl_block');
 
             if ($href == 'act=edit') {
                 // edit button
-                $html .= '<a href="' . $this->addToUrl('&table=tl_block_module&id=' . $row['block']) . '" title="' . specialchars(
+                $html .= '<a href="' . $this->addToUrl('&table=tl_block_module&id=' . $row['block']) . '" title="' . StringUtil::specialchars(
                         sprintf($GLOBALS['TL_LANG']['tl_block']['edit'][1], $row['block'])
                     ) . '"' . $attributes . '>' . Image::getHtml($icon, $label) . '</a> ';
 
                 // edit header button
                 $icon = 'header.gif';
-                $html .= '<a href="' . $this->addToUrl('&table=tl_block&act=edit&id=' . $row['block']) . '" title="' . specialchars(
-                        sprintf($GLOBALS['TL_LANG']['tl_block']['editHeader'][1], $row['block'])
+                $html .= '<a href="' . $this->addToUrl('&table=tl_block&act=edit&id=' . $row['block']) . '" title="' . StringUtil::specialchars(
+                        sprintf(($GLOBALS['TL_LANG']['tl_block']['editHeader'][1] ?? 'Edit block ID %s'), $row['block'])
                     ) . '"' . $attributes . '>' . Image::getHtml($icon, $label) . '</a> ';
             }
 
             return $html;
         }
 
-        return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . specialchars($title) . '"' . $attributes . '>' . Image::getHtml(
+        return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . StringUtil::specialchars($title) . '"' . $attributes . '>' . Image::getHtml(
                 $icon,
                 $label
             ) . '</a> ';
