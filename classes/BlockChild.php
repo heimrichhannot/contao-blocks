@@ -11,6 +11,7 @@ namespace HeimrichHannot\Blocks;
 use Contao\Controller;
 use Contao\Database;
 use Contao\Environment;
+use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\Image;
 use Contao\Input;
@@ -263,9 +264,9 @@ class BlockChild
 
         // Add an image
         if (!empty($this->objModel->backgroundSRC)) {
-            if (null !== ($objModel = \FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(TL_ROOT.'/'.$objModel->path)) {
+            if (null !== ($objModel = FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(TL_ROOT.'/'.$objModel->path)) {
 
-                $size = deserialize($this->objModel->backgroundSize, true);
+                $size = StringUtil::deserialize($this->objModel->backgroundSize, true);
                 $path = Image::get($objModel->path, $size[0] ?? null, $size[1] ?? null, $size[2] ?? '');
 
                 $objT->background = $path;
@@ -273,9 +274,9 @@ class BlockChild
             }
         }
 
-        $arrHeadline    = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->headline, true) : \StringUtil::deserialize($this->objModel->headline, true);
-        $objT->headline = is_array($arrHeadline) ? $arrHeadline['value'] : $arrHeadline;
-        $objT->hl       = is_array($arrHeadline) ? $arrHeadline['unit'] : 'h1';
+        $arrHeadline = StringUtil::deserialize($this->objModel->headline, true);
+        $objT->headline = $arrHeadline['value'] ?? null;
+        $objT->hl = $arrHeadline['unit'] ?? 'h1';
 
         return $objT->parse();
     }

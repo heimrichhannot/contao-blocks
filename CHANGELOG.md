@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.3] - 2023-11-14
+- Fixed: warnings in BlockChild
+
 ## [1.11.2] - 2023-10-17
 - Fixed: warning in tl_module
 
