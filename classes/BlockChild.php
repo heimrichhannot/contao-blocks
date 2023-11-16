@@ -13,6 +13,7 @@ use Contao\Database;
 use Contao\Environment;
 use Contao\FilesModel;
 use Contao\Frontend;
+use Contao\FrontendTemplate;
 use Contao\Image;
 use Contao\Input;
 use Contao\Module;
@@ -242,18 +243,18 @@ class BlockChild
      */
     protected function addBlockWrapper($strContent)
     {
-        $objT        = new \FrontendTemplate($this->objModel->customTpl ? $this->objModel->customTpl : 'blocks_wrapper');
+        $objT        = new FrontendTemplate($this->objModel->customTpl ? $this->objModel->customTpl : 'blocks_wrapper');
         $objT->block = $strContent;
         $cssID       = $this->objModel->featureActive ? $this->objModel->feature_cssID : $this->objModel->cssID;
-        $arrCssID    = version_compare(VERSION, '4.0', '<') ? deserialize($cssID, true) : \StringUtil::deserialize($cssID, true);
-        $arrSpace    = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->space) : \StringUtil::deserialize($this->objModel->space);
+        $arrCssID    = StringUtil::deserialize($cssID, true);
+        $arrSpace    = StringUtil::deserialize($this->objModel->space);
         $arrStyle    = [];
 
-        if ($arrSpace[0] != '') {
+        if ($arrSpace[0] ?? false) {
             $arrStyle[] = 'margin-top:'.$arrSpace[0].'px;';
         }
 
-        if ($arrSpace[1] != '') {
+        if ($arrSpace[1] ?? false) {
             $arrStyle[] = 'margin-bottom:'.$arrSpace[1].'px;';
         }
 
@@ -295,8 +296,8 @@ class BlockChild
             return false;
         }
         
-        $arrPages        = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->pages, true) : \StringUtil::deserialize($this->objModel->pages, true);
-        $arrKeywordPages = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->keywordPages, true) : \StringUtil::deserialize($this->objModel->keywordPages, true);
+        $arrPages        = StringUtil::deserialize($this->objModel->pages, true);
+        $arrKeywordPages = StringUtil::deserialize($this->objModel->keywordPages, true);
         
         /**
          * Filter out pages
