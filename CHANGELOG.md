@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.5] - 2023-11-27
+- Fixed: warning
+
 ## [1.11.4] - 2023-11-16
 - Fixed: warnings
 - Fixed: deprecations

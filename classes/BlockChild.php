@@ -181,7 +181,7 @@ class BlockChild
         $strClass = Module::findClass($objModel->type);
 
         if (!class_exists($strClass)) {
-            Controller::log('Module class "'.$GLOBALS['FE_MOD'][$objModel->type].'" (module "'.$objModel->type.'") does not exist', 'ModuleBlock renderModule()', TL_ERROR);
+            Controller::log('Module class "'.($GLOBALS['FE_MOD'][$objModel->type] ?? '').'" (module "'.$objModel->type.'") does not exist', 'ModuleBlock renderModule()', TL_ERROR);
 
             return '';
         }
