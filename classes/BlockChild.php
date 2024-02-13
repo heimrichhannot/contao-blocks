@@ -7,17 +7,18 @@
 
 namespace HeimrichHannot\Blocks;
 
-
+use Contao\ArticleModel;
+use Contao\ContentModel;
 use Contao\Controller;
 use Contao\Database;
-use Contao\Environment;
+use Contao\Date;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
 use Contao\Image;
 use Contao\Input;
+use Contao\Model\Collection;
 use Contao\Module;
-use Contao\ModuleLoader;
 use Contao\ModuleModel;
 use Contao\PageModel;
 use Contao\StringUtil;
@@ -25,7 +26,6 @@ use Contao\System;
 
 class BlockChild
 {
-
     /**
      * Current block child
      *
@@ -101,17 +101,17 @@ class BlockChild
      */
     protected function renderArticle()
     {
-        $objArticles = \ArticleModel::findPublishedById($this->objModel->articleAlias);
+        $objArticles = ArticleModel::findPublishedById($this->objModel->articleAlias);
 
         if ($objArticles === null) {
             return '';
         }
 
-        if (!\Controller::isVisibleElement($objArticles)) {
+        if (!Controller::isVisibleElement($objArticles)) {
             return '';
         }
 
-        return \Controller::getArticle($objArticles) ?: '';
+        return Controller::getArticle($objArticles) ?: '';
     }
 
     /**
@@ -122,15 +122,15 @@ class BlockChild
     protected function renderIncludedContentBlockElement()
     {
         $strContent = '';
-        $objElement = \ContentModel::findPublishedByPidAndTable($this->objModel->contentBlockModuleAlias, 'tl_block_module');
+        $objElement = ContentModel::findPublishedByPidAndTable($this->objModel->contentBlockModuleAlias, 'tl_block_module');
 
         if ($objElement !== null) {
             while ($objElement->next()) {
-                if (!\Controller::isVisibleElement($objElement->current())) {
+                if (!Controller::isVisibleElement($objElement->current())) {
                     continue;
                 }
 
-                $strContent .= \Controller::getContentElement($objElement->current());
+                $strContent .= Controller::getContentElement($objElement->current());
             }
         }
 
@@ -145,15 +145,15 @@ class BlockChild
     protected function renderContent()
     {
         $strContent = '';
-        $objElement = \ContentModel::findPublishedByPidAndTable($this->objModel->id, 'tl_block_module');
+        $objElement = ContentModel::findPublishedByPidAndTable($this->objModel->id, 'tl_block_module');
 
         if ($objElement !== null) {
             while ($objElement->next()) {
-                if (!\Controller::isVisibleElement($objElement->current())) {
+                if (!Controller::isVisibleElement($objElement->current())) {
                     continue;
                 }
 
-                $strContent .= \Controller::getContentElement($objElement->current());
+                $strContent .= Controller::getContentElement($objElement->current());
             }
         }
 
@@ -167,7 +167,7 @@ class BlockChild
      */
     protected function renderModule()
     {
-        $objModel = \ModuleModel::findByPK($this->objModel->module);
+        $objModel = ModuleModel::findByPK($this->objModel->module);
 
         if ($objModel === null) {
             return '';
@@ -218,8 +218,8 @@ class BlockChild
      */
     protected function overrideCommonProps($objItem)
     {
-        $space = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->space) : StringUtil::deserialize($this->objModel->space);
-        $cssID = version_compare(VERSION, '4.0', '<') ? deserialize($this->objModel->cssID, true) : StringUtil::deserialize($this->objModel->cssID, true);
+        $space = StringUtil::deserialize($this->objModel->space);
+        $cssID = StringUtil::deserialize($this->objModel->cssID, true);
 
         // override original space settings with block module settings
         if (is_array($space) && (isset($space[0]) && $space[0] || isset($space[1]) && $space[1])) {
@@ -289,7 +289,7 @@ class BlockChild
      */
     protected function isVisible()
     {
-        $time        = \Date::floorToMinute();
+        $time        = Date::floorToMinute();
         $currentLang = ['', $GLOBALS['TL_LANGUAGE']];
 
         if (!in_array($this->objModel->language, $currentLang)) {
@@ -308,8 +308,8 @@ class BlockChild
             // add nested pages to the filter
             if ($this->objModel->addPageDepth) {
                 if (version_compare(VERSION, '4.0', '>=')) {
-                    if (\Contao\System::getContainer()->has('huh.utils.cache.database_tree')) {
-                        $arrPages = array_merge($arrPages, \Contao\System::getContainer()->get('huh.utils.cache.database_tree')->getChildRecords('tl_page', $arrPages));
+                    if (System::getContainer()->has('huh.utils.cache.database_tree')) {
+                        $arrPages = array_merge($arrPages, System::getContainer()->get('huh.utils.cache.database_tree')->getChildRecords('tl_page', $arrPages));
                     } else {
                         $arrPages = array_merge($arrPages, Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
                     }
@@ -379,7 +379,8 @@ class BlockChild
     
         if (isset($GLOBALS['TL_HOOKS']['isBlockVisibleHook']) && is_array($GLOBALS['TL_HOOKS']['isBlockVisibleHook'])) {
             foreach ($GLOBALS['TL_HOOKS']['isBlockVisibleHook'] as $callback) {
-                if(!($visible = Controller::importStatic($callback[0])->{$callback[1]}($this->objModel))) {
+                $visible = Controller::importStatic($callback[0])->{$callback[1]}($this->objModel);
+                if(!$visible) {
                     return false;
                 }
             }
@@ -396,18 +397,20 @@ class BlockChild
     {
         global $objPage;
 
-        if (!in_array('pagelink', version_compare(VERSION, '4.0', '<') ? ModuleLoader::getActive() : array_keys(System::getContainer()->getParameter('kernel.bundles'))) && null !== $objPage) {
-
+        if (!in_array('pagelink', array_keys(System::getContainer()->getParameter('kernel.bundles'))) && null !== $objPage)
+        {
             return $objPage;
         }
 
         $pageId  = Frontend::getPageIdFromUrl();
         $objPage = PageModel::findPublishedByIdOrAlias($pageId) ?: Frontend::getRootPageFromUrl();
 
-        if ($objPage instanceof \Contao\Model\Collection) {
+        if ($objPage instanceof Collection) {
             $objPage = $objPage->current();
         }
 
         return $objPage;
     }
 }
+
+class_alias(BlockChild::class, 'HeimrichHannot\Blocks\BlockChild');

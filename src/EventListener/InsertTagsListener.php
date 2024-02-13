@@ -5,7 +5,7 @@
  * @license LGPL-3.0-or-later
  */
 
-namespace HeimrichHannot\Blocks;
+namespace HeimrichHannot\Blocks\EventListener;
 
 
 class InsertTagsListener
@@ -62,3 +62,5 @@ class InsertTagsListener
         return '';
     }
 }
+
+class_alias(InsertTagsListener::class, 'HeimrichHannot\Blocks\InsertTagsListener');

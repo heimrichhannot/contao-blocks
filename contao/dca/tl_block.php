@@ -11,7 +11,6 @@
  */
 
 $GLOBALS['TL_DCA']['tl_block'] = [
-
     // Config
     'config'      => [
         'dataContainer'     => 'Table',
@@ -159,7 +158,7 @@ $GLOBALS['TL_DCA']['tl_block'] = [
     ],
 ];
 
-class tl_block extends \Backend
+class tl_block extends \Contao\Backend
 {
     public function __construct()
     {

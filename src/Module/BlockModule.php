@@ -10,13 +10,16 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-namespace HeimrichHannot\Blocks;
+namespace HeimrichHannot\Blocks\Module;
 
-use Contao\Input;
+use Contao\BackendTemplate;
 use Contao\Module;
+use Contao\StringUtil;
 use HeimrichHannot\Blocks\Exception\NoBlockChildrenException;
+use HeimrichHannot\Blocks\Model\BlockModel;
+use HeimrichHannot\Blocks\Model\BlockModuleModel;
 
-class ModuleBlock extends Module
+class BlockModule extends Module
 {
     const TYPE = 'block';
 
@@ -39,7 +42,7 @@ class ModuleBlock extends Module
                     continue;
                 }
 
-                $this->{$key} = version_compare(VERSION, '4.0', '<') ? deserialize($value) : \StringUtil::deserialize($value);
+                $this->{$key} = version_compare(VERSION, '4.0', '<') ? deserialize($value) : StringUtil::deserialize($value);
             }
         }
     }
@@ -47,7 +50,7 @@ class ModuleBlock extends Module
     public function generate()
     {
         if (TL_MODE == 'BE') {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
 
             $objTemplate->wildcard = '### BLOCK ###';
             $objTemplate->title    = $this->headline;
@@ -120,3 +123,4 @@ class ModuleBlock extends Module
     }
 }
 
+class_alias(BlockModule::class, 'HeimrichHannot\Blocks\ModuleBlock');

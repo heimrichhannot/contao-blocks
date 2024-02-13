@@ -1,12 +1,12 @@
 {
     "name": "heimrichhannot/contao-blocks",
-    "description": "Contao blocks module is a site-dependent container, that manipulates the visibility of elements.",
+    "description": "Contao blocks bundle is a site-dependent container, that manipulates the visibility of elements.",
     "keywords": [
         "contao",
         "blocks",
         "content"
     ],
-    "type": "contao-module",
+    "type": "contao-bundle",
     "homepage": "https://github.com/heimrichhannot/contao-blocks",
     "license": "LGPL-3.0-or-later",
     "authors": [
@@ -22,20 +22,19 @@
     },
     "require": {
         "php": "^7.1 || ^8.0",
-        "contao/core-bundle": "^4.4",
+        "contao/core-bundle": "^4.13 || ^5.0",
         "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
     },
     "autoload": {
+        "psr-4": {
+            "HeimrichHannot\\Blocks\\": "src/"
+        },
         "classmap": [
-            ""
+            "classes/"
         ]
     },
     "extra": {
-        "contao": {
-            "sources": {
-                "": "system/modules/blocks"
-            }
-        }
+        "contao-manager-plugin": "HeimrichHannot\\Blocks\\ContaoManager\\Plugin"
     },
     "suggest": {
         "heimrichhannot/contao-utils-bundle": "Improves performance by using the huh.utils.cache.database_tree service to load tl_page childRecords from cache"

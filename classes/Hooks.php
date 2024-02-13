@@ -10,11 +10,11 @@
 
 namespace HeimrichHannot\Blocks;
 
-
 use Contao\Controller;
 use Contao\Environment;
 use Contao\Input;
 use Contao\PageModel;
+use Contao\StringUtil;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class Hooks extends Controller
@@ -50,7 +50,7 @@ class Hooks extends Controller
                             'isRoot'   => false,
                             'isActive' => false,
                             'href'     => $url,
-                            'title'    => version_compare(VERSION, '4.0', '<') ? specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true) : \Contao\StringUtil::specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true),
+                            'title'    => StringUtil::specialchars($pages[0]['pageTitle'] ?: $pages[0]['title'], true),
                             'link'     => $pages[0]['title'],
                             'data'     => $pages[0],
                             'class'    => ''
@@ -80,3 +80,5 @@ class Hooks extends Controller
         return $arrItems;
     }
 }
+
+class_alias(Hooks::class, 'HeimrichHannot\Blocks\Hooks');

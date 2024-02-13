@@ -1,11 +1,13 @@
 <?php
 
-namespace HeimrichHannot\Blocks;
+namespace HeimrichHannot\Blocks\ContentElement;
 
 
-class ContentBlock extends \ContentElement
+use Contao\ContentElement;
+use HeimrichHannot\Blocks\Model\BlockModuleModel;
+
+class ContentBlock extends ContentElement
 {
-
     /**
      * Template
      *
@@ -28,3 +30,5 @@ class ContentBlock extends \ContentElement
         $this->Template->content = BlockModuleModel::generateContent($this->block);
     }
 }
+
+class_alias(ContentBlock::class, 'HeimrichHannot\Blocks\ContentBlock');

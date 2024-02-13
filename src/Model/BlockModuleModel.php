@@ -16,7 +16,7 @@
  * Namespace
  */
 
-namespace HeimrichHannot\Blocks;
+namespace HeimrichHannot\Blocks\Model;
 
 use Contao\ContentModel;
 use Contao\Controller;
@@ -94,3 +94,5 @@ class BlockModuleModel extends Model
         return static::findBy($columns, null, $options);
     }
 }
+
+class_alias(BlockModuleModel::class, 'HeimrichHannot\Blocks\BlockModuleModel');

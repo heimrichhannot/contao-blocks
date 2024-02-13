@@ -1,5 +1,7 @@
 <?php
 
+use Contao\Input;
+
 $arrDca = &$GLOBALS['TL_DCA']['tl_content'];
 
 /**
@@ -38,7 +40,7 @@ $arrDca['fields'] = array_merge($arrDca['fields'], $arrFields);
 /**
  * Dynamically add the permission check and parent table
  */
-if (\Input::get('do') == 'themes') {
+if (Input::get('do') == 'themes') {
     $arrDca['config']['ptable']            = 'tl_block_module';
     $arrDca['config']['onload_callback'][] = ['HeimrichHannot\Blocks\Backend\Content', 'checkPermission'];
 }

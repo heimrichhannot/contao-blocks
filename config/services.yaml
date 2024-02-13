@@ -1,0 +1,5 @@
+services:
+  HeimrichHannot\TagsInput\:
+    resource: '../src/{ContentElement,Controller,DataContainer,EventListener,Exception,Model,Module}/*'
+    autowire: true
+    autoconfigure: true
