@@ -10,10 +10,11 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
+use HeimrichHannot\Blocks\Module\BlockModule;
+
 /**
  * Backend Modules
  */
-
 $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_block';
 $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_block_module';
 $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_content';
@@ -21,22 +22,22 @@ $GLOBALS['BE_MOD']['design']['themes']['tables'][] = 'tl_content';
 /**
  * Models
  */
-$GLOBALS['TL_MODELS']['tl_block']        = 'HeimrichHannot\Blocks\BlockModel';
-$GLOBALS['TL_MODELS']['tl_block_module'] = 'HeimrichHannot\Blocks\BlockModuleModel';
+$GLOBALS['TL_MODELS']['tl_block']        = 'HeimrichHannot\Blocks\Model\BlockModel';
+$GLOBALS['TL_MODELS']['tl_block_module'] = 'HeimrichHannot\Blocks\Model\BlockModuleModel';
 
 /**
  * Front end modules
  */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0,
     [
-        \HeimrichHannot\Blocks\ModuleBlock::TYPE => \HeimrichHannot\Blocks\ModuleBlock::class
+        BlockModule::TYPE => BlockModule::class
     ]
 );
 
 /**
  * Content elements
  */
-$GLOBALS['TL_CTE']['includes']['block'] = '\HeimrichHannot\Blocks\ContentBlock';
+$GLOBALS['TL_CTE']['includes']['block'] = '\HeimrichHannot\Blocks\ContentElement\ContentBlock';
 
 /**
  * Easy Themes Support
@@ -56,5 +57,5 @@ $GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['generateBreadcrumb']['huh.blocks'] = ['HeimrichHannot\Blocks\Hooks', 'generateBreadcrumbHook'];
-$GLOBALS['TL_HOOKS']['replaceInsertTags']['huh.blocks'] = ['HeimrichHannot\Blocks\InsertTagsListener', 'onReplaceInsertTags'];
+$GLOBALS['TL_HOOKS']['generateBreadcrumb']['huh.blocks'] = ['HeimrichHannot\Blocks\Controller\Hooks', 'generateBreadcrumbHook'];
+$GLOBALS['TL_HOOKS']['replaceInsertTags']['huh.blocks'] = ['HeimrichHannot\Blocks\EventListener\InsertTagsListener', 'onReplaceInsertTags'];

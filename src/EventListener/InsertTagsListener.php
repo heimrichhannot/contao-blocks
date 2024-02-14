@@ -8,6 +8,9 @@
 namespace HeimrichHannot\Blocks\EventListener;
 
 
+use HeimrichHannot\Blocks\BlockChild;
+use HeimrichHannot\Blocks\Model\BlockModuleModel;
+
 class InsertTagsListener
 {
     /**

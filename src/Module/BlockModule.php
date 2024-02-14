@@ -15,6 +15,7 @@ namespace HeimrichHannot\Blocks\Module;
 use Contao\BackendTemplate;
 use Contao\Module;
 use Contao\StringUtil;
+use HeimrichHannot\Blocks\BlockChild;
 use HeimrichHannot\Blocks\Exception\NoBlockChildrenException;
 use HeimrichHannot\Blocks\Model\BlockModel;
 use HeimrichHannot\Blocks\Model\BlockModuleModel;

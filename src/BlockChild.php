@@ -413,4 +413,4 @@ class BlockChild
     }
 }
 
-class_alias(BlockChild::class, 'HeimrichHannot\Blocks\BlockChild');
+// class_alias(BlockChild::class, 'HeimrichHannot\Blocks\BlockChild');
