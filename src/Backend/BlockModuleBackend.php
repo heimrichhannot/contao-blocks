@@ -26,17 +26,13 @@ class BlockModuleBackend extends Backend
         $this->loadLanguageFile('tl_content');
     }
 
-    public function
-
-    getContentBlockModulesAsOptions(DataContainer $dc)
+    public function getContentBlockModulesAsOptions(DataContainer $dc)
     {
         $options = [];
 
         $blockModules = $this->Database->prepare(
             "SELECT m.id, m.title, t.name AS 'theme' FROM tl_block_module m INNER JOIN tl_block b ON m.pid = b.id INNER JOIN tl_theme t ON t.id = b.pid WHERE m.type=? ORDER BY t.name, m.title"
-        )->execute(
-            'content'
-        );
+        )->execute('content');
 
         if ($blockModules->numRows > 0) {
             while ($blockModules->next()) {
@@ -70,7 +66,7 @@ class BlockModuleBackend extends Backend
         return ($dc->value < 1)
             ? ''
             : ' <a href="contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $dc->value . '&amp;rt=' . REQUEST_TOKEN . '" title="'
-            . sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->value) . '" style="padding-left:3px">'
+            . sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->value) . '" style="padding-left:3px">'
             . $this->generateImage('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"') . '</a>';
     }
 
@@ -87,7 +83,7 @@ class BlockModuleBackend extends Backend
     {
         $arrLanguages = [];
         if (in_array('i18nl10n', $this->Config->getActiveModules())) {
-            $arrLanguages = version_compare(VERSION, '4.0', '<') ? deserialize($GLOBALS['TL_CONFIG']['i18nl10n_languages'],
+            $arrLanguages = version_compare(VERSION, '4.0', '<') ? StringUtil::deserialize($GLOBALS['TL_CONFIG']['i18nl10n_languages'],
                 true) : StringUtil::deserialize($GLOBALS['TL_CONFIG']['i18nl10n_languages'], true);;
             array_unshift($arrLanguages, '');
         }
@@ -255,7 +251,7 @@ class BlockModuleBackend extends Backend
     {
         $objRow = $this->Database->prepare("SELECT * FROM tl_layout WHERE pid=?")->limit(1)->execute($dc->activeRecord->pid);
 
-        return trimsplit(',', $objRow->sections);
+        return StringUtil::trimsplit(',', $objRow->sections);
     }
 
     public function editContent($row, $href, $label, $title, $icon, $attributes)
@@ -264,7 +260,7 @@ class BlockModuleBackend extends Backend
             return '';
         }
 
-        return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . specialchars($title) . '"' . $attributes . '>'
+        return '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . StringUtil::specialchars($title) . '"' . $attributes . '>'
             . Image::getHtml($icon, $label) . '</a> ';
     }
 
@@ -308,7 +304,7 @@ class BlockModuleBackend extends Backend
             $icon = 'invisible.svg';
         }
 
-        return '<a href="' . $this->addToUrl($href) . '" title="' . specialchars($title) . '"' . $attributes . '>' . \Image::getHtml($icon, $label,
+        return '<a href="' . $this->addToUrl($href) . '" title="' . StringUtil::specialchars($title) . '"' . $attributes . '>' . \Image::getHtml($icon, $label,
                 'data-state="' . ($row['published'] ? 1 : 0) . '"') . '</a> ';
     }
 
