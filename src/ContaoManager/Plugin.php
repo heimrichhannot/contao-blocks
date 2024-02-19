@@ -22,7 +22,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
     /**
      * {@inheritdoc}
      */
-    public function getBundles(ParserInterface $parser)
+    public function getBundles(ParserInterface $parser): array
     {
         return [
             BundleConfig::create(HeimrichHannotBlocks::class)
@@ -35,7 +35,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
      *
      * @throws Exception
      */
-    public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
+    public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig): void
     {
         $loader->load('@HeimrichHannotBlocks/config/services.yaml');
     }

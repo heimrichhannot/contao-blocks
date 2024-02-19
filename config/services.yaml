@@ -3,6 +3,4 @@ services:
     resource: '../src/{Backend,ContentElement,Controller,DataContainer,EventListener,Exception,Model,Module}/*'
     autowire: true
     autoconfigure: true
-
-  HeimrichHannot\Blocks\EventListener\InsertTagsListener:
     public: true

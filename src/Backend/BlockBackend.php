@@ -17,7 +17,7 @@ class BlockBackend extends Backend
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
+        $this->import(BackendUser::class, 'User');
     }
 
     public function copyBlock($insertID, DataContainer $dc)
