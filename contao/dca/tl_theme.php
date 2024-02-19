@@ -1,8 +1,8 @@
 <?php
 
-array_insert(
+array_splice(
     $GLOBALS['TL_DCA']['tl_theme']['list']['operations'],
-    5,
+    5, 0,
     [
         'blocks' => [
             'label' => &$GLOBALS['TL_LANG']['tl_theme']['blocks'],

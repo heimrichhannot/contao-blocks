@@ -28,11 +28,7 @@ $GLOBALS['TL_MODELS']['tl_block_module'] = 'HeimrichHannot\Blocks\Model\BlockMod
 /**
  * Front end modules
  */
-array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0,
-    [
-        BlockModule::TYPE => BlockModule::class
-    ]
-);
+array_splice($GLOBALS['FE_MOD']['miscellaneous'], 0, 0, [BlockModule::TYPE => BlockModule::class]);
 
 /**
  * Content elements

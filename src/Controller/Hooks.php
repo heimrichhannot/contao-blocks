@@ -45,7 +45,7 @@ class Hooks extends Controller
             }
 
             if ($addItem) {
-                array_insert($arrItems, count($arrItems) - 1, [
+                array_splice($arrItems, count($arrItems) - 1, 0, [
                         [
                             'isRoot'   => false,
                             'isActive' => false,
