@@ -32,7 +32,7 @@ class Content extends Backend
         $objModule = Database::getInstance()->prepare("SELECT * FROM tl_module WHERE id = ? AND type = 'block'")->execute($dc->value);
         if ($objModule->numRows) {
             $GLOBALS['TL_DCA']['tl_content']['fields']['module']['wizard'] = [
-                ['HeimrichHannot\Blocks\Backend\Content', 'editModule'],
+                [Content::class, 'editModule'],
             ];
         }
     }
@@ -93,4 +93,4 @@ class Content extends Backend
     }
 }
 
-class_alias(Content::class, 'HeimrichHannot\Blocks\Backend\Content');
+class_alias(Content::class, '\HeimrichHannot\Blocks\Backend\Content');
