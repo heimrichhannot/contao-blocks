@@ -7,63 +7,45 @@
 
 namespace HeimrichHannot\Blocks\EventListener;
 
-
 use HeimrichHannot\Blocks\BlockChild;
 use HeimrichHannot\Blocks\Model\BlockModuleModel;
 
 class InsertTagsListener
 {
-    /**
-     * @var array
-     */
-    private $supportedTags = [
+    private array $supportedTags = [
         'insert_block_child',
     ];
 
-
     /**
      * Replaces block insert tags.
-     *
-     * @param string $tag
-     *
-     * @return string|false
      */
-    public function onReplaceInsertTags($tag)
+    public function onReplaceInsertTags(string $tag): false|string
     {
         $elements = explode('::', $tag);
         $key      = strtolower($elements[0]);
 
-        if (\in_array($key, $this->supportedTags, true)) {
+        if (in_array($key, $this->supportedTags, true)) {
             return $this->replaceBlockInsertTag($key, $elements[1]);
         }
 
         return false;
     }
 
-
     /**
-     * Replaces an block-related insert tag.
-     *
-     * @param string $insertTag
-     * @param string $id
-     *
-     * @return string
+     * Replaces a block-related insert tag.
      */
-    private function replaceBlockInsertTag($insertTag, $id)
+    private function replaceBlockInsertTag(string $insertTag, string|int $id): string
     {
-        switch ($insertTag) {
-            case 'insert_block_child':
+        if ($insertTag === 'insert_block_child')
+        {
+            if (null === ($model = BlockModuleModel::findByPk($id))) {
+                return '';
+            }
 
-                if (null === ($model = BlockModuleModel::findByPk($id))) {
-                    return '';
-                }
-
-                $blockChild = new BlockChild($model);
-                return $blockChild->generate();
+            $blockChild = new BlockChild($model);
+            return $blockChild->generate();
         }
 
         return '';
     }
 }
-
-class_alias(InsertTagsListener::class, 'HeimrichHannot\Blocks\InsertTagsListener');

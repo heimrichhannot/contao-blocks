@@ -2,7 +2,6 @@
 
 namespace HeimrichHannot\Blocks\ContentElement;
 
-
 use Contao\ContentElement;
 use HeimrichHannot\Blocks\Model\BlockModuleModel;
 
@@ -15,7 +14,7 @@ class ContentBlock extends ContentElement
      */
     protected $strTemplate = 'ce_block_module';
 
-    public function generate()
+    public function generate(): string
     {
         $this->headline = ''; // unset headlines
 
@@ -25,10 +24,8 @@ class ContentBlock extends ContentElement
     /**
      * Generate the content element
      */
-    protected function compile()
+    protected function compile(): void
     {
         $this->Template->content = BlockModuleModel::generateContent($this->block);
     }
 }
-
-class_alias(ContentBlock::class, 'HeimrichHannot\Blocks\ContentBlock');

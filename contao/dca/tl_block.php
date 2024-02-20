@@ -10,6 +10,8 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
+use HeimrichHannot\Blocks\DataContainer\BlockContainer;
+
 $GLOBALS['TL_DCA']['tl_block'] = [
     // Config
     'config'      => [
@@ -17,15 +19,9 @@ $GLOBALS['TL_DCA']['tl_block'] = [
         'ptable'            => 'tl_theme',
         'ctable'            => ['tl_block_module'],
         'enableVersioning'  => true,
-        'onsubmit_callback' => [
-            ['tl_block', 'updateFEModule'],
-        ],
-        'oncopy_callback'   => [
-            ['tl_block', 'copyBlock'],
-        ],
-        'ondelete_callback' => [
-            ['tl_block', 'deleteFEModule'],
-        ],
+        'onsubmit_callback' => [[BlockContainer::class, 'updateFEModule']],
+        'oncopy_callback'   => [[BlockContainer::class, 'copyBlock']],
+        'ondelete_callback' => [[BlockContainer::class, 'deleteFEModule']],
         'sql'               => [
             'keys' => [
                 'id' => 'primary',
@@ -77,7 +73,7 @@ $GLOBALS['TL_DCA']['tl_block'] = [
                 'label'           => &$GLOBALS['TL_LANG']['tl_block']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => ['tl_block', 'toggleIcon'],
+                'button_callback' => [BlockContainer::class, 'toggleIcon'],
             ],
             'show'       => [
                 'label' => &$GLOBALS['TL_LANG']['tl_block']['show'],

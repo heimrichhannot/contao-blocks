@@ -10,21 +10,21 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-use HeimrichHannot\Blocks\Backend\ModuleBackend;
+use HeimrichHannot\Blocks\DataContainer\BlockModuleContainer;
 use HeimrichHannot\Blocks\DataContainer\ModuleContainer;
 use HeimrichHannot\Blocks\Module\BlockModule;
 
 $dc = &$GLOBALS['TL_DCA']['tl_module'];
 
-$dc['config']['onload_callback'][] = [ModuleBackend::class, 'checkBlockPermission'];
-$dc['config']['onload_callback'][] = [ModuleBackend::class, 'cleanup'];
-$dc['config']['onload_callback'][] = [ModuleContainer::class, 'onLoadCallback'];
+$dc['config']['onload_callback'][] = [BlockModuleContainer::class, 'checkBlockPermission'];
+$dc['config']['onload_callback'][] = [BlockModuleContainer::class, 'cleanup'];
+$dc['config']['onload_callback'][] = [BlockModuleContainer::class, 'onLoadCallback'];
 
-$dc['list']['sorting']['child_record_callback'] = [ModuleBackend::class, 'listModule'];
+$dc['list']['sorting']['child_record_callback'] = [ModuleContainer::class, 'listModule'];
 
 foreach ($dc['list']['operations'] ?? [] as $key => $button) {
     if (in_array($key, ['edit', 'copy', 'cut', 'delete'])) {
-        $dc['list']['operations'][$key]['button_callback'] = [ModuleBackend::class, 'editBlockButtons'];
+        $dc['list']['operations'][$key]['button_callback'] = [ModuleContainer::class, 'editBlockButtons'];
     }
 }
 
@@ -34,12 +34,12 @@ $dc['fields']['block'] = [
     'label'            => &$GLOBALS['TL_LANG']['tl_module']['block'],
     'exclude'          => true,
     'inputType'        => 'select',
-    'options_callback' => [ModuleBackend::class, 'getBlocks'],
+    'options_callback' => [ModuleContainer::class, 'getBlocks'],
     'eval'             => ['tl_class' => 'w50', 'mandatory' => true, 'readonly' => true],
     'sql'              => "int(10) unsigned NOT NULL default '0'",
 ];
 
-$dc['fields']['type']['save_callback'] = [[ModuleBackend::class, 'disableBlockModule']];
+$dc['fields']['type']['save_callback'] = [[ModuleContainer::class, 'disableBlockModule']];
 
 /**
  * Breadcrumb tweaks for auto_item

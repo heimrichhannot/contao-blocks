@@ -15,10 +15,14 @@ use Contao\Environment;
 use Contao\Input;
 use Contao\PageModel;
 use Contao\StringUtil;
+use Exception;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class Hooks extends Controller
 {
+    /**
+     * @throws Exception
+     */
     public function generateBreadcrumbHook($arrItems, $objModule)
     {
         /** @var PageModel $objPage */
@@ -26,9 +30,12 @@ class Hooks extends Controller
 
         $pages = [$objPage->row()];
 
-        if ($objPage->is)
+        // if ($objPage->is) # todo: the heck is this?
 
-        if (Input::get('auto_item', false, true) && $objPage->alias != Input::get('auto_item', false, true)) {
+        if (Input::get('auto_item', false, true)
+            && $objPage->alias != Input::get('auto_item', false, true))
+        {
+            $url = '';
             $addItem = true;
             try {
                 if ($objPage->requireItem) {
@@ -36,7 +43,7 @@ class Hooks extends Controller
                 } else {
                     $url = $objPage->getFrontendUrl();
                 }
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 if (class_exists(RouteNotFoundException::class) && $exception instanceof RouteNotFoundException) {
                     $addItem = false;
                 } else {
@@ -80,5 +87,3 @@ class Hooks extends Controller
         return $arrItems;
     }
 }
-
-class_alias(Hooks::class, 'HeimrichHannot\Blocks\Hooks');

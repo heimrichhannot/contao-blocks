@@ -25,7 +25,6 @@ use Contao\Model;
  */
 class BlockModel extends Model
 {
-
     protected static $strTable = 'tl_block';
 
     /**

@@ -10,6 +10,8 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
+use HeimrichHannot\Blocks\DataContainer\BlockModuleContainer;
+
 $this->loadDataContainer('tl_content');
 
 $GLOBALS['TL_DCA']['tl_block_module'] = [
@@ -21,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
         'ctable'           => ['tl_content'],
         'enableVersioning' => true,
         'onload_callback'  => [
-            ['tl_block_module', 'invokeI18nl10n'],
+            [BlockModuleContainer::class, 'invokeI18nl10n'],
         ],
         'sql'              => [
             'keys' => [
@@ -36,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'fields'                => ['sorting'],
             'panelLayout'           => 'filter;search,limit',
             'headerFields'          => ['title', 'tstamp'],
-            'child_record_callback' => ['tl_block_module', 'addModuleInfo'],
+            'child_record_callback' => [BlockModuleContainer::class, 'addModuleInfo'],
         ],
         'global_operations' => [
             'all' => [
@@ -51,7 +53,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
                 'label'           => &$GLOBALS['TL_LANG']['tl_block_module']['edit'],
                 'href'            => 'table=tl_content',
                 'icon'            => 'edit.gif',
-                'button_callback' => ['tl_block_module', 'editContent'],
+                'button_callback' => [BlockModuleContainer::class, 'editContent'],
             ],
             'editheader' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_block_module']['editheader'],
@@ -80,7 +82,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
                 'label'           => &$GLOBALS['TL_LANG']['tl_block_module']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => ['tl_block_module', 'toggleIcon'],
+                'button_callback' => [BlockModuleContainer::class, 'toggleIcon'],
             ],
             'show'       => [
                 'label' => &$GLOBALS['TL_LANG']['tl_block_module']['show'],
@@ -141,7 +143,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'exclude'          => true,
             'filter'           => true,
             'inputType'        => 'select',
-            'options_callback' => ['tl_block_module', 'getContentBlockModulesAsOptions'],
+            'options_callback' => [BlockModuleContainer::class, 'getContentBlockModulesAsOptions'],
             'eval'             => ['tl_class' => 'w50', 'mandatory' => true, 'includeBlankOption' => true, 'chosen' => true],
             'sql'              => "int(10) unsigned NOT NULL default '0'"
         ],
@@ -149,22 +151,18 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['module'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => ['tl_block_module', 'getModules'],
+            'options_callback' => [BlockModuleContainer::class, 'getModules'],
             'eval'             => ['mandatory' => true, 'chosen' => true, 'submitOnChange' => true],
-            'wizard'           => [
-                ['tl_block_module', 'editModule'],
-            ],
+            'wizard'           => [[BlockModuleContainer::class, 'editModule']],
             'sql'              => "int(10) unsigned NOT NULL default '0'",
         ],
         'articleAlias'          => [
             'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['articleAlias'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => ['tl_block_module', 'getArticleAlias'],
+            'options_callback' => [BlockModuleContainer::class, 'getArticleAlias'],
             'eval'             => ['mandatory' => true, 'chosen' => true, 'submitOnChange' => true],
-            'wizard'           => [
-                ['tl_content', 'editArticleAlias'],
-            ],
+            'wizard'           => [['tl_content', 'editArticleAlias']],
             'sql'              => "int(10) unsigned NOT NULL default '0'",
         ],
         'imgSRC'                => [
@@ -219,7 +217,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'inputType'        => 'select',
             'default'          => '',
             'reference'        => &$GLOBALS['TL_LANG']['LNG'],
-            'options_callback' => ['tl_block_module', 'getI18nl10nLanguages'],
+            'options_callback' => [BlockModuleContainer::class, 'getI18nl10nLanguages'],
             'eval'             => ['mandatory' => false, 'rgxp' => 'alpha', 'maxlength' => 2, 'nospace' => true, 'tl_class' => 'w50 clr'],
             'sql'              => "varchar(2) NOT NULL default ''",
         ],
@@ -256,7 +254,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'         => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_name'],
             'inputType'     => 'text',
             'save_callback' => [
-                ['tl_block_module', 'setFeatureCookieName'],
+                [BlockModuleContainer::class, 'setFeatureCookieName'],
             ],
             'eval'          => ['tl_class' => 'w50', 'maxlenght' => 64, 'unique' => true],
             'sql'           => "varchar(64) NOT NULL default ''",
@@ -266,7 +264,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'         => &$GLOBALS['TL_LANG']['tl_block_module']['feature_cookie_expire'],
             'inputType'     => 'text',
             'save_callback' => [
-                ['tl_block_module', 'setFeatureCookieExpire'],
+                [BlockModuleContainer::class, 'setFeatureCookieExpire'],
             ],
             'eval'          => ['tl_class' => 'wizard w50'],
             'sql'           => "varchar(10) NOT NULL default ''",
@@ -314,9 +312,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['backgroundSize'],
             'exclude'          => true,
             'inputType'        => 'imageSize',
-            'options_callback' => function () {
-                return System::getImageSizes();
-            },
+            'options_callback' => [BlockModuleContainer::class, 'getImageSizeOptions'],
             'reference'        => &$GLOBALS['TL_LANG']['MSC'],
             'eval'             => ['rgxp' => 'natural', 'includeBlankOption' => true, 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'w50'],
             'sql'              => "varchar(64) NOT NULL default ''",
@@ -325,7 +321,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['customTpl'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => ['tl_block_module', 'getWrapperTemplates'],
+            'options_callback' => [BlockModuleContainer::class, 'getWrapperTemplates'],
             'eval'             => ['includeBlankOption' => true, 'chosen' => true, 'tl_class' => 'w50'],
             'sql'              => "varchar(64) NOT NULL default ''",
         ],
@@ -333,7 +329,7 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_block_module']['customBlockTpl'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => ['tl_block_module', 'getBlockTemplates'],
+            'options_callback' => [BlockModuleContainer::class, 'getBlockTemplates'],
             'eval'             => ['includeBlankOption' => true, 'chosen' => true, 'tl_class' => 'w50'],
             'sql'              => "varchar(64) NOT NULL default ''",
         ],

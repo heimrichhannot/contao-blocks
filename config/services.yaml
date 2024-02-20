@@ -1,6 +1,15 @@
 services:
-  HeimrichHannot\Blocks\:
-    resource: '../src/{Backend,ContentElement,Controller,DataContainer,EventListener,Exception,Model,Module}/*'
+  _defaults:
     autowire: true
     autoconfigure: true
+
+  HeimrichHannot\Blocks\:
+    resource: '../src/{Backend,ContentElement,Controller,DataContainer,EventListener,Exception,Model,Module}/*'
+
+  HeimrichHannot\Blocks\ContentElement\:
+    resource: '../src/ContentElement/*'
+    autowire: false
+
+  HeimrichHannot\Blocks\DataContainer\:
+    resource: '../src/DataContainer/*'
     public: true

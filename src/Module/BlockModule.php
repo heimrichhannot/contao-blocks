@@ -12,29 +12,35 @@
 
 namespace HeimrichHannot\Blocks\Module;
 
+use AllowDynamicProperties;
 use Contao\BackendTemplate;
+use Contao\CoreBundle\Routing\ScopeMatcher;
+use Contao\Model;
+use Contao\Model\Collection;
 use Contao\Module;
 use Contao\StringUtil;
+use Contao\System;
 use HeimrichHannot\Blocks\BlockChild;
 use HeimrichHannot\Blocks\Exception\NoBlockChildrenException;
 use HeimrichHannot\Blocks\Model\BlockModel;
 use HeimrichHannot\Blocks\Model\BlockModuleModel;
 
+#[AllowDynamicProperties]
 class BlockModule extends Module
 {
     const TYPE = 'block';
 
     protected $strTemplate = 'mod_block';
 
-    protected $strBuffer = '';
+    protected string $buffer = '';
 
-    protected $objBlock;
+    protected array|Model|Collection|null $objBlock;
 
     public function __construct($objModule, $strColumn = 'main')
     {
         parent::__construct($objModule, $strColumn);
 
-        $this->objBlock = BlockModel::findPublishedByPk($this->block);
+        $this->objChildren = BlockModel::findPublishedByPk($this->block);
 
         if ($this->objBlock !== null) {
             foreach ($this->objBlock->row() as $key => $value) {
@@ -43,14 +49,17 @@ class BlockModule extends Module
                     continue;
                 }
 
-                $this->{$key} = version_compare(VERSION, '4.0', '<') ? deserialize($value) : StringUtil::deserialize($value);
+                $this->{$key} = StringUtil::deserialize($value);
             }
         }
     }
 
-    public function generate()
+    public function generate(): string
     {
-        if (TL_MODE == 'BE') {
+        $scopeMatcher = System::getContainer()->get(ScopeMatcher::class);
+        $requestStack = System::getContainer()->get('request_stack');
+        if ($scopeMatcher->isBackendRequest($requestStack->getCurrentRequest()))
+        {
             $objTemplate = new BackendTemplate('be_wildcard');
 
             $objTemplate->wildcard = '### BLOCK ###';
@@ -73,22 +82,27 @@ class BlockModule extends Module
         }
     }
 
-    protected function compile()
+    protected function compile(): void
     {
         $this->Template->block = null; // reset block attribute, otherwise block id will be printed
 
-        $objChilds = BlockModuleModel::findPublishedByPid($this->block, ['order' => 'sorting']);
+        $objChildren = BlockModuleModel::findPublishedByPid($this->block, ['order' => 'sorting']);
 
-        if ($objChilds === null) {
+        if ($objChildren === null) {
             throw new NoBlockChildrenException("No block children found.");
         }
 
+        $hasFrontendUser = System::getContainer()->get('contao.security.token_checker')->hasFrontendUser();
         $strBuffer = '';
 
         $childrenCount = 0;
-        while ($objChilds->next()) {
-            if (strlen($objChilds->hide) == 0 || $objChilds->hide == 1 || ($objChilds->hide == 2 && !FE_USER_LOGGED_IN) || ($objChilds->hide == 3 && FE_USER_LOGGED_IN)) {
-                $child = $this->renderChild($objChilds->current());
+        while ($objChildren->next()) {
+            if (strlen($objChildren->hide) == 0
+                || $objChildren->hide == 1
+                || ($objChildren->hide == 2 && !$hasFrontendUser)
+                || ($objChildren->hide == 3 && $hasFrontendUser)
+            ) {
+                $child = $this->renderChild($objChildren->current());
                 if (empty($child)) {
                     continue;
                 }
@@ -102,7 +116,7 @@ class BlockModule extends Module
         }
 
         if ($this->objBlock->addWrapper) {
-            $this->cssID = version_compare(VERSION, '4.0', '<') ? deserialize($this->objBlock->cssID) : \StringUtil::deserialize($this->objBlock->cssID);
+            $this->cssID = StringUtil::deserialize($this->objBlock->cssID);
         }
 
         if (strlen(preg_replace('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', '', $strBuffer)) == 0) {
@@ -123,5 +137,3 @@ class BlockModule extends Module
         return $blockChild->generate();
     }
 }
-
-class_alias(BlockModule::class, 'HeimrichHannot\Blocks\ModuleBlock');
