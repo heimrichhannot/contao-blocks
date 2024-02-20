@@ -82,7 +82,7 @@ class BlockModuleContainer
 
             if ($objModule->numRows) {
                 throw new RedirectResponseException(
-                    'contao/main.php?do=themes&amp;table=tl_block_module&amp;id=' . $objModule->block . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken
+                    'contao?do=themes&amp;table=tl_block_module&amp;id=' . $objModule->block . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken
                 );
             }
 
@@ -169,7 +169,7 @@ class BlockModuleContainer
         $title = sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1] ?? '%s'), $dc->value);
         $image = Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"');
 
-        return sprintf(' <a href="contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=%s&amp;rt=%s" title="%s" style="padding-left:3px">%s</a>',
+        return sprintf(' <a href="contao?do=themes&amp;table=tl_module&amp;act=edit&amp;id=%s&amp;rt=%s" title="%s" style="padding-left:3px">%s</a>',
             $dc->value,
             $requestToken,
             $title,

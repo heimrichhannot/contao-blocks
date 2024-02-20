@@ -58,6 +58,7 @@ class BlockModule extends Module
     {
         $scopeMatcher = System::getContainer()->get(ScopeMatcher::class);
         $requestStack = System::getContainer()->get('request_stack');
+
         if ($scopeMatcher->isBackendRequest($requestStack->getCurrentRequest()))
         {
             $objTemplate = new BackendTemplate('be_wildcard');
@@ -66,7 +67,7 @@ class BlockModule extends Module
             $objTemplate->title    = $this->headline;
             $objTemplate->id       = $this->id;
             $objTemplate->link     = $this->name;
-            $objTemplate->href     = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
+            $objTemplate->href     = 'contao?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
 
             return $objTemplate->parse();
         }
