@@ -10,12 +10,13 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
+use Contao\DC_Table;
 use HeimrichHannot\Blocks\DataContainer\BlockContainer;
 
 $GLOBALS['TL_DCA']['tl_block'] = [
     // Config
     'config'      => [
-        'dataContainer'     => 'Table',
+        'dataContainer'     => DC_Table::class,
         'ptable'            => 'tl_theme',
         'ctable'            => ['tl_block_module'],
         'enableVersioning'  => true,

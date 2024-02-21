@@ -13,3 +13,6 @@ services:
   HeimrichHannot\Blocks\DataContainer\:
     resource: '../src/DataContainer/*'
     public: true
+
+  HeimrichHannot\Blocks\Controller\Backend\Content:
+    public: true

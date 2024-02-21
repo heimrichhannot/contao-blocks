@@ -18,7 +18,9 @@
 
 namespace HeimrichHannot\Blocks\Model;
 
+use Contao\Date;
 use Contao\Model;
+use Contao\Model\Collection;
 
 /**
  * Class BlockModel
@@ -31,22 +33,20 @@ class BlockModel extends Model
      * Find published block by primary key
      *
      * @param integer $pk
-     * @param array   $options
+     * @param array $options
      *
-     * @return \Contao\Model\Collection|\Contao\Model[]|\Contao\Model|null A collection of models or null if there are no news
+     * @return Collection|\Contao\Model[]|\Contao\Model|null A collection of models or null if there are no news
      */
-    public static function findPublishedByPk($pk, $options = [])
+    public static function findPublishedByPk(int|string $pk, array $options = []): Collection|Model|array|null
     {
         $t         = static::$strTable;
         $columns[] = "$t.id=" . $pk;
 
         if (isset($arrOptions['ignoreFePreview']) || !BE_USER_LOGGED_IN) {
-            $time      = \Date::floorToMinute();
+            $time      = Date::floorToMinute();
             $columns[] = "($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.published='1'";
         }
 
         return static::findBy($columns, null, $options);
     }
 }
-
-class_alias(BlockModel::class, 'HeimrichHannot\Blocks\BlockModel');

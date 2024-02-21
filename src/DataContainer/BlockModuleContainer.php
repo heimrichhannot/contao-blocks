@@ -123,9 +123,9 @@ class BlockModuleContainer
     {
         $options = [];
 
-        $blockModules = $this->Database->prepare(
-            "SELECT m.id, m.title, t.name AS 'theme' FROM tl_block_module m INNER JOIN tl_block b ON m.pid = b.id INNER JOIN tl_theme t ON t.id = b.pid WHERE m.type=? ORDER BY t.name, m.title"
-        )->execute('content');
+        $blockModules = Database::getInstance()
+            ->prepare("SELECT m.id, m.title, t.name AS 'theme' FROM tl_block_module m INNER JOIN tl_block b ON m.pid = b.id INNER JOIN tl_theme t ON t.id = b.pid WHERE m.type=? ORDER BY t.name, m.title")
+            ->execute('content');
 
         if ($blockModules->numRows > 0) {
             while ($blockModules->next()) {
@@ -363,7 +363,7 @@ class BlockModuleContainer
         {
             case 'section':
                 $output = '<img alt="" src="system/themes/' . Backend::getTheme()
-                    . '/images/layout.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+                    . '/icons/layout.svg" style="vertical-align:text-bottom; margin-right: 4px;"/>';
                 $output .= $row['section'] . ' <span style="color:#b3b3b3;padding-left:3px">['
                     . $GLOBALS['TL_LANG']['tl_block_module']['section'][0] . ']</span>';
 
@@ -374,7 +374,7 @@ class BlockModuleContainer
 
                 $output = '<div style="float:left">';
                 $output .= '<img alt="" src="system/themes/' . Backend::getTheme()
-                    . '/images/article.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+                    . '/icons/article.svg" style="vertical-align:text-bottom; margin-right: 4px;"/>';
                 $output .= $article->title . ' <span style="color:#b3b3b3;padding-left:3px">['
                     . $GLOBALS['TL_LANG']['tl_block_module']['articleAlias'][0] . ']</span>' . "</div>\n";
 
@@ -393,7 +393,7 @@ class BlockModuleContainer
                     $title = $row['title'];
                     $includedContentElements = $GLOBALS['TL_LANG']['tl_block_module']['includedContentElements'] ?? '';
 
-                    $output = "<img alt=\"\" src=\"system/themes/$theme/images/published.gif\" style=\"vertical-align:text-bottom;margin-right:4px;\"/>";
+                    $output = "<img alt=\"\" src=\"system/themes/$theme/icons/published.svg\" style=\"vertical-align:text-bottom;margin-right:4px;\"/>";
                     $output .= "$title <span style=\"color:#b3b3b3;padding-left:3px\">[$includedContentElements]</span>";
                 }
                 else
@@ -411,7 +411,7 @@ class BlockModuleContainer
                 if ($module->numRows) {
                     $output = '<div style="float:left">';
                     $output .= '<img alt="" src="system/themes/' . Backend::getTheme()
-                        . '/images/modules.gif" style="vertical-align:text-bottom; margin-right: 4px;"/>';
+                        . '/icons/modules.svg" style="vertical-align:text-bottom; margin-right: 4px;"/>';
                     $output .= $module->name . ' <span style="color:#b3b3b3;padding-left:3px">['
                         . (isset($GLOBALS['TL_LANG']['FMD'][$module->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$module->type][0] : $module->type)
                         . '] - ID:' . $row['module'] . '</span>' . "</div>\n";
@@ -421,7 +421,7 @@ class BlockModuleContainer
 
             default:
                 $type = $GLOBALS['TL_LANG']['tl_block_module']['type_reference'][$row['type']] ?: $row['type'];
-                return "<div style=\"float:left\">$type</div>\n";
+                return "<div>$type</div>\n";
         }
     }
 

@@ -3,6 +3,7 @@
 namespace HeimrichHannot\Blocks\DataContainer;
 
 use Contao\Controller;
+use Contao\Database;
 use Contao\DataContainer;
 use Contao\Image;
 use Contao\StringUtil;
@@ -14,7 +15,7 @@ class ModuleContainer
     {
         $blocks = [];
 
-        $objBlocks = $this->Database
+        $objBlocks = Database::getInstance()
             ->prepare('SELECT id, title FROM tl_block WHERE pid = ?')
             ->execute($dc->activeRecord->pid);
 
@@ -85,7 +86,7 @@ class ModuleContainer
                 . StringUtil::specialchars($GLOBALS['TL_LANG']['tl_block']['show'][0])
                 . '">'
                 . Image::getHtml(
-                    '/system/modules/blocks/assets/icon.png',
+                    '/bundles/heimrichhannotblocks/assets/icon.png',
                     $GLOBALS['TL_LANG']['MOD']['blocks'],
                     'style="vertical-align: -4px;"'
                 ) . '</a> ';

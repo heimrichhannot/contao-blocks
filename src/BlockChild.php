@@ -23,6 +23,7 @@ use Contao\ModuleModel;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\System;
+use HeimrichHannot\Blocks\Model\BlockModuleModel;
 
 class BlockChild
 {
@@ -99,7 +100,7 @@ class BlockChild
      *
      * @return bool|string
      */
-    protected function renderArticle()
+    protected function renderArticle(): bool|string
     {
         $objArticles = ArticleModel::findPublishedById($this->objModel->articleAlias);
 
@@ -119,7 +120,7 @@ class BlockChild
      *
      * @return string
      */
-    protected function renderIncludedContentBlockElement()
+    protected function renderIncludedContentBlockElement(): string
     {
         $strContent = '';
         $objElement = ContentModel::findPublishedByPidAndTable($this->objModel->contentBlockModuleAlias, 'tl_block_module');
@@ -142,7 +143,7 @@ class BlockChild
      *
      * @return string
      */
-    protected function renderContent()
+    protected function renderContent(): string
     {
         $strContent = '';
         $objElement = ContentModel::findPublishedByPidAndTable($this->objModel->id, 'tl_block_module');
@@ -165,7 +166,7 @@ class BlockChild
      *
      * @return string
      */
-    protected function renderModule()
+    protected function renderModule(): string
     {
         $objModel = ModuleModel::findByPK($this->objModel->module);
 
@@ -216,7 +217,7 @@ class BlockChild
      *
      * @return ModuleModel
      */
-    protected function overrideCommonProps($objItem)
+    protected function overrideCommonProps(ModuleModel $objItem): ModuleModel
     {
         $space = StringUtil::deserialize($this->objModel->space);
         $cssID = StringUtil::deserialize($this->objModel->cssID, true);
@@ -241,7 +242,7 @@ class BlockChild
      *
      * @return string
      */
-    protected function addBlockWrapper($strContent)
+    protected function addBlockWrapper($strContent): string
     {
         $objT        = new FrontendTemplate($this->objModel->customTpl ? $this->objModel->customTpl : 'blocks_wrapper');
         $objT->block = $strContent;
@@ -287,7 +288,7 @@ class BlockChild
      *
      * @return bool
      */
-    protected function isVisible()
+    protected function isVisible(): bool
     {
         $time        = Date::floorToMinute();
         $currentLang = ['', $GLOBALS['TL_LANGUAGE']];
@@ -377,10 +378,10 @@ class BlockChild
 
         }
     
-        if (isset($GLOBALS['TL_HOOKS']['isBlockVisibleHook']) && is_array($GLOBALS['TL_HOOKS']['isBlockVisibleHook'])) {
+        if (is_array($GLOBALS['TL_HOOKS']['isBlockVisibleHook'] ?? null)) {
             foreach ($GLOBALS['TL_HOOKS']['isBlockVisibleHook'] as $callback) {
                 $visible = Controller::importStatic($callback[0])->{$callback[1]}($this->objModel);
-                if(!$visible) {
+                if (!$visible) {
                     return false;
                 }
             }

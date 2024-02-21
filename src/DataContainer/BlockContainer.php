@@ -30,7 +30,7 @@ class BlockContainer
     public function updateFEModule(DataContainer $dc): void
     {
         $objBlock = new BlockModel();
-        $objBlock->setRow($dc->activeRecord->row());
+        $objBlock->setRow((array)$dc->activeRecord);
         $this->createBlockModule($objBlock);
     }
 

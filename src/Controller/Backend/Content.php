@@ -14,22 +14,23 @@ use Contao\Backend;
 use Contao\BackendUser;
 use Contao\Database;
 use Contao\DataContainer;
+use Contao\Image;
 use Contao\Input;
+use Contao\StringUtil;
 use Contao\System;
 
 class Content extends Backend
 {
-    /**
-     * @param DataContainer|null $dc
-     * @return void
-     */
-    public function onLoadCallback($dc = null)
+    public function onLoadCallback(?DataContainer $dc = null): void
     {
         if (null === $dc || !$dc->id || 'edit' !== Input::get('act')) {
             return;
         }
 
-        $objModule = Database::getInstance()->prepare("SELECT * FROM tl_module WHERE id = ? AND type = 'block'")->execute($dc->value);
+        $objModule = Database::getInstance()
+            ->prepare("SELECT * FROM tl_module WHERE id = ? AND type = 'block'")
+            ->execute($dc->value);
+
         if ($objModule->numRows) {
             $GLOBALS['TL_DCA']['tl_content']['fields']['module']['wizard'] = [
                 [Content::class, 'editModule'],
@@ -37,17 +38,29 @@ class Content extends Backend
         }
     }
 
-    public function editBlock(DataContainer $dc)
+    public function editBlock(DataContainer $dc): string
     {
-        return ($dc->activeRecord->block < 1) ? '' : ' <a href="contao?do=themes&amp;table=tl_content&amp;id=' . $dc->activeRecord->block . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]),
-                $dc->activeRecord->block) . '" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'' . specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $dc->activeRecord->block))) . '\',\'url\':this.href});return false">' . \Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0],
-                'style="vertical-align:top"') . '</a>';
+        $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
+
+        if ($dc->activeRecord->block < 1) {
+            return '';
+        }
+
+        return sprintf('<a href="contao?do=themes&amp;table=tl_content&amp;id=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s\',\'url\':this.href});return false">%s</a>',
+            $dc->activeRecord->block,
+            $requestToken,
+            sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->activeRecord->block),
+            StringUtil::specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $dc->activeRecord->block))),
+            Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"')
+        );
     }
 
-    public function getBlocks()
+    public function getBlocks(): array
     {
         $arrBlocks = [];
-        $objBlocks = Database::getInstance()->prepare("SELECT b.title as block, bm.id, bm.title, t.name AS theme FROM tl_block_module bm LEFT JOIN tl_block b on b.id = bm.pid LEFT JOIN tl_theme t ON b.pid=t.id WHERE type=? ORDER BY b.title, bm.title")->execute('content');
+        $objBlocks = Database::getInstance()
+            ->prepare("SELECT b.title as block, bm.id, bm.title, t.name AS theme FROM tl_block_module bm LEFT JOIN tl_block b on b.id = bm.pid LEFT JOIN tl_theme t ON b.pid=t.id WHERE type=? ORDER BY b.title, bm.title")
+            ->execute('content');
 
         if ($objBlocks->numRows < 1) {
             return $arrBlocks;
@@ -63,7 +76,7 @@ class Content extends Backend
     /**
      * Check permissions to edit table tl_content
      */
-    public function checkPermission()
+    public function checkPermission(): void
     {
         if (BackendUser::getInstance()->isAdmin) {
             return;
@@ -72,25 +85,40 @@ class Content extends Backend
         // TODO
     }
 
-    public function editModule(DataContainer $objDc)
+    public function editModule(DataContainer $objDc): string
     {
         if ($objDc->value < 1) {
             return '';
         }
 
-        $objModule = Database::getInstance()->prepare("SELECT * FROM tl_module WHERE id = ? AND type = 'block'")->execute($objDc->value);
+        $objModule = Database::getInstance()
+            ->prepare("SELECT * FROM tl_module WHERE id = ? AND type = 'block'")
+            ->execute($objDc->value);
+
+        $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
 
         if ($objModule->numRows) {
             System::loadLanguageFile('tl_block');
 
-            return ' <a href="contao?do=themes&amp;table=tl_block_module&amp;id=' . $objModule->block . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_block']['edit'][1]), $objModule->block) . '" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'' . specialchars(str_replace("'", "\\'",
-                    sprintf($GLOBALS['TL_LANG']['tl_block']['edit'][1], $objModule->block))) . '\',\'url\':this.href});return false">' . \Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"') . '</a>';
+            return sprintf(' <a href="contao?do=themes&amp;table=tl_block_module&amp;act=edit&amp;id=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s\',\'url\':this.href});return false">%s</a>',
+                $objDc->block,
+                $requestToken,
+                sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_block']['edit'][1]), $objDc->block),
+                StringUtil::specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_block']['edit'][1], $objDc->block))),
+                Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"')
+            );
         }
 
-        return ($objDc->value < 1) ? '' : ' <a href="contao?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $objDc->value . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]),
-                $objDc->value) . '" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'' . specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $objDc->value))) . '\',\'url\':this.href});return false">' . \Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0],
-                'style="vertical-align:top"') . '</a>';
+        if ($objDc->value < 1) {
+            return '';
+        }
+
+        return sprintf(' <a href="contao?do=themes&amp;table=tl_module&amp;act=edit&amp;id=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s\',\'url\':this.href});return false">%s</a>',
+            $objDc->value,
+            $requestToken,
+            sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $objDc->value),
+            StringUtil::specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $objDc->value))),
+            Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"')
+        );
     }
 }
-
-class_alias(Content::class, '\HeimrichHannot\Blocks\Backend\Content');

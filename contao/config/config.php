@@ -40,20 +40,18 @@ array_splice($GLOBALS['FE_MOD']['miscellaneous'], 0, 0, [BlockModule::TYPE => Bl
  */
 $GLOBALS['TL_CTE']['includes']['block'] = ContentBlock::class;
 
-// /**
-//  * Easy Themes Support
-//  */
-//
-// $GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge
-// (
-//     [
-//         'blocks' => [
-//             'href_fragment' => 'table=tl_block',
-//             'icon'          => 'system/modules/blocks/assets/icon.png',
-//         ],
-//     ],
-//     isset($GLOBALS['TL_EASY_THEMES_MODULES']) && is_array($GLOBALS['TL_EASY_THEMES_MODULES']) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : []
-// );
+/**
+ * Easy Themes Support
+ */
+$GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge(
+    [
+        'blocks' => [
+            'href_fragment' => 'table=tl_block',
+            'icon'          => 'bundles/heimrichhannotblocks/assets/icon.png',
+        ],
+    ],
+    is_array($GLOBALS['TL_EASY_THEMES_MODULES'] ?? null) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : []
+);
 
 /**
  * Hooks

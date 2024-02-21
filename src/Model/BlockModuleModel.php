@@ -18,9 +18,10 @@
 
 namespace HeimrichHannot\Blocks\Model;
 
-use Contao\ContentModel;
-use Contao\Controller;
+use Contao\Date;
 use Contao\Model;
+use Contao\Model\Collection;
+use HeimrichHannot\Blocks\BlockChild;
 
 /**
  * Class BlockModuleModel
@@ -41,7 +42,6 @@ use Contao\Model;
  */
 class BlockModuleModel extends Model
 {
-
     protected static $strTable = 'tl_block_module';
 
     public static function findByType($strType, array $arrOptions = [])
@@ -60,7 +60,6 @@ class BlockModuleModel extends Model
         $arrValues = [$strType];
 
         return static::findBy($arrColumns, $arrValues, $arrOptions);
-
     }
 
     public static function generateContent($intBlockModule)
@@ -77,22 +76,20 @@ class BlockModuleModel extends Model
      * Find published block elements by primary key
      *
      * @param integer $pid
-     * @param array   $options
+     * @param array $options
      *
-     * @return \Contao\Model\Collection|\Contao\Model[]|\Contao\Model|null A collection of models or null if there are no news
+     * @return Collection|\Contao\Model[]|\Contao\Model|null A collection of models or null if there are no news
      */
-    public static function findPublishedByPid($pid, $options = [])
+    public static function findPublishedByPid(int|string $pid, array $options = []): Collection|Model|array|null
     {
         $t         = static::$strTable;
         $columns[] = "$t.pid=" . $pid;
 
         if (isset($arrOptions['ignoreFePreview']) || !BE_USER_LOGGED_IN) {
-            $time      = \Date::floorToMinute();
+            $time      = Date::floorToMinute();
             $columns[] = "($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.published='1'";
         }
 
         return static::findBy($columns, null, $options);
     }
 }
-
-class_alias(BlockModuleModel::class, 'HeimrichHannot\Blocks\BlockModuleModel');
