@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2024-02-21
+- Changed: This is now a bundle!
+- Changed: Classes and namespaces
+
 ## [1.11.5] - 2023-11-27
 - Fixed: warning
 
