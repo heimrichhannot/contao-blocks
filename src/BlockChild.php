@@ -7,11 +7,18 @@
 
 namespace HeimrichHannot\Blocks;
 
+use Contao\ArrayUtil;
 use Contao\ArticleModel;
+use Contao\Config;
 use Contao\ContentModel;
 use Contao\Controller;
+use Contao\CoreBundle\Exception\LegacyRoutingException;
+use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\CoreBundle\Image\ImageFactory;
+use Contao\CoreBundle\Image\ImageFactoryInterface;
 use Contao\Database;
 use Contao\Date;
+use Contao\Environment;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
@@ -24,6 +31,7 @@ use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\System;
 use HeimrichHannot\Blocks\Model\BlockModuleModel;
+use Symfony\Bundle\MonologBundle\MonologBundle;
 
 class BlockChild
 {
@@ -50,7 +58,7 @@ class BlockChild
     {
         $this->objModel = $objModel;
 
-        $this->objPage = $this->determineCurrentPage();
+        $this->objPage = static::determineCurrentPage();
     }
 
     /**
@@ -182,7 +190,9 @@ class BlockChild
         $strClass = Module::findClass($objModel->type);
 
         if (!class_exists($strClass)) {
-            Controller::log('Module class "'.($GLOBALS['FE_MOD'][$objModel->type] ?? '').'" (module "'.$objModel->type.'") does not exist', 'ModuleBlock renderModule()', TL_ERROR);
+            /** @var \Contao\CoreBundle\Monolog\SystemLogger $logger */
+            $logger = System::getContainer()->get('monolog.logger.contao');
+            $logger->notice('Module class "'.($GLOBALS['FE_MOD'][$objModel->type] ?? '').'" (module "'.$objModel->type.'") does not exist. In ModuleBlock renderModule().');
 
             return '';
         }
@@ -269,7 +279,11 @@ class BlockChild
             if (null !== ($objModel = FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(TL_ROOT.'/'.$objModel->path)) {
 
                 $size = StringUtil::deserialize($this->objModel->backgroundSize, true);
-                $path = Image::get($objModel->path, $size[0] ?? null, $size[1] ?? null, $size[2] ?? '');
+                /** @var ImageFactory $imageFactory */
+                $imageFactory = System::getContainer()->get('contao.image');
+                $image = $imageFactory->create($objModel->path, [$size[0] ?? null, $size[1] ?? null, $size[2] ?? '']);
+                // $path = Image::get($objModel->path, $size[0] ?? null, $size[1] ?? null, $size[2] ?? '');
+                $path = $image->getPath();
 
                 $objT->background = $path;
                 $objT->style      .= sprintf('background-image: url(%s); background-size:cover;', $path);
@@ -308,15 +322,7 @@ class BlockChild
         if (is_array($arrPages) && count($arrPages) > 0) {
             // add nested pages to the filter
             if ($this->objModel->addPageDepth) {
-                if (version_compare(VERSION, '4.0', '>=')) {
-                    if (System::getContainer()->has('huh.utils.cache.database_tree')) {
-                        $arrPages = array_merge($arrPages, System::getContainer()->get('huh.utils.cache.database_tree')->getChildRecords('tl_page', $arrPages));
-                    } else {
-                        $arrPages = array_merge($arrPages, Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
-                    }
-                } else {
-                    $arrPages = array_merge($arrPages, Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
-                }
+                $arrPages = array_merge($arrPages, Database::getInstance()->getChildRecords($arrPages, 'tl_page'));
             }
 
             $check = ($this->objModel->addVisibility == 'exclude') ? true : false;
@@ -394,7 +400,7 @@ class BlockChild
      * Do not use global $objPage, as long as pagelink module is enabled
      * because $objPage will hold the target page
      */
-    protected function determineCurrentPage()
+    protected static function determineCurrentPage()
     {
         global $objPage;
 
@@ -403,7 +409,9 @@ class BlockChild
             return $objPage;
         }
 
-        $pageId  = Frontend::getPageIdFromUrl();
+        // $pageId  = Frontend::getPageIdFromUrl();
+        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
+        $pageId  = $request->get('id');
         $objPage = PageModel::findPublishedByIdOrAlias($pageId) ?: Frontend::getRootPageFromUrl();
 
         if ($objPage instanceof Collection) {
