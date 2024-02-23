@@ -7,22 +7,15 @@
 
 namespace HeimrichHannot\Blocks;
 
-use Contao\ArrayUtil;
 use Contao\ArticleModel;
-use Contao\Config;
 use Contao\ContentModel;
 use Contao\Controller;
-use Contao\CoreBundle\Exception\LegacyRoutingException;
-use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\ImageFactory;
-use Contao\CoreBundle\Image\ImageFactoryInterface;
 use Contao\Database;
 use Contao\Date;
-use Contao\Environment;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
-use Contao\Image;
 use Contao\Input;
 use Contao\Model\Collection;
 use Contao\Module;
@@ -31,7 +24,6 @@ use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\System;
 use HeimrichHannot\Blocks\Model\BlockModuleModel;
-use Symfony\Bundle\MonologBundle\MonologBundle;
 
 class BlockChild
 {
