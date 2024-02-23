@@ -4,7 +4,7 @@ services:
     autoconfigure: true
 
   HeimrichHannot\Blocks\:
-    resource: '../src/{Backend,ContentElement,Controller,DataContainer,EventListener,Exception,Model,Module}/*'
+    resource: '../src/{ContentElement,Controller,DataContainer,EventListener,Exception,Model,Module}/*'
 
   HeimrichHannot\Blocks\ContentElement\:
     resource: '../src/ContentElement/*'
