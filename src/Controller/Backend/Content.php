@@ -21,6 +21,11 @@ use Contao\System;
 
 class Content extends Backend
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function onLoadCallback(?DataContainer $dc = null): void
     {
         if (null === $dc || !$dc->id || 'edit' !== Input::get('act')) {

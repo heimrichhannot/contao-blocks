@@ -9,6 +9,8 @@ use Contao\Controller;
 use Contao\CoreBundle\Csrf\ContaoCsrfTokenManager;
 use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\CoreBundle\Exception\RedirectResponseException;
+use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\CoreBundle\Image\ImageSizes;
 use Contao\Database;
 use Contao\DataContainer;
 use Contao\Image;
@@ -19,10 +21,29 @@ use Contao\System;
 use Contao\Versions;
 use HeimrichHannot\Blocks\Model\BlockModel;
 use HeimrichHannot\Blocks\Module\BlockModule;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class BlockModuleContainer
 {
-    public function __construct() {
+    protected array $kernelBundles;
+    protected ContaoCsrfTokenManager $csrfTokenManager;
+    protected RequestStack $requestStack;
+    protected ImageSizes $imageSizes;
+    protected ContaoFramework $framework;
+
+    public function __construct(
+        array                  $kernelBundles,
+        ContaoCsrfTokenManager $tokenManager,
+        RequestStack           $requestStack,
+        ImageSizes             $imageSizes,
+        ContaoFramework        $framework
+    ) {
+        $this->kernelBundles = $kernelBundles;
+        $this->csrfTokenManager = $tokenManager;
+        $this->requestStack = $requestStack;
+        $this->imageSizes = $imageSizes;
+        $this->framework = $framework;
+
         System::loadLanguageFile('tl_content');
     }
 
@@ -76,9 +97,7 @@ class BlockModuleContainer
                 ->prepare("SELECT block FROM tl_module WHERE id = ? and type='block'")
                 ->execute(Input::get('id'));
 
-            /** @var ContaoCsrfTokenManager $csrfTokenManager */
-            $csrfTokenManager = System::getContainer()->get('contao.csrf.token_manager');
-            $requestToken = $csrfTokenManager->getDefaultTokenValue();
+            $requestToken = $this->csrfTokenManager->getDefaultTokenValue();
 
             if ($objModule->numRows) {
                 throw new RedirectResponseException(
@@ -92,7 +111,7 @@ class BlockModuleContainer
         // batch actions
         if (in_array($act, ['editAll', 'copyAll', 'deleteAll', 'cutAll', 'showAll']))
         {
-            $session = System::getContainer()->get('request_stack')->getSession();
+            $session = $this->requestStack->getSession();
             $sessionBag = $session->all();
 
             $ids = $sessionBag['CURRENT']['IDS'];
@@ -154,9 +173,9 @@ class BlockModuleContainer
         return $varValue;
     }
 
-    public function getImageSizeOptions()
+    public function getImageSizeOptions(): array
     {
-        return System::getContainer()->get('contao.image.sizes')->getAllOptions();
+        return $this->imageSizes->getAllOptions();
     }
 
     public function editModule(DataContainer $dc): string
@@ -165,7 +184,7 @@ class BlockModuleContainer
             return '';
         }
 
-        $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
+        $requestToken = $this->csrfTokenManager->getDefaultTokenValue();
         $title = sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1] ?? '%s'), $dc->value);
         $image = Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"');
 
@@ -191,38 +210,9 @@ class BlockModuleContainer
         );
     }
 
-    /**
-     * @return array
-     * @deprecated This is a polyfill of Contao 4's {@see \Contao\ModuleLoader::getActive()} method for Contao 5.
-     */
-    protected static function legacyPolyfill_getActiveModules(): array
-    {
-        $bundles = array_keys(System::getContainer()->getParameter('kernel.bundles'));
-
-        $legacy = [
-            'ContaoCoreBundle'       => 'core',
-            'ContaoCalendarBundle'   => 'calendar',
-            'ContaoCommentsBundle'   => 'comments',
-            'ContaoFaqBundle'        => 'faq',
-            'ContaoListingBundle'    => 'listing',
-            'ContaoNewsBundle'       => 'news',
-            'ContaoNewsletterBundle' => 'newsletter'
-        ];
-
-        foreach ($legacy as $bundleName => $module)
-        {
-            if (in_array($bundleName, $bundles))
-            {
-                $bundles[] = $module;
-            }
-        }
-
-        return $bundles;
-    }
-
     public function invokeI18nl10n(DataContainer $dc): void
     {
-        if (in_array('i18nl10n', $this->legacyPolyfill_getActiveModules())) {
+        if (in_array('i18nl10n', $this->kernelBundles)) {
             System::loadLanguageFile('languages');
             $GLOBALS['TL_DCA']['tl_block_module']['palettes']['default'] =
                 str_replace('keywords', 'keywords, language', $GLOBALS['TL_DCA']['tl_block_module']['palettes']['default']);
@@ -232,7 +222,7 @@ class BlockModuleContainer
     public function getI18nl10nLanguages()
     {
         $arrLanguages = [];
-        if (in_array('i18nl10n', $this->legacyPolyfill_getActiveModules())) {
+        if (in_array('i18nl10n', $this->kernelBundles)) {
             $arrLanguages = StringUtil::deserialize($GLOBALS['TL_CONFIG']['i18nl10n_languages'], true);;
             array_unshift($arrLanguages, '');
         }
