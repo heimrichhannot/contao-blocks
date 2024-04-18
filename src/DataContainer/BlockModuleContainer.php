@@ -6,6 +6,7 @@ use Contao\ArticleModel;
 use Contao\Backend;
 use Contao\BackendUser;
 use Contao\Controller;
+use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\CoreBundle\Csrf\ContaoCsrfTokenManager;
 use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\CoreBundle\Exception\RedirectResponseException;
@@ -349,6 +350,10 @@ class BlockModuleContainer
     {
         $output = $row['id'];
 
+        $attrib = \version_compare(ContaoCoreBundle::getVersion(), '5.0', '<')
+            ? 'style="float:left;"'
+            : 'class="tl_content_left"';
+
         switch ($row['type'])
         {
             case 'section':
@@ -357,12 +362,12 @@ class BlockModuleContainer
                 $output .= $row['section'] . ' <span style="color:#b3b3b3;padding-left:3px">['
                     . $GLOBALS['TL_LANG']['tl_block_module']['section'][0] . ']</span>';
 
-                return "<div style=\"float:left\">$output</div>\n";
+                return "<div $attrib>$output</div>\n";
 
             case 'article':
                 $article = ArticleModel::findByPk($row['articleAlias']);
 
-                $output = '<div style="float:left">';
+                $output = "<div $attrib>";
                 $output .= '<img alt="" src="system/themes/' . Backend::getTheme()
                     . '/icons/article.svg" style="vertical-align:text-bottom; margin-right: 4px;"/>';
                 $output .= $article->title . ' <span style="color:#b3b3b3;padding-left:3px">['
@@ -391,7 +396,7 @@ class BlockModuleContainer
                     $output = $GLOBALS['TL_LANG']['tl_block_module']['type_reference'][$row['type']] ?: $row['type'];
                 }
 
-                return "<div style=\"float:left\">$output</div>\n";
+                return "<div $attrib>$output</div>\n";
 
             case 'default':
                 $module = Database::getInstance()
@@ -399,7 +404,7 @@ class BlockModuleContainer
                     ->execute($row['module']);
 
                 if ($module->numRows) {
-                    $output = '<div style="float:left">';
+                    $output = "<div $attrib>";
                     $output .= '<img alt="" src="system/themes/' . Backend::getTheme()
                         . '/icons/modules.svg" style="vertical-align:text-bottom; margin-right: 4px;"/>';
                     $output .= $module->name . ' <span style="color:#b3b3b3;padding-left:3px">['

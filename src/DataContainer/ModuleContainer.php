@@ -3,6 +3,7 @@
 namespace HeimrichHannot\Blocks\DataContainer;
 
 use Contao\Controller;
+use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\Database;
 use Contao\DataContainer;
 use Contao\Image;
@@ -91,16 +92,22 @@ class ModuleContainer
                     'style="vertical-align: -4px;"'
                 ) . '</a> ';
 
-            return '<div style="float:left">'
+            $attrib = \version_compare(ContaoCoreBundle::getVersion(), '5.0', '<')
+                ? 'style="float:left;"'
+                : 'class="tl_content_left"';
+
+            return "<div $attrib>"
                 . $icon . $row['name']
                 . ' <span style="color:#b3b3b3;padding-left:3px">['
                 . ($GLOBALS['TL_LANG']['FMD'][$row['type']][0] ?? $row['type'])
                 . "]</span></div>\n";
         }
 
-        $intMarginLeft = 20;
+        $attrib = \version_compare(ContaoCoreBundle::getVersion(), '5.0', '<')
+            ? 'style="float:left;margin-left:20px;"'
+            : 'class="tl_content_left"';
 
-        return "<div style=\"margin-left: {$intMarginLeft}px; float:left\">" . $row['name']
+        return "<div $attrib>" . $row['name']
             . ' <span style="color:#b3b3b3;padding-left:3px">['
             . ($GLOBALS['TL_LANG']['FMD'][$row['type']][0] ?? $row['type'])
             . "]</span></div>\n";
