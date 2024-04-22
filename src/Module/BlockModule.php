@@ -34,15 +34,15 @@ class BlockModule extends Module
 
     protected string $buffer = '';
 
-    protected array|Model|Collection|null $objBlock;
+    protected array|Model|Collection|null $objBlock = null;
 
     public function __construct($objModule, $strColumn = 'main')
     {
         parent::__construct($objModule, $strColumn);
 
-        $this->objChildren = BlockModel::findPublishedByPk($this->block);
+        $this->objBlock = BlockModel::findPublishedByPk($this->block);
 
-        if ($this->objBlock !== null) {
+        if (!empty($this->objBlock)) {
             foreach ($this->objBlock->row() as $key => $value) {
                 // overwrite module parameter with block parameter, except the following
                 if (in_array($key, ['id', 'pid', 'tstamp', 'module', 'title'])) {
@@ -56,7 +56,7 @@ class BlockModule extends Module
 
     public function generate(): string
     {
-        $scopeMatcher = System::getContainer()->get(ScopeMatcher::class);
+        $scopeMatcher = System::getContainer()->get('contao.routing.scope_matcher');
         $requestStack = System::getContainer()->get('request_stack');
 
         if ($scopeMatcher->isBackendRequest($requestStack->getCurrentRequest()))

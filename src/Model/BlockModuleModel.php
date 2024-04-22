@@ -21,6 +21,7 @@ namespace HeimrichHannot\Blocks\Model;
 use Contao\Date;
 use Contao\Model;
 use Contao\Model\Collection;
+use Contao\System;
 use HeimrichHannot\Blocks\BlockChild;
 
 /**
@@ -85,7 +86,9 @@ class BlockModuleModel extends Model
         $t         = static::$strTable;
         $columns[] = "$t.pid=" . $pid;
 
-        if (isset($arrOptions['ignoreFePreview']) || !BE_USER_LOGGED_IN) {
+        $hasBackendUser = System::getContainer()->get('contao.security.token_checker')->hasBackendUser();
+
+        if (isset($arrOptions['ignoreFePreview']) || !$hasBackendUser) {
             $time      = Date::floorToMinute();
             $columns[] = "($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'" . ($time + 60) . "') AND $t.published='1'";
         }

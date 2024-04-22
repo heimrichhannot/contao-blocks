@@ -33,7 +33,7 @@ $GLOBALS['TL_MODELS']['tl_block_module'] = BlockModuleModel::class;
 /**
  * Front end modules
  */
-array_splice($GLOBALS['FE_MOD']['miscellaneous'], 0, 0, [BlockModule::TYPE => BlockModule::class]);
+$GLOBALS['FE_MOD']['miscellaneous'][BlockModule::TYPE] = BlockModule::class;
 
 /**
  * Content elements
