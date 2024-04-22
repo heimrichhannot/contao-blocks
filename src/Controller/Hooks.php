@@ -30,8 +30,6 @@ class Hooks extends Controller
 
         $pages = [$objPage->row()];
 
-        // if ($objPage->is) # todo: the heck is this?
-
         if (Input::get('auto_item', false, true)
             && $objPage->alias != Input::get('auto_item', false, true))
         {
@@ -67,11 +65,8 @@ class Hooks extends Controller
             }
 
 
-            // set pointer to last element
-            end($arrItems);
-
-            // get key for last item
-            $idxLastItem = key($arrItems);
+            // set pointer to last element and get key for last item
+            $idxLastItem = end($arrItems);
 
             $arrItems[$idxLastItem]['href'] = Environment::get('request');
 
