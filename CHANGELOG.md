@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2024-05-23
+- Fixed: get params checked for visibility are marked as used
+
 ## [2.0.0] - 2024-02-21
 - Changed: This is now a bundle!
 - Changed: Classes and namespaces

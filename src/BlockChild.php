@@ -336,7 +336,7 @@ class BlockChild
                     $negate  = substr($keyword, 0, 1) == '!';
                     $keyword = $negate ? substr($keyword, 1, strlen($keyword)) : $keyword;
                     
-                    if (Input::get($keyword) != $negate) {
+                    if (Input::get($keyword, false, true) != $negate) {
                         if (empty($arrKeywordPages) || (!empty($arrKeywordPages) && in_array($this->objPage->id, $arrKeywordPages))) {
                             return false;
                         }
