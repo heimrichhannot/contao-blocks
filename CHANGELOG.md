@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.6] - 2024-05-23
+- Fixed: get params checked for visibility are marked as used
+
 ## [1.11.5] - 2023-11-27
 - Fixed: warning
 
