@@ -1,18 +1,11 @@
 <?php
 
 /**
- * Contao Open Source CMS
- *
- * Copyright (C) 2005-2012 Leo Feyer
- *
- * @package Blocks
- * @link    http://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @copyright Heimrich & Hannot GmbH, 2025
+ * @license LGPL-3.0-or-later
  */
 
 use HeimrichHannot\Blocks\ContentElement\ContentBlock;
-use HeimrichHannot\Blocks\Controller\Hooks;
-use HeimrichHannot\Blocks\EventListener\InsertTagsListener;
 use HeimrichHannot\Blocks\Model\BlockModel;
 use HeimrichHannot\Blocks\Model\BlockModuleModel;
 use HeimrichHannot\Blocks\Module\BlockModule;
@@ -52,9 +45,3 @@ $GLOBALS['TL_EASY_THEMES_MODULES'] = array_merge(
     ],
     is_array($GLOBALS['TL_EASY_THEMES_MODULES'] ?? null) ? $GLOBALS['TL_EASY_THEMES_MODULES'] : []
 );
-
-/**
- * Hooks
- */
-$GLOBALS['TL_HOOKS']['generateBreadcrumb']['huh.blocks'] = [Hooks::class, 'generateBreadcrumbHook'];
-$GLOBALS['TL_HOOKS']['replaceInsertTags']['huh.blocks'] = [InsertTagsListener::class, 'onReplaceInsertTags'];
