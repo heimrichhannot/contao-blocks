@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.2-beta] - 2025-01-23
+- Refactored: hooks/event listener classes 
+- Fixed: [#6](https://github.com/heimrichhannot/contao-blocks/issues/6)
+
 ## [2.0.1] - 2024-05-23
 - Fixed: get params checked for visibility are marked as used
 
