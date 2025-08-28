@@ -35,6 +35,10 @@ class GenerateBreadcrumbListener
 
         $endIdx = \array_key_last($items);
 
+        if (\is_null($endIdx)) {
+            return $items;
+        }
+
         try {
             $url = $objPage->requireItem
                 ? $objPage->getFrontendUrl('/'.Input::get('auto_item', false, true))
@@ -54,6 +58,10 @@ class GenerateBreadcrumbListener
                 ]
             ]);
         } catch (RouteNotFoundException) {}
+
+        if (!isset($items[$endIdx])) {
+            return $items;
+        }
 
         $items[$endIdx]['href'] = Environment::get('request');
 
