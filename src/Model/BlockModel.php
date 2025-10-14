@@ -36,7 +36,7 @@ class BlockModel extends Model
      * @param integer $pk
      * @param array $options
      *
-     * @return Collection|\Contao\Model[]|\Contao\Model|null A collection of models or null if there are no news
+     * @return Collection|Model[]|Model|null A collection of models or null if there are no news
      */
     public static function findPublishedByPk(int|string $pk, array $options = []): Collection|Model|array|null
     {

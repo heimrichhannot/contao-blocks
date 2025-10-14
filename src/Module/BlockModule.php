@@ -14,7 +14,6 @@ namespace HeimrichHannot\Blocks\Module;
 
 use AllowDynamicProperties;
 use Contao\BackendTemplate;
-use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\Model;
 use Contao\Model\Collection;
 use Contao\Module;

@@ -35,5 +35,9 @@
     },
     "suggest": {
         "heimrichhannot/contao-utils-bundle": "Improves performance by using the huh.utils.cache.database_tree service to load tl_page childRecords from cache"
+    },
+    "require-dev": {
+        "rector/rector": "^2.2",
+        "contao/contao-rector": "dev-main"
     }
 }

@@ -7,6 +7,7 @@
 
 namespace HeimrichHannot\Blocks;
 
+use Contao\CoreBundle\Monolog\SystemLogger;
 use Contao\ArticleModel;
 use Contao\ContentModel;
 use Contao\Controller;
@@ -182,7 +183,7 @@ class BlockChild
         $strClass = Module::findClass($objModel->type);
 
         if (!class_exists($strClass)) {
-            /** @var \Contao\CoreBundle\Monolog\SystemLogger $logger */
+            /** @var SystemLogger $logger */
             $logger = System::getContainer()->get('monolog.logger.contao');
             $logger->notice('Module class "'.($GLOBALS['FE_MOD'][$objModel->type] ?? '').'" (module "'.$objModel->type.'") does not exist. In ModuleBlock renderModule().');
 
@@ -246,7 +247,7 @@ class BlockChild
      */
     protected function addBlockWrapper($strContent): string
     {
-        $objT        = new FrontendTemplate($this->objModel->customTpl ? $this->objModel->customTpl : 'blocks_wrapper');
+        $objT        = new FrontendTemplate($this->objModel->customTpl ?: 'blocks_wrapper');
         $objT->block = $strContent;
         $cssID       = $this->objModel->featureActive ? $this->objModel->feature_cssID : $this->objModel->cssID;
         $arrCssID    = StringUtil::deserialize($cssID, true);
@@ -264,11 +265,11 @@ class BlockChild
         $objT->style    = !empty($arrStyle) ? implode(' ', $arrStyle) : '';
         $objT->class    = trim($objT->getName().' '.$arrCssID[1]);
         $objT->cssID    = ($arrCssID[0] != '') ? ' id="'.$arrCssID[0].'"' : '';
-        $objT->blockTpl = $this->objModel->customBlockTpl ? $this->objModel->customBlockTpl : 'block_searchable';
+        $objT->blockTpl = $this->objModel->customBlockTpl ?: 'block_searchable';
 
         // Add an image
         if (!empty($this->objModel->backgroundSRC)) {
-            if (null !== ($objModel = FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(TL_ROOT.'/'.$objModel->path)) {
+            if (null !== ($objModel = FilesModel::findByUuid($this->objModel->backgroundSRC)) && is_file(System::getContainer()->getParameter('kernel.project_dir').'/'.$objModel->path)) {
 
                 $size = StringUtil::deserialize($this->objModel->backgroundSize, true);
                 /** @var ImageFactory $imageFactory */
@@ -302,10 +303,10 @@ class BlockChild
         if (!in_array($this->objModel->language, $currentLang)) {
             return false;
         }
-        
+
         $arrPages        = StringUtil::deserialize($this->objModel->pages, true);
         $arrKeywordPages = StringUtil::deserialize($this->objModel->keywordPages, true);
-        
+
         /**
          * Filter out pages
          * (exclude == display module not on this page)
@@ -318,7 +319,7 @@ class BlockChild
             }
 
             $check = ($this->objModel->addVisibility == 'exclude') ? true : false;
-    
+
             if (in_array($this->objPage->id, $arrPages) == $check) {
                 return false;
             }
@@ -331,11 +332,11 @@ class BlockChild
             $arrKeywords = preg_split('/\s*,\s*/', trim($this->objModel->keywords), -1, PREG_SPLIT_NO_EMPTY);
 
             if (is_array($arrKeywords) && !empty($arrKeywords)) {
-    
+
                 foreach ($arrKeywords as $keyword) {
                     $negate  = substr($keyword, 0, 1) == '!';
                     $keyword = $negate ? substr($keyword, 1, strlen($keyword)) : $keyword;
-                    
+
                     if (Input::get($keyword, false, true) != $negate) {
                         if (empty($arrKeywordPages) || (!empty($arrKeywordPages) && in_array($this->objPage->id, $arrKeywordPages))) {
                             return false;
@@ -344,7 +345,7 @@ class BlockChild
                 }
             }
         }
-    
+
         // filter out by feature
         if ($this->objModel->feature) {
             $start = $this->objModel->feature_start;
@@ -362,7 +363,7 @@ class BlockChild
                     $blnFeatureActive = true;
                 } else {
                     if ($displayCount < $this->objModel->feature_count) {
-                        setcookie($this->objModel->feature_cookie_name, ++$displayCount, $time + $this->objModel->feature_cookie_expire, '/');
+                        setcookie($this->objModel->feature_cookie_name, ++$displayCount, ['expires' => $time + $this->objModel->feature_cookie_expire, 'path' => '/']);
                         $blnFeatureActive = true;
                     } else {
                         $blnFeatureActive = false;
@@ -375,7 +376,7 @@ class BlockChild
             return $blnFeatureActive;
 
         }
-    
+
         if (is_array($GLOBALS['TL_HOOKS']['isBlockVisibleHook'] ?? null)) {
             foreach ($GLOBALS['TL_HOOKS']['isBlockVisibleHook'] as $callback) {
                 $visible = Controller::importStatic($callback[0])->{$callback[1]}($this->objModel);

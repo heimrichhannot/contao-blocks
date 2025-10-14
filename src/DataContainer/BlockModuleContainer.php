@@ -408,7 +408,7 @@ class BlockModuleContainer
                     $output .= '<img alt="" src="system/themes/' . Backend::getTheme()
                         . '/icons/modules.svg" style="vertical-align:text-bottom; margin-right: 4px;"/>';
                     $output .= $module->name . ' <span style="color:#b3b3b3;padding-left:3px">['
-                        . (isset($GLOBALS['TL_LANG']['FMD'][$module->type][0]) ? $GLOBALS['TL_LANG']['FMD'][$module->type][0] : $module->type)
+                        . ($GLOBALS['TL_LANG']['FMD'][$module->type][0] ?? $module->type)
                         . '] - ID:' . $row['module'] . '</span>' . "</div>\n";
                 }
 
