@@ -9,7 +9,7 @@
  * @link    http://contao.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
-
+use Contao\DataContainer;
 use Contao\DC_Table;
 use HeimrichHannot\Blocks\DataContainer\BlockContainer;
 
@@ -31,9 +31,9 @@ $GLOBALS['TL_DCA']['tl_block'] = [
     ],
     'list'        => [
         'sorting'           => [
-            'mode'        => 2,
+            'mode'        => DataContainer::MODE_SORTABLE,
             'fields'      => ['title'],
-            'flag'        => 1,
+            'flag'        => DataContainer::SORT_INITIAL_LETTER_ASC,
             'panelLayout' => 'sort,search,limit',
         ],
         'label'             => [
@@ -111,7 +111,7 @@ $GLOBALS['TL_DCA']['tl_block'] = [
             'label'     => &$GLOBALS['TL_LANG']['tl_block']['title'],
             'inputType' => 'text',
             'sorting'   => true,
-            'flag'      => 1,
+            'flag'      => DataContainer::SORT_INITIAL_LETTER_ASC,
             'search'    => true,
             'eval'      => ['mandatory' => true, 'maxlength' => 128, 'tl_class' => 'w50'],
             'sql'       => "varchar(128) NOT NULL default ''",

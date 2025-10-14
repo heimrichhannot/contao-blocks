@@ -77,7 +77,7 @@ class BlockModule extends Module
 
         try {
             return parent::generate();
-        } catch (NoBlockChildrenException $e) {
+        } catch (NoBlockChildrenException) {
             return '';
         }
     }
@@ -119,7 +119,7 @@ class BlockModule extends Module
             $this->cssID = StringUtil::deserialize($this->objBlock->cssID);
         }
 
-        if (strlen(preg_replace('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', '', $strBuffer)) == 0) {
+        if (strlen((string) preg_replace('/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', '', $strBuffer)) == 0) {
             $this->Template->addWrapper = false;
         }
 

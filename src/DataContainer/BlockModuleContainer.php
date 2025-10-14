@@ -26,29 +26,17 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class BlockModuleContainer
 {
-    protected array $kernelBundles;
-    protected ContaoCsrfTokenManager $csrfTokenManager;
-    protected RequestStack $requestStack;
-    protected ImageSizes $imageSizes;
-    protected ContaoFramework $framework;
-
     public function __construct(
-        array                  $kernelBundles,
-        ContaoCsrfTokenManager $tokenManager,
-        RequestStack           $requestStack,
-        ImageSizes             $imageSizes,
-        ContaoFramework        $framework
+        protected array                  $kernelBundles,
+        protected ContaoCsrfTokenManager $csrfTokenManager,
+        protected RequestStack           $requestStack,
+        protected ImageSizes             $imageSizes,
+        protected ContaoFramework        $framework
     ) {
-        $this->kernelBundles = $kernelBundles;
-        $this->csrfTokenManager = $tokenManager;
-        $this->requestStack = $requestStack;
-        $this->imageSizes = $imageSizes;
-        $this->framework = $framework;
-
         System::loadLanguageFile('tl_content');
     }
 
-    public function onLoadCallback(DataContainer $dc = null): void
+    public function onLoadCallback(?DataContainer $dc = null): void
     {
         if (null === $dc || !$dc->id || 'edit' !== Input::get('act') || 'themes' !== Input::get('do')) {
             return;
@@ -450,7 +438,7 @@ class BlockModuleContainer
         );
     }
 
-    public function toggleVisibility(int|string $intId, bool $blnVisible, DataContainer $dc = null): void
+    public function toggleVisibility(int|string $intId, bool $blnVisible, ?DataContainer $dc = null): void
     {
         $user = BackendUser::getInstance();
         $database = Database::getInstance();

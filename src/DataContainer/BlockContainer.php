@@ -111,7 +111,7 @@ class BlockContainer
         );
     }
 
-    public function toggleVisibility(int $intId, bool $blnVisible, DataContainer $dc = null): void
+    public function toggleVisibility(int $intId, bool $blnVisible, ?DataContainer $dc = null): void
     {
         $user = BackendUser::getInstance();
         $database = Database::getInstance();

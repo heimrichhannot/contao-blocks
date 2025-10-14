@@ -89,7 +89,7 @@ class BlockChild
                 break;
         }
 
-        if ($this->objModel->addWrapper && strlen($strReturn) > 0) {
+        if ($this->objModel->addWrapper && strlen((string) $strReturn) > 0) {
             $strReturn = $this->addBlockWrapper($strReturn);
         }
 
@@ -334,7 +334,7 @@ class BlockChild
             if (is_array($arrKeywords) && !empty($arrKeywords)) {
 
                 foreach ($arrKeywords as $keyword) {
-                    $negate  = substr($keyword, 0, 1) == '!';
+                    $negate  = str_starts_with($keyword, '!');
                     $keyword = $negate ? substr($keyword, 1, strlen($keyword)) : $keyword;
 
                     if (Input::get($keyword, false, true) != $negate) {
