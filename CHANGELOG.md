@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.0.2-beta] - 2025-01-23
+## [2.0.3] - 2025-10-14
+- Fixed: warnings and deprecations
+- Fixed: issue in tl_theme ([#8](https://github.com/heimrichhannot/contao-blocks/issues/8))
+
+## [2.0.2] - 2025-01-23
 - Refactored: hooks/event listener classes 
 - Fixed: [#6](https://github.com/heimrichhannot/contao-blocks/issues/6)
 

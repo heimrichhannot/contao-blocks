@@ -1,8 +1,10 @@
 <?php
 
-array_splice(
+use Contao\ArrayUtil;
+
+ArrayUtil::arrayInsert(
     $GLOBALS['TL_DCA']['tl_theme']['list']['operations'],
-    5, 0,
+    5,
     [
         'blocks' => [
             'label' => &$GLOBALS['TL_LANG']['tl_theme']['blocks'],
