@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.4] - 2025-11-03
+- Fixed: dependencies
+
 ## [2.0.3] - 2025-10-14
 - Fixed: warnings and deprecations
 - Fixed: issue in tl_theme ([#8](https://github.com/heimrichhannot/contao-blocks/issues/8))
