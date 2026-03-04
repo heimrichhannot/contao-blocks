@@ -39,7 +39,6 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'fields'                => ['sorting'],
             'panelLayout'           => 'filter;search,limit',
             'headerFields'          => ['title', 'tstamp'],
-            'child_record_callback' => [BlockModuleContainer::class, 'addModuleInfo'],
         ],
         'global_operations' => [
             'all' => [
