@@ -1,4 +1,4 @@
-# Blocks
+<h1>Blocks <img src="public/assets/boxes.svg" alt="Boxes icon" width="28" /></h1>
 
 Contao blocks module is a site-dependent container, that manipulates the visibility of elements.
 

@@ -9,7 +9,7 @@ ArrayUtil::arrayInsert(
         'blocks' => [
             'label' => &$GLOBALS['TL_LANG']['tl_theme']['blocks'],
             'href'  => 'table=tl_block',
-            'icon'  => 'bundles/heimrichhannotblocks/assets/icon.png',
+            'icon'  => 'bundles/heimrichhannotblocks/assets/boxes.svg',
         ],
     ]
 );
