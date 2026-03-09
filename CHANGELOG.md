@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2026-03-09
+- Changed: new backend icon :)
+
 ## [2.0.5] - 2026-03-04
 - Fixed: title not displayed in backend for block modules of type content elements
 
