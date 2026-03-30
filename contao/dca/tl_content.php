@@ -14,7 +14,7 @@ $arrDca['config']['onload_callback'][] = [Content::class, 'onLoadCallback'];
 /**
  * Palettes
  */
-$arrDca['palettes']['block'] = '{type_legend},type;{include_legend},block;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
+$arrDca['palettes']['block'] = '{type_legend},type;{include_legend},block;{protected_legend:collapsed},protected;{expert_legend:collapsed},guests,cssID,space;{invisible_legend:collapsed},invisible,start,stop';
 
 /**
  * Fields

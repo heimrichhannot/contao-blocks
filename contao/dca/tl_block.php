@@ -60,7 +60,7 @@ $GLOBALS['TL_DCA']['tl_block'] = [
     // Palettes
     'palettes'    => [
         '__selector__' => ['addWrapper', 'published'],
-        'default'      => '{title_legend},title;{expert_legend:hide},addWrapper,published',
+        'default'      => '{title_legend},title;{expert_legend:collapsed},addWrapper,published',
     ],
     'subpalettes' => [
         'addWrapper' => 'cssID',

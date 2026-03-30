@@ -61,10 +61,10 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
     // Palettes
     'palettes'    => [
         '__selector__'     => ['type', 'feature', 'addWrapper', 'published'],
-        'default'          => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper,uncached,published',
-        'article'          => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper,uncached,published',
-        'content'          => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper,uncached,published',
-        'included_content' => '{type_legend},type;{content_block_module_legend},contentBlockModuleAlias;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:hide},addWrapper,uncached,published',
+        'default'          => '{type_legend},type;{module_legend},module;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:collapsed},addWrapper,uncached,published',
+        'article'          => '{type_legend},type;{article_legend},articleAlias,imgSRC;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:collapsed},addWrapper,uncached,published',
+        'content'          => '{type_legend},type;{title_legend},title;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:collapsed},addWrapper,uncached,published',
+        'included_content' => '{type_legend},type;{content_block_module_legend},contentBlockModuleAlias;{page_legend},addVisibility,pages,addPageDepth,keywords,keywordPages;{feature_legend},feature;{hide_legend},hide;{expert_legend:collapsed},addWrapper,uncached,published',
     ],
     'subpalettes' => [
         'addWrapper' => 'headline,backgroundSRC,backgroundSize,customTpl,customBlockTpl,cssID,space',
