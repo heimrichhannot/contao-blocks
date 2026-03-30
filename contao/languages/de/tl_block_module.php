@@ -55,8 +55,8 @@ $lang['expert_legend']               = 'Experten-Einstellungen';
  * Buttons
  */
 $lang['new']        = ['Neues Block-Element', 'Neues Block-Element erstellen'];
-$lang['edit']       = ['Inhaltselemente bearbeiten', 'Block-Element ID Inhaltselemente %s bearbeiten'];
-$lang['editheader'] = ['Block-Element bearbeiten', 'Block-Element ID %s bearbeiten'];
+$lang['edit'] = ['Block-Element bearbeiten', 'Block-Element ID %s bearbeiten'];
+$lang['children']       = ['Inhaltselemente bearbeiten', 'Block-Element ID Inhaltselemente %s bearbeiten'];
 $lang['copy']       = ['Block-Element duplizieren', 'Block-Element ID %s duplizieren'];
 $lang['delete']     = ['Block-Element löschen', 'Block-Element ID %s löschen'];
 $lang['show']       = ['Block-Element anzeigen', 'Block-Element ID %s anzeigen'];

@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0] - 2026-03-30
+- Changed: dropped support for contao 4
+- Changed: updated operations to contao 5 standard
+
 ## [2.1.0] - 2026-03-09
 - Changed: new backend icon :)
 

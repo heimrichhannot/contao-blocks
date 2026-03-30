@@ -63,8 +63,8 @@ $GLOBALS['TL_LANG']['tl_block_module']['expert_legend']  = 'Expert settings';
  * Buttons
  */
 $GLOBALS['TL_LANG']['tl_block_module']['new']        = ['New block element', 'Create a new block element'];
-$GLOBALS['TL_LANG']['tl_block_module']['edit']       = ['Edit content elements', 'Edit block element ID %s content elements'];
-$GLOBALS['TL_LANG']['tl_block_module']['editheader'] = ['Edit block element', 'Edit block element ID %s'];
+$GLOBALS['TL_LANG']['tl_block_module']['edit'] = ['Edit block element', 'Edit block element ID %s'];
+$GLOBALS['TL_LANG']['tl_block_module']['children']       = ['Edit content elements', 'Edit block element ID %s content elements'];
 $GLOBALS['TL_LANG']['tl_block_module']['copy']       = ['Duplicate block element', 'Duplicate block element ID %s'];
 $GLOBALS['TL_LANG']['tl_block_module']['delete']     = ['Delete block element', 'Delete block element ID %s'];
 $GLOBALS['TL_LANG']['tl_block_module']['show']       = ['Show block element', 'Show block element ID %s'];

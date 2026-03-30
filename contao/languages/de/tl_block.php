@@ -33,11 +33,12 @@ $GLOBALS['TL_LANG']['tl_block']['expert_legend'] = 'Experten-Einstellungen';
  */
 
 $GLOBALS['TL_LANG']['tl_block']['new']        = ['Neuer Block', 'Neuen Block erstellen'];
-$GLOBALS['TL_LANG']['tl_block']['editHeader'] = ['Block bearbeiten', 'Block ID %s bearbeiten'];
+
+$GLOBALS['TL_LANG']['tl_block']['edit'] = ['Block bearbeiten', 'Block ID %s bearbeiten'];
+$GLOBALS['TL_LANG']['tl_block']['children']       = ['Block-Element verwalten', 'Module des Blocks ID %s verwalten'];
 $GLOBALS['TL_LANG']['tl_block']['copy']       = ['Block duplizieren', 'Block ID %s duplizieren'];
 $GLOBALS['TL_LANG']['tl_block']['delete']     = ['Block löschen', 'Block ID %s löschen'];
 $GLOBALS['TL_LANG']['tl_block']['show']       = ['Block anzeigen', 'Block ID %s anzeigen'];
-$GLOBALS['TL_LANG']['tl_block']['edit']       = ['Module verwalten', 'Module des Blocks ID %s verwalten'];
 $GLOBALS['TL_LANG']['tl_block']['toggle']     = ['Block veröffentlichen', 'Block ID %s veröffentlichen/verstecken'];
 
 

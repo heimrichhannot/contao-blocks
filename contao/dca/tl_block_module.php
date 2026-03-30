@@ -49,46 +49,13 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             ],
         ],
         'operations'        => [
-            'edit'       => [
-                'label'           => &$GLOBALS['TL_LANG']['tl_block_module']['edit'],
-                'href'            => 'table=tl_content',
-                'icon'            => 'edit.gif',
-                'button_callback' => [BlockModuleContainer::class, 'editContent'],
-            ],
-            'editheader' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_block_module']['editheader'],
-                'href'  => 'act=edit',
-                'icon'  => 'header.gif',
-            ],
-            'copy'       => [
-                'label' => &$GLOBALS['TL_LANG']['tl_block_module']['copy'],
-                'href'  => 'act=copy',
-                'icon'  => 'copy.gif',
-            ],
-            'cut'        => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_block_module']['cut'],
-                'href'       => 'act=paste&amp;mode=cut',
-                'icon'       => 'cut.gif',
-                'attributes' => 'onclick="Backend.getScrollOffset()"',
-            ],
-            'delete'     => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_block_module']['delete'],
-                'href'       => 'act=delete',
-                'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if (!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? null)
-                    . '\')) return false; Backend.getScrollOffset();"',
-            ],
-            'toggle'     => [
-                'label'           => &$GLOBALS['TL_LANG']['tl_block_module']['toggle'],
-                'icon'            => 'visible.gif',
-                'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => [BlockModuleContainer::class, 'toggleIcon'],
-            ],
-            'show'       => [
-                'label' => &$GLOBALS['TL_LANG']['tl_block_module']['show'],
-                'href'  => 'act=show',
-                'icon'  => 'show.gif',
-            ],
+            'edit',
+            'children',
+            'copy',
+            'cut',
+            'delete',
+            'toggle',
+            'show',
         ],
     ],
     // Palettes
@@ -348,9 +315,9 @@ $GLOBALS['TL_DCA']['tl_block_module'] = [
             'sql'       => "varchar(64) NOT NULL default ''",
         ],
         'published'             => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_block_module']['published'],
             'exclude'   => true,
             'filter'    => true,
+            'toggle'    => true,
             'inputType' => 'checkbox',
             'eval'      => ['doNotCopy' => true, 'submitOnChange' => true],
             'sql'       => "char(1) NOT NULL default '1'",
