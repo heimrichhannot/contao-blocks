@@ -2,13 +2,9 @@
 
 namespace HeimrichHannot\Blocks\DataContainer;
 
-use Contao\ArticleModel;
-use Contao\Backend;
 use Contao\BackendUser;
 use Contao\Controller;
-use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\CoreBundle\Csrf\ContaoCsrfTokenManager;
-use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\CoreBundle\Exception\RedirectResponseException;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Image\ImageSizes;
@@ -19,7 +15,6 @@ use Contao\Input;
 use Contao\ModuleModel;
 use Contao\StringUtil;
 use Contao\System;
-use Contao\Versions;
 use HeimrichHannot\Blocks\Model\BlockModel;
 use HeimrichHannot\Blocks\Module\BlockModule;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -289,7 +284,7 @@ class BlockModuleContainer
                 return $alias;
             }
 
-            $in = implode(',', array_map('intval', array_unique($pIds)));
+            $in = implode(',', array_map(intval(...), array_unique($pIds)));
             $objAlias = $database
                 ->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN($in) ORDER BY parent, a.sorting")
                 ->execute($dc->id);

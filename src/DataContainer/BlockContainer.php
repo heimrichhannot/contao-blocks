@@ -2,18 +2,8 @@
 
 namespace HeimrichHannot\Blocks\DataContainer;
 
-use Contao\Backend;
-use Contao\BackendUser;
-use Contao\CoreBundle\Exception\AccessDeniedException;
-use Contao\CoreBundle\Exception\RedirectResponseException;
-use Contao\Database;
 use Contao\DataContainer;
-use Contao\Image;
-use Contao\Input;
 use Contao\ModuleModel;
-use Contao\StringUtil;
-use Contao\System;
-use Contao\Versions;
 use HeimrichHannot\Blocks\Model\BlockModel;
 
 /**
