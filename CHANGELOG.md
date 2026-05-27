@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0] - 2026-05-27
+- Added: support for utils bundle entity finder
+
 ## [2.2.0] - 2026-03-30
 - Changed: dropped support for contao 4
 - Changed: updated operations to contao 5 standard
