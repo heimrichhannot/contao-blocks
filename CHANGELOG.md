@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+- Fixed: unpublished blocks and block entries were shown on the front end to anyone with a back-end
+  session. The published filter was gated on `TokenChecker::hasBackendUser()`, which is true for any
+  back-end session; Contao 4.13 gated it on `BE_USER_LOGGED_IN`, which the framework defines as
+  `TokenChecker::isPreviewMode()` - true only in the front-end preview.
+- Fixed: the `ignoreFePreview` option never applied, because the guard read `$arrOptions` while the
+  parameter is `$options`.
+
 ## [2.3.0] - 2026-05-27
 - Added: support for utils bundle entity finder
 
