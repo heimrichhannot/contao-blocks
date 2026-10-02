@@ -85,7 +85,7 @@ class BlockModuleContainer
 
             if ($objModule->numRows) {
                 throw new RedirectResponseException(
-                    'contao?do=themes&amp;table=tl_block_module&amp;id=' . $objModule->block . '&amp;popup=1&amp;nb=1&amp;rt=' . $requestToken
+                    'contao?do=themes&table=tl_block_module&id=' . $objModule->block . '&popup=1&nb=1&rt=' . $requestToken
                 );
             }
 
