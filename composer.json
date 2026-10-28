@@ -34,7 +34,7 @@
         "contao-manager-plugin": "HeimrichHannot\\Blocks\\ContaoManager\\Plugin"
     },
     "require-dev": {
-        "rector/rector": "^2.2",
+        "rector/rector": "2.7.*",
         "contao/contao-rector": "dev-main"
     }
 }

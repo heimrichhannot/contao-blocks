@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.2] - 2026-10-28
+- Fixed: exception in breadcrumb generation
+
 ## [2.3.1] - 2026-10-02
 - Fixed: editing a block through its front-end module redirected to the Themes overview because the HTTP redirect URL used HTML-escaped query separators.
 - Fixed: unpublished blocks and block entries were shown on the front end to anyone with a back-end

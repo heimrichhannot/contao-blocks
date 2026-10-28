@@ -6,16 +6,22 @@
 namespace HeimrichHannot\Blocks\EventListener\Contao;
 
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
+use Contao\CoreBundle\Routing\ContentUrlGenerator;
 use Contao\Environment;
 use Contao\Input;
 use Contao\Module;
 use Contao\PageModel;
 use Contao\StringUtil;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 #[AsHook('generateBreadcrumb')]
 class GenerateBreadcrumbListener
 {
+    public function __construct(
+        private readonly ContentUrlGenerator $contentUrlGenerator,
+    ) {}
+
     public function __invoke(array $items, Module $module): array
     {
         if (!\count($items)) {
@@ -40,9 +46,8 @@ class GenerateBreadcrumbListener
         }
 
         try {
-            $url = $objPage->requireItem
-                ? $objPage->getFrontendUrl('/'.Input::get('auto_item', false, true))
-                : $objPage->getFrontendUrl();
+            $parameters = $objPage->requireItem ? ['auto_item' => $autoItem] : [];
+            $url = $this->contentUrlGenerator->generate($objPage, $parameters);
 
             $page = $objPage->row();
 
@@ -57,7 +62,7 @@ class GenerateBreadcrumbListener
                     'class'    => ''
                 ]
             ]);
-        } catch (RouteNotFoundException) {}
+        } catch (RouteNotFoundException|ResourceNotFoundException) {}
 
         if (!isset($items[$endIdx])) {
             return $items;
