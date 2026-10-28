@@ -46,7 +46,7 @@ class GenerateBreadcrumbListener
         }
 
         try {
-            $parameters = $objPage->requireItem ? ['auto_item' => $autoItem] : [];
+            $parameters = $objPage->requireItem ? ['parameters' => '/'.$autoItem] : [];
             $url = $this->contentUrlGenerator->generate($objPage, $parameters);
 
             $page = $objPage->row();

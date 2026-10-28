@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.3] - 2026-10-28
+- Fixed: exception in breadcrumb generation
+
 ## [2.3.2] - 2026-10-28
 - Fixed: exception in breadcrumb generation
 
