@@ -17,7 +17,7 @@ use Exception;
 use HeimrichHannot\Blocks\HeimrichHannotBlocks;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-class Plugin implements BundlePluginInterface, ConfigPluginInterface
+class Plugin implements BundlePluginInterface
 {
     /**
      * {@inheritdoc}
@@ -28,15 +28,5 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
             BundleConfig::create(HeimrichHannotBlocks::class)
                 ->setLoadAfter([ContaoCoreBundle::class]),
         ];
-    }
-
-    /**
-     * Allows a plugin to load container configuration.
-     *
-     * @throws Exception
-     */
-    public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig): void
-    {
-        $loader->load('@HeimrichHannotBlocks/config/services.yaml');
     }
 }
