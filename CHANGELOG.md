@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+- Fixed: theme content elements and block content elements can be edited independently in the backend.
+
 ## [2.3.3] - 2026-10-28
 - Fixed: exception in breadcrumb generation
 

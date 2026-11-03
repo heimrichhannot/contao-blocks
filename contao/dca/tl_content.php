@@ -35,9 +35,8 @@ $arrDca['fields'] = array_merge($arrDca['fields'], $arrFields);
 
 
 /**
- * Dynamically add the permission check and parent table
+ * Dynamically add the permission check
  */
 if (Input::get('do') == 'themes') {
-    $arrDca['config']['ptable']            = 'tl_block_module';
     $arrDca['config']['onload_callback'][] = [Content::class, 'checkPermission'];
 }

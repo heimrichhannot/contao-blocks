@@ -11,6 +11,8 @@ class ListOperationsEditButtonListener
     public function __invoke(DataContainerOperation $operation): void
     {
         if ('content' === ($operation->getRecord()['type'] ?? '')) {
+            $operation['href'] = 'table=tl_content&ptable=tl_block_module';
+
             return;
         }
 
