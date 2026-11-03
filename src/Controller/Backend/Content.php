@@ -51,7 +51,7 @@ class Content extends Backend
             return '';
         }
 
-        return sprintf('<a href="contao?do=themes&amp;table=tl_content&amp;id=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s\',\'url\':this.href});return false">%s</a>',
+        return sprintf('<a href="contao?do=themes&amp;table=tl_content&amp;ptable=tl_block_module&amp;id=%s&amp;popup=1&amp;nb=1&amp;rt=%s" title="%s" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s\',\'url\':this.href});return false">%s</a>',
             $dc->activeRecord->block,
             $requestToken,
             sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_content']['editalias'][1]), $dc->activeRecord->block),
